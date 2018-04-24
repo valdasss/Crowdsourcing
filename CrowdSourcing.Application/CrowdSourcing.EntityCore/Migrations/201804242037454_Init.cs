@@ -112,6 +112,7 @@ namespace CrowdSourcing.EntityCore.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
                         TaskTypeId = c.Int(nullable: false),
                         Description = c.String(),
                         Status = c.Int(nullable: false),

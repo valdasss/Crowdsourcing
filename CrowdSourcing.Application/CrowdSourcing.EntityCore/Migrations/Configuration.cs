@@ -72,11 +72,12 @@
                     Email = "admin@gmail.com",                   
                     UserName = "admin@gmail.com"
                 };
+               
+                managerPerson.Create(user, "123456789");
                 string[] roles = new string[3];
                 roles[0] = "user";
-                roles[0] = "expert";
-                roles[0] = "admin";
-                managerPerson.Create(user, "123456789");
+                roles[1] = "expert";
+                roles[2] = "admin";
                 managerPerson.AddToRoles(user.Id, roles);
             }
             #endregion

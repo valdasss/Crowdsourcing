@@ -83,13 +83,9 @@
     <Compile Include="Extension\RoleExtensions.cs" />
     <Compile Include="Extension\TaskExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
-    <Compile Include="Migrations\201804241614145_Init.cs" />
-    <Compile Include="Migrations\201804241614145_Init.Designer.cs">
-      <DependentUpon>201804241614145_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804241802003_taskName.cs" />
-    <Compile Include="Migrations\201804241802003_taskName.Designer.cs">
-      <DependentUpon>201804241802003_taskName.cs</DependentUpon>
+    <Compile Include="Migrations\201804242037454_Init.cs" />
+    <Compile Include="Migrations\201804242037454_Init.Designer.cs">
+      <DependentUpon>201804242037454_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,11 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804241614145_Init.resx">
-      <DependentUpon>201804241614145_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804241802003_taskName.resx">
-      <DependentUpon>201804241802003_taskName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804242037454_Init.resx">
+      <DependentUpon>201804242037454_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
