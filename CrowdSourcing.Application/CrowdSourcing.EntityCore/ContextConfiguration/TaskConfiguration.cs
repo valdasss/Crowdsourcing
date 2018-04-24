@@ -11,6 +11,9 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
 
             HasKey(t => t.Id);
 
+            Property(t => t.Name)
+                .IsRequired();
+
             Property(t => t.TaskTypeId)
                 .IsRequired();
 

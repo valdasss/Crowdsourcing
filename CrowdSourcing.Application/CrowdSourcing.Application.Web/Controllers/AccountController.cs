@@ -52,12 +52,6 @@ namespace CrowdSourcing.Application.Web.Controllers
              return Ok(model);
         }
 
-
-
-
-
-
-
         [Route("User/Login")]
         [HttpPost]
             public async Task<HttpResponseMessage> LoginUser(LoginVM model)

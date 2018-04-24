@@ -5,6 +5,7 @@ using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task<PersonModel> AddPersonAsync(PersonModel personModel,string password,string role)
         {
-           
+            var user = await _personRepository.GetPersonByEmail(personModel.Email);
+            if (user != null)
+            {
+                throw new ValidationException("Email already exits");
+            }
            var result = await _personRepository.AddPerson(personModel.ToEntity(), password,role);
             return result.ToModel();
         }

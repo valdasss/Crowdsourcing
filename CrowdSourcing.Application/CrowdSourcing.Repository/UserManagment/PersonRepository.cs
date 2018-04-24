@@ -27,11 +27,11 @@ namespace CrowdSourcing.Repository.UserManagment
             var result =await _manager.CreateAsync(person,password);
             if (result.Succeeded)
             {
-                if (role == "Ekspertas")
+                if (role == "expert")
                 {
                     var roles = new string[2];
                     roles[0] = role;
-                    roles[1] = "Duomenu tiekejas";
+                    roles[1] = "user";
                     await _manager.AddToRolesAsync(person.Id, roles);
                 }
                 await _manager.AddToRolesAsync(person.Id, role);
