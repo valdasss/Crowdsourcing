@@ -7,7 +7,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
     {
         public PersonConfiguration()
         {
-            ToTable("Persons");
+            ToTable("Person");
 
             HasKey(p => p.Id);
 
@@ -17,10 +17,10 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             Property(p => p.LastName)
                 .IsRequired();
 
-            Property(p => p.Password)
+            Property(p => p.PasswordHash)
                 .IsRequired();
 
-            Property(p => p.E_mail)
+            Property(p => p.Email)
                 .IsRequired();
         }
     }

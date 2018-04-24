@@ -3,11 +3,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace CrowdSourcing.EntityCore.ContextConfiguration
 {
-    class FileTypeConfiguration : EntityTypeConfiguration<FileTypeEntity>
+    public class FileTypeConfiguration : EntityTypeConfiguration<FileTypeEntity>
     {
         public FileTypeConfiguration()
         {
-            ToTable("FileTypes");
+            ToTable("FileType");
 
             HasKey(f=>f.Id);
 

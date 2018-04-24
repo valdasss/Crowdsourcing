@@ -1,8 +1,10 @@
-﻿namespace CrowdSourcing.EntityCore.Entity
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+
+namespace CrowdSourcing.EntityCore.Entity
 {
-    public class RoleEntity
+    public class RoleEntity : IdentityRole
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+       
     }
 }

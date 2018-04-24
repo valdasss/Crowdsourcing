@@ -1,11 +1,11 @@
-﻿namespace CrowdSourcing.EntityCore.Entity
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+
+namespace CrowdSourcing.EntityCore.Entity
 {
-    public class PersonEntity
-    {
-        public int Id { get; set; }
+    public class PersonEntity: IdentityUser
+    {       
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Password { get; set; }
-        public string E_mail { get; set; }
+   
     }
 }

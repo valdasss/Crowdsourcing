@@ -1,11 +1,14 @@
 ﻿using CrowdSourcing.EntityCore.ContextConfiguration;
 using CrowdSourcing.EntityCore.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace CrowdSourcing.EntityCore.Context
 {
-    public class CrowdSourcingContext : BaseCrowdSourcingContext, ICrowdSourcingContext
+
+    public class CrowdSourcingContext : IdentityDbContext<PersonEntity>, ICrowdSourcingContext
     {
+       
         public CrowdSourcingContext() : base("CrowdSourcingContext")
         {
 
@@ -16,9 +19,6 @@ namespace CrowdSourcing.EntityCore.Context
         public DbSet<DataEntity> Datas { get; set; }
         public DbSet<FileTypeEntity> FileTypes { get; set; }
         public DbSet<FileEntity> Files { get; set; }
-        public DbSet<PersonEntity> Persons { get; set; }
-        public DbSet<RoleEntity> Role { get; set; }
-        public DbSet<PersonRoleEntity> PersonRoles { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -27,6 +27,14 @@ namespace CrowdSourcing.EntityCore.Context
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());
             modelBuilder.Configurations.Add(new TaskTypeConfiguration());
+            modelBuilder.Configurations.Add(new DataConfiguration());
+            modelBuilder.Configurations.Add(new FileConfiguration());  
+            modelBuilder.Configurations.Add(new PersonRoleConfiguration());
+            modelBuilder.Configurations.Add(new SolutionConfiguration());
+            modelBuilder.Configurations.Add(new TaskConfiguration());
+            modelBuilder.Configurations.Add(new TaskDataConfiguration());
+            modelBuilder.Configurations.Add(new LoginConfiguration());
+
         }
     }
 }

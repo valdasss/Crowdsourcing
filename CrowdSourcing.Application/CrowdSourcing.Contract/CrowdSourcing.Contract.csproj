@@ -41,7 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IDbContext.cs" />
+    <Compile Include="Interfaces\IPersonService.cs" />
+    <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\ITaskTypeService.cs" />
+    <Compile Include="Model\PersonModel.cs" />
+    <Compile Include="Model\PersonWithRoleModel.cs" />
+    <Compile Include="Model\RoleModel.cs" />
     <Compile Include="Model\TaskTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

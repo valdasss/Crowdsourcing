@@ -19,7 +19,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task<TaskTypeModel> AddTaskTypeAsync(TaskTypeModel taskTypeModel)
         {
-            var updatedTaskType = await _taskTypeRepository.UpdateAsync(taskTypeModel.ToEntity());
+            var updatedTaskType = await _taskTypeRepository.AddAsync(taskTypeModel.ToEntity());
             return updatedTaskType.ToModel();
         }
 
@@ -37,7 +37,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         public async Task<TaskTypeModel> GetTaskTypeBy(int taskTypeId)
         {
             var taskType = await _taskTypeRepository.GetByIdAsync(taskTypeId);
-            if (taskType != null)
+            if (taskType == null)
             {
                 throw new ArgumentNullException("TaskType not found");
             }

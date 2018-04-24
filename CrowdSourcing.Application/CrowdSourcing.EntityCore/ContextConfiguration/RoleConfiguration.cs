@@ -1,18 +1,13 @@
-﻿using CrowdSourcing.EntityCore.Entity;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrowdSourcing.EntityCore.ContextConfiguration
 {
-    public class RoleConfiguration : EntityTypeConfiguration<RoleEntity>
+    public class RoleConfiguration : EntityTypeConfiguration<IdentityRole>
     {
         public RoleConfiguration()
         {
-            ToTable("Roles");
+            ToTable("Role");
 
             HasKey(r => r.Id);
 

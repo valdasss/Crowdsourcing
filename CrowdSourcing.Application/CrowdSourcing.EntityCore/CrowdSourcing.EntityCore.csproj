@@ -36,6 +36,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,9 +55,16 @@
   <ItemGroup>
     <Compile Include="Common\GenericRepository.cs" />
     <Compile Include="Common\IGenericRepository.cs" />
+    <Compile Include="ContextConfiguration\DataConfiguration.cs" />
+    <Compile Include="ContextConfiguration\FileConfiguration.cs" />
     <Compile Include="ContextConfiguration\FileTypeConfiguration.cs" />
+    <Compile Include="ContextConfiguration\LoginConfiguration.cs" />
     <Compile Include="ContextConfiguration\PersonConfiguration.cs" />
+    <Compile Include="ContextConfiguration\PersonRoleConfiguration.cs" />
     <Compile Include="ContextConfiguration\RoleConfiguration.cs" />
+    <Compile Include="ContextConfiguration\SolutionConfiguration.cs" />
+    <Compile Include="ContextConfiguration\TaskConfiguration.cs" />
+    <Compile Include="ContextConfiguration\TaskDataConfiguration.cs" />
     <Compile Include="ContextConfiguration\TaskTypeConfiguration.cs" />
     <Compile Include="Context\BaseCrowdSourcingContext.cs" />
     <Compile Include="Context\CrowdSourcingContext.cs" />
@@ -66,7 +79,14 @@
     <Compile Include="Entity\TaskDataEntity.cs" />
     <Compile Include="Entity\TaskEntity.cs" />
     <Compile Include="Entity\TaskTypeEntity.cs" />
+    <Compile Include="Extension\PersonExtensions.cs" />
+    <Compile Include="Extension\RoleExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
+    <Compile Include="Migrations\201804241614145_Init.cs" />
+    <Compile Include="Migrations\201804241614145_Init.Designer.cs">
+      <DependentUpon>201804241614145_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +99,10 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804241614145_Init.resx">
+      <DependentUpon>201804241614145_Init.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

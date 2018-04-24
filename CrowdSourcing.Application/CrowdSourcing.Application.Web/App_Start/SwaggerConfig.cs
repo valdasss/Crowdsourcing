@@ -2,6 +2,7 @@ using System.Web.Http;
 using WebActivatorEx;
 using CrowdSourcing.Application.Web;
 using Swashbuckle.Application;
+using CrowdSourcing.Application.Web.Extension;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -26,14 +27,15 @@ namespace CrowdSourcing.Application.Web
                         // the docs is taken as the default. If your API supports multiple schemes and you want to be explicit
                         // about them, you can use the "Schemes" option as shown below.
                         //
-                        //c.Schemes(new[] { "http", "https" });
+                        c.Schemes(new[] { "http", "https" });
 
                         // Use "SingleApiVersion" to describe a single version API. Swagger 2.0 includes an "Info" object to
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
                         c.SingleApiVersion("v1", "CrowdSourcing.Application.Web");
-
+                     
+                        c.OperationFilter<ImportFileParamType>();
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();
@@ -61,7 +63,7 @@ namespace CrowdSourcing.Application.Web
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -249,6 +251,7 @@ namespace CrowdSourcing.Application.Web
                         // "apiKeyIn" can either be "query" or "header"
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
+                       
                     });
         }
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CrowdSourcing.EntityCore.Entity
+﻿namespace CrowdSourcing.EntityCore.Entity
 {
     public class FileEntity
     {
@@ -12,5 +6,8 @@ namespace CrowdSourcing.EntityCore.Entity
         public int FileTypeId { get; set; }
         public int DataId { get; set; }
         public string Url { get; set; }
+
+        public FileTypeEntity FileType { get; set; }
+        public DataEntity Data { get; set; }
     }
 }

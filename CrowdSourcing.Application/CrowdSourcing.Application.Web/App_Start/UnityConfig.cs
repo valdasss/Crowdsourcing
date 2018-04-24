@@ -4,6 +4,7 @@ using CrowdSourcing.EntityCore.Context;
 using CrowdSourcing.Module.TaskManagment.Services;
 using CrowdSourcing.Repository.Interface;
 using CrowdSourcing.Repository.TaskManagment;
+using CrowdSourcing.Repository.UserManagment;
 using System;
 
 using Unity;
@@ -47,6 +48,11 @@ namespace CrowdSourcing.Application.Web
             container.RegisterType<ICrowdSourcingContext, CrowdSourcingContext>();
             container.RegisterType<ITaskTypeRepository, TaskTypeRepository>();
             container.RegisterType<ITaskTypeService, TaskTypeService>();
+            container.RegisterType<IRoleRepository, RoleRepository>();
+            container.RegisterType<IRoleService, RoleService>();
+            container.RegisterType<IPersonRepository,PersonRepository>();
+            container.RegisterType<IPersonService, PersonService>();
+
 
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));
         }

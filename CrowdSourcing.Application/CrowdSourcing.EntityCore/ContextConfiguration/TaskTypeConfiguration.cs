@@ -1,10 +1,5 @@
 ﻿using CrowdSourcing.EntityCore.Entity;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrowdSourcing.EntityCore.ContextConfiguration
 {
@@ -12,7 +7,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
     {
         public TaskTypeConfiguration()
         {
-            ToTable("TaskTypes");
+            ToTable("TaskType");
 
             HasKey<int>(c => c.Id);
 
