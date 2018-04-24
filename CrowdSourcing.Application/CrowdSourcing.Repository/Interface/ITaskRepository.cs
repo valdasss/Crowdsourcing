@@ -11,5 +11,6 @@ namespace CrowdSourcing.Repository.Interface
     public interface ITaskRepository : IGenericRepository<TaskEntity>
     {
         Task<IEnumerable<TaskEntity>> getAllTaskWithType();
+        Task<TaskEntity> getTaskWithTypeBy(int id);
     }
 }

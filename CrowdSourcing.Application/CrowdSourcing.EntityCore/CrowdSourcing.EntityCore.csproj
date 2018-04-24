@@ -81,6 +81,7 @@
     <Compile Include="Entity\TaskTypeEntity.cs" />
     <Compile Include="Extension\PersonExtensions.cs" />
     <Compile Include="Extension\RoleExtensions.cs" />
+    <Compile Include="Extension\TaskExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
     <Compile Include="Migrations\201804241614145_Init.cs" />
     <Compile Include="Migrations\201804241614145_Init.Designer.cs">

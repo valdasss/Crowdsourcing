@@ -7,10 +7,10 @@ namespace CrowdSourcing.Contract.Interfaces
     public interface ITaskTypeService
     {
         Task<IEnumerable<TaskTypeModel>> GetAllTaskTypesAsync();
-        Task<TaskTypeModel> AddTaskTypeAsync(TaskTypeModel taskTypeModel);
+        Task<TaskTypeModel> AddTaskTypeAsync(string name);
         Task<TaskTypeModel> UpdateTaskTypeAsync(TaskTypeModel taskTypeModel);
         Task<TaskTypeModel> GetTaskTypeBy(int taskTypeId);
-        Task DeleteTaskTypeAsync(TaskTypeModel taskTypeModel);
+        Task DeleteTaskTypeAsync(int id);
     }
 }
 

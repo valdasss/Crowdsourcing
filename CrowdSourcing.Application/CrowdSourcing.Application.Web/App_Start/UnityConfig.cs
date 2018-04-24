@@ -52,6 +52,8 @@ namespace CrowdSourcing.Application.Web
             container.RegisterType<IRoleService, RoleService>();
             container.RegisterType<IPersonRepository,PersonRepository>();
             container.RegisterType<IPersonService, PersonService>();
+            container.RegisterType<ITaskRepository, TaskRepository>();
+            container.RegisterType<ITaskService, TaskService>();
 
 
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));

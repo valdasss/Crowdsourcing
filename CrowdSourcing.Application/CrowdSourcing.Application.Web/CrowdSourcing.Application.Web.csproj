@@ -249,6 +249,7 @@
     <Compile Include="Authorization\MyAuthorizationServerProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\TaskTypeController.cs" />
     <Compile Include="Extension\PersonExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />

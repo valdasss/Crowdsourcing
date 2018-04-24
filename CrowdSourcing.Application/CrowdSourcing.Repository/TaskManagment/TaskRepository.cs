@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CrowdSourcing.Repository.TaskManagment
 {
-    class TaskRepository : GenericRepository<TaskEntity>, ITaskRepository
+    public class TaskRepository : GenericRepository<TaskEntity>, ITaskRepository
     {
         private readonly IDbContext _dbContext;
         private readonly DbSet<TaskEntity> _dbSet;
@@ -26,6 +26,10 @@ namespace CrowdSourcing.Repository.TaskManagment
         public async Task<IEnumerable<TaskEntity>> getAllTaskWithType()
         {
             return await _dbSet.Include(t => t.TaskType).ToListAsync();
+        }
+        public async Task<TaskEntity> getTaskWithTypeBy(int id)
+        {
+            return await _dbSet.Include(t => t.TaskType).Where(t=>t.Id==id).FirstOrDefaultAsync();
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Model\RoleModel.cs" />
     <Compile Include="Model\Taskmodels\AddTaskModel.cs" />
     <Compile Include="Model\Taskmodels\TaskModel.cs" />
+    <Compile Include="Model\Taskmodels\UpdateTaskModel.cs" />
     <Compile Include="Model\TaskTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

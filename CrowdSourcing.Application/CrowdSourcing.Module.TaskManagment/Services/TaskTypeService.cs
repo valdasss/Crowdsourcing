@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CrowdSourcing.Contract.CustomExeptions;
 using CrowdSourcing.Contract.Interfaces;
 using CrowdSourcing.Contract.Model;
+using CrowdSourcing.EntityCore.Entity;
 using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
 
@@ -17,15 +19,19 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             _taskTypeRepository = taskTypeRepository;
         }
 
-        public async Task<TaskTypeModel> AddTaskTypeAsync(TaskTypeModel taskTypeModel)
+        public async Task<TaskTypeModel> AddTaskTypeAsync(string name)
         {
-            var updatedTaskType = await _taskTypeRepository.AddAsync(taskTypeModel.ToEntity());
+            var taskTypeEntity = new TaskTypeEntity()
+            {
+                Name = name
+            };
+            var updatedTaskType = await _taskTypeRepository.AddAsync(taskTypeEntity);
             return updatedTaskType.ToModel();
         }
 
-        public async Task DeleteTaskTypeAsync(TaskTypeModel taskTypeModel)
+        public async Task DeleteTaskTypeAsync(int id)
         {
-            await _taskTypeRepository.DeleteAsync(taskTypeModel.Id);
+            await _taskTypeRepository.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<TaskTypeModel>> GetAllTaskTypesAsync()
@@ -39,7 +45,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var taskType = await _taskTypeRepository.GetByIdAsync(taskTypeId);
             if (taskType == null)
             {
-                throw new ArgumentNullException("TaskType not found");
+                throw new EntityNotFoundException("TaskType not found");
             }
             return taskType.ToModel();
         }
