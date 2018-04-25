@@ -1,4 +1,5 @@
-﻿using CrowdSourcing.Contract.Interfaces;
+﻿using CrowdSourcing.Application.Web.ViewModels;
+using CrowdSourcing.Contract.Interfaces;
 using CrowdSourcing.EntityCore.Context;
 using CrowdSourcing.EntityCore.Entity;
 using Microsoft.AspNet.Identity;
@@ -24,9 +25,9 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IHttpActionResult> AddRole(string roleName)
+        public async Task<IHttpActionResult> AddRole(AddNameVM roleName)
         {
-            var addedRole= await _roleService.AddRoleAsync(roleName);
+            var addedRole= await _roleService.AddRoleAsync(roleName.Name);
             return Ok(addedRole);
         }
 

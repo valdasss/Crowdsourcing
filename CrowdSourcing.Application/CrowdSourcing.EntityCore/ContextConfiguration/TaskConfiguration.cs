@@ -15,7 +15,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
                 .IsRequired();
 
             Property(t => t.TaskTypeId)
-                .IsRequired();
+                .IsOptional();
 
             Property(t => t.Description)
                 .IsOptional();

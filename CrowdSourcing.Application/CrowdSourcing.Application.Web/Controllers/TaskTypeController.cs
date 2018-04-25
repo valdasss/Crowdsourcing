@@ -40,9 +40,9 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IHttpActionResult> AddTaskType(string name)
+        public async Task<IHttpActionResult> AddTaskType(AddNameVM name)
         {
-            var addedTaskType = await _taskTypeService.AddTaskTypeAsync(name);
+            var addedTaskType = await _taskTypeService.AddTaskTypeAsync(name.Name);
             return Ok(addedTaskType.ToViewModel());
         }
 
@@ -55,7 +55,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         public async Task<IHttpActionResult> DelteTaskType(int id)
         {
             await _taskTypeService.DeleteTaskTypeAsync(id);
