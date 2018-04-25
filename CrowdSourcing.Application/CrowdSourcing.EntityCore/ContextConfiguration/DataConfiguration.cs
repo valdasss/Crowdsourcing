@@ -14,6 +14,9 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             Property(d => d.Description)
                 .IsOptional();
 
+            Property(d => d.PersonRoleId)
+               .IsRequired();
+
             Property(d => d.PersonId)
                 .IsRequired();
 

@@ -14,5 +14,9 @@ namespace CrowdSourcing.Contract.Helpers
             var extension = Path.GetExtension(pathUrl);
             return extension.Remove(0, 1);
         }
+        public static string GetFileNameWithOutExtension(string pathUrl)
+        {
+            return Path.GetFileNameWithoutExtension(pathUrl);       
+        }
     }
 }

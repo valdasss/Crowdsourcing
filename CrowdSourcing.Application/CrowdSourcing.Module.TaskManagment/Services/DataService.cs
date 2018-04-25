@@ -1,4 +1,5 @@
-﻿using CrowdSourcing.Contract.Interfaces;
+﻿using CrowdSourcing.Contract.Helpers;
+using CrowdSourcing.Contract.Interfaces;
 using CrowdSourcing.Contract.Model.DataModels;
 using CrowdSourcing.Contract.Model.TaskDataModel;
 using CrowdSourcing.EntityCore.Entity;
@@ -50,6 +51,17 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             for (int Loop1 = 0; Loop1 < model.UploadedFiles.Count; Loop1++)
             {
                 filePath = string.Format("{0}{1}", folderPath, model.UploadedFiles[Loop1].FileName);
+                if (System.IO.File.Exists(filePath))
+                {
+                    while (System.IO.File.Exists(filePath))
+                    {
+                        int i = 1;
+                        var fileName = UrlParser.GetFileNameWithOutExtension(filePath);
+                        var format = UrlParser.GetFileFormatFromPathUrl(filePath);
+                        filePath = string.Format("{0}{1}.{2}", folderPath,fileName+
+                            string.Format("({0})",i),format);
+                    }
+                }
                 await _fileService.AddFileAsync(filePath,dataEntity.Id);
                 model.UploadedFiles[Loop1].SaveAs(filePath);
             }
