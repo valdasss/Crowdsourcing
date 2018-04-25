@@ -16,7 +16,7 @@ namespace CrowdSourcing.EntityCore.Migrations
                         PersonRoleId = c.String(nullable: false, maxLength: 128),
                         Description = c.String(),
                         UploadTime = c.DateTime(nullable: false),
-                        IsDone = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
                         PersonRoleEntity_UserId = c.String(maxLength: 128),
                         PersonRoleEntity_RoleId = c.String(maxLength: 128),
                     })

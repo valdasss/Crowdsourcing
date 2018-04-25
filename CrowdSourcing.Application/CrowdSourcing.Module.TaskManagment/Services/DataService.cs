@@ -37,7 +37,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 Description = model.Description,
                 PersonId = model.UploaderId,
                 UploadTime = DateTime.Now,
-                IsDone = 0
+                Status = 0
             };
             var result = await _dataRepository.AddAsync(dataEntity);
             var task = await _taskService.GetTaskAsync(model.TaskId);
@@ -82,6 +82,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         {
             throw new NotImplementedException();
         }
+   
 
         public async Task<DataModel> UpdateRoleAsync(UpdateDataModel roleModel)
         {

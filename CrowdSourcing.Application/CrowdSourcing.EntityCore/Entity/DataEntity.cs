@@ -11,7 +11,7 @@ namespace CrowdSourcing.EntityCore.Entity
         public string PersonRoleId { get; set; }
         public string Description{ get; set; }
         public DateTime UploadTime { get; set; }
-        public int IsDone { get; set; }
+        public int Status { get; set; }
 
         public IdentityUserRole Uploader { get; set; }
         public ICollection<TaskDataEntity> TaskDatas { get; set; }

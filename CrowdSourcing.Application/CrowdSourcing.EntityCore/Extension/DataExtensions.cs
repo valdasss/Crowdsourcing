@@ -11,7 +11,7 @@ namespace CrowdSourcing.EntityCore.Extension
             {
                 Id = entity.Id,
                 Description = entity.Description,
-                IsDone = entity.IsDone,
+                Status = entity.Status,
                 PersonId = entity.PersonId,
                 UploadTime=entity.UploadTime
             };

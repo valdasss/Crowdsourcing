@@ -2,7 +2,10 @@
 using CrowdSourcing.EntityCore.Common;
 using CrowdSourcing.EntityCore.Entity;
 using CrowdSourcing.Repository.Interface;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CrowdSourcing.Repository.FileManagment
 {
@@ -17,6 +20,5 @@ namespace CrowdSourcing.Repository.FileManagment
             _dbContext = context;
             _dbSet = Context.Set<DataEntity>();
         }
-
     }
 }

@@ -33,5 +33,13 @@ namespace CrowdSourcing.Application.Web.Controllers
             var result = await _taskDataService.AddTaskDataAsync(model);
             return Ok(result);
         }
+        [HttpGet]
+        [Route("GetForTable/{id}")]
+        public async Task<IHttpActionResult> GetDataForTable(int id)
+        {
+            var datas = await _taskDataService.GetTaskDatasForTableBy(id);
+            return Ok(datas);
+        }
+
     }
 }

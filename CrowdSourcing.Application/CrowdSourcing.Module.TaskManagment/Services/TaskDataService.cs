@@ -13,14 +13,15 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 {
     public class TaskDataService : ITaskDataService
     {
-
+        private IPersonService _personService;
         private ITaskDataRepository _taskDataRepository;
         private IDataService _dataService;
 
-        public TaskDataService(ITaskDataRepository taskDataRepository,IDataService dataService)
+        public TaskDataService(ITaskDataRepository taskDataRepository,IDataService dataService,IPersonService personService)
         {
             _taskDataRepository = taskDataRepository;
             _dataService = dataService;
+            _personService = personService;
         }
 
         public async Task<TaskDataModel> AddTaskDataAsync(AddTaskDataModel model)
@@ -45,9 +46,16 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             throw new NotImplementedException();
         }
 
-        public async Task<TaskDataModel> GetTaskDataBy(string taskId)
+        public async Task<IEnumerable<TaskDataForTable>> GetTaskDatasForTableBy(int taskId)
         {
-            throw new NotImplementedException();
+            var data = await _taskDataRepository.GetDataBy(taskId);
+            var newList = new List<TaskDataForTable>();
+            foreach (var  element in data)
+            {
+                var person = await _personService.GetPersonById(element.Data.Uploader.UserId);
+                newList.Add(element.ToTableModel(person.Name, person.LastName));
+            }
+            return newList;
         }
 
         public async Task<TaskDataModel> UpdateTaskDataAsync(TaskDataModel roleModel)

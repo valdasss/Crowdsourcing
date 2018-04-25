@@ -8,6 +8,6 @@ namespace CrowdSourcing.Contract.Model.DataModels
         public string PersonId { get; set; }
         public string Description { get; set; }
         public DateTime UploadTime { get; set; }
-        public int IsDone { get; set; }
+        public int Status { get; set; }
     }
 }

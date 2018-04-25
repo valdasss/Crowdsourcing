@@ -13,7 +13,7 @@ namespace CrowdSourcing.EntityCore.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201804251708094_Init"; }
+            get { return "201804251826321_Init"; }
         }
         
         string IMigrationMetadata.Source

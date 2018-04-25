@@ -88,9 +88,9 @@
     <Compile Include="Extension\TaskDataExtensions.cs" />
     <Compile Include="Extension\TaskExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
-    <Compile Include="Migrations\201804251708094_Init.cs" />
-    <Compile Include="Migrations\201804251708094_Init.Designer.cs">
-      <DependentUpon>201804251708094_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201804251826321_Init.cs" />
+    <Compile Include="Migrations\201804251826321_Init.Designer.cs">
+      <DependentUpon>201804251826321_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,8 +106,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804251708094_Init.resx">
-      <DependentUpon>201804251708094_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804251826321_Init.resx">
+      <DependentUpon>201804251826321_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

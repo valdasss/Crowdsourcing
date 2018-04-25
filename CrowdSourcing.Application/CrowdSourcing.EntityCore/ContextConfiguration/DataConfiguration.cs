@@ -20,7 +20,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             Property(d => d.PersonId)
                 .IsRequired();
 
-            Property(d => d.IsDone)
+            Property(d => d.Status)
                 .IsRequired();
 
             Property(d => d.UploadTime)

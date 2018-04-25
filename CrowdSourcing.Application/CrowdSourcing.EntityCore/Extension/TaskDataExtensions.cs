@@ -23,5 +23,17 @@ namespace CrowdSourcing.EntityCore.Extension
             };
             return model;
         }
+        public static TaskDataForTable ToTableModel(this TaskDataEntity entity,string FirstName,string LastName)
+        {
+            var model = new TaskDataForTable()
+            {
+                FirstName = FirstName,
+                DataId = entity.DataId,
+                LastName = LastName,
+                Status = entity.Data.Status,
+                UploadDate=entity.Data.UploadTime
+            };
+            return model;
+        }
     }
 }
