@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +80,7 @@
     <Compile Include="Entity\TaskDataEntity.cs" />
     <Compile Include="Entity\TaskEntity.cs" />
     <Compile Include="Entity\TaskTypeEntity.cs" />
+    <Compile Include="Extension\DataExtensions.cs" />
     <Compile Include="Extension\FileExtensions.cs" />
     <Compile Include="Extension\FileTypeExtensions.cs" />
     <Compile Include="Extension\PersonExtensions.cs" />
@@ -86,9 +88,9 @@
     <Compile Include="Extension\TaskDataExtensions.cs" />
     <Compile Include="Extension\TaskExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
-    <Compile Include="Migrations\201804242037454_Init.cs" />
-    <Compile Include="Migrations\201804242037454_Init.Designer.cs">
-      <DependentUpon>201804242037454_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201804251519517_Init.cs" />
+    <Compile Include="Migrations\201804251519517_Init.Designer.cs">
+      <DependentUpon>201804251519517_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,8 +106,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804242037454_Init.resx">
-      <DependentUpon>201804242037454_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804251519517_Init.resx">
+      <DependentUpon>201804251519517_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

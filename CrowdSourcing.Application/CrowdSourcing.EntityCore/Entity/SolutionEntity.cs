@@ -8,7 +8,9 @@ namespace CrowdSourcing.EntityCore.Entity
     {
         public int Id { get; set; }
         public string AdminId { get; set; }
+        public string AdminRoleId { get; set; }
         public string ExpertId { get; set; }
+        public string ExpertRoleId { get; set; }
         public int? SolutionReviewId { get; set; }
         public int TaskDataId { get; set; }
         public int Status { get; set; }

@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +44,7 @@
     <Compile Include="CustomExeptions\EntityNotFoundException.cs" />
     <Compile Include="CustomExeptions\ValidationException.cs" />
     <Compile Include="Helpers\UrlParser.cs" />
+    <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Interfaces\IFileTypeSercive.cs" />
@@ -51,12 +53,16 @@
     <Compile Include="Interfaces\ITaskDataService.cs" />
     <Compile Include="Interfaces\ITaskService.cs" />
     <Compile Include="Interfaces\ITaskTypeService.cs" />
+    <Compile Include="Model\DataModels\AddDataModel.cs" />
+    <Compile Include="Model\DataModels\DataModel.cs" />
+    <Compile Include="Model\DataModels\UpdateDataModel.cs" />
     <Compile Include="Model\FileModels\FileModel.cs" />
     <Compile Include="Model\FileTypeModels\FileTypeFullModel.cs" />
     <Compile Include="Model\PersonModel.cs" />
     <Compile Include="Model\PersonWithRoleModel.cs" />
     <Compile Include="Model\RoleModel.cs" />
     <Compile Include="Model\TaskDataModel\AddTaskDataModel.cs" />
+    <Compile Include="Model\TaskDataModel\TaskDataForTable.cs" />
     <Compile Include="Model\TaskDataModel\TaskDataModel.cs" />
     <Compile Include="Model\Taskmodels\AddTaskModel.cs" />
     <Compile Include="Model\Taskmodels\TaskModel.cs" />

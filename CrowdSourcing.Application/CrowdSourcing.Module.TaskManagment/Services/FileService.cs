@@ -25,20 +25,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         {
             var format = UrlParser.GetFileFormatFromPathUrl(url);
             var fileType = await _fileTypeService.GetFileTypeBy(format);
-            int fileFormatId;
-            if (fileType == null)
-            {
-                var newFileType = await _fileTypeService.AddFileTypeAsync(format);
-                fileFormatId = newFileType.Id;
-            }
-            else
-            {
-                fileFormatId = fileType.Id;
-            }
+            
             var fileEntity = new FileEntity()
             {
                 DataId = dataId,
-                FileTypeId = fileFormatId,
+                FileTypeId = fileType.Id,
                 Url = url
             };
             var result = await _fileRepository.AddAsync(fileEntity);

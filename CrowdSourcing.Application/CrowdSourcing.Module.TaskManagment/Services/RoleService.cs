@@ -43,6 +43,12 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return role.ToModel();
         }
 
+        public async Task<RoleModel> GetRoleByName(string name)
+        {
+            var role = await _roleRepository.GetRoleByName(name);
+            return role.ToModel();
+        }
+
         public async Task<RoleModel> UpdateRoleAsync(RoleModel roleModel)
         {
             var roleEntity = await _roleRepository.GetRoleByStringId(roleModel.Id);

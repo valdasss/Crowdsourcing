@@ -2,6 +2,7 @@ using CommonServiceLocator;
 using CrowdSourcing.Contract.Interfaces;
 using CrowdSourcing.EntityCore.Context;
 using CrowdSourcing.Module.TaskManagment.Services;
+using CrowdSourcing.Repository.FileManagment;
 using CrowdSourcing.Repository.Interface;
 using CrowdSourcing.Repository.TaskManagment;
 using CrowdSourcing.Repository.UserManagment;
@@ -54,6 +55,15 @@ namespace CrowdSourcing.Application.Web
             container.RegisterType<IPersonService, PersonService>();
             container.RegisterType<ITaskRepository, TaskRepository>();
             container.RegisterType<ITaskService, TaskService>();
+            container.RegisterType<IFileTypeRepository, FileTypeRepository>();
+            container.RegisterType<IFileTypeService, FileTypeService>();
+            container.RegisterType<IFileRepository, FileRepository>();
+            container.RegisterType<IFileService, FileService>();         
+            container.RegisterType<IDataRepository, DataRepository>();
+            container.RegisterType<IDataService, DataService>();
+            container.RegisterType<ITaskDataRepository, TaskDataRepository>();
+            container.RegisterType<ITaskDataService, TaskDataService>();
+
 
 
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));

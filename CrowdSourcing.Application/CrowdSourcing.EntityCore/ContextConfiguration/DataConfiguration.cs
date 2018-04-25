@@ -20,9 +20,12 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             Property(d => d.IsDone)
                 .IsRequired();
 
+            Property(d => d.UploadTime)
+                .IsRequired();
+
             HasRequired(t => t.Uploader)
                 .WithMany()
-                .HasForeignKey(t => t.PersonId);
+                .HasForeignKey(t => new { t.PersonId,t.PersonRoleId });
         }
     }
 }

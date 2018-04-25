@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 
 namespace CrowdSourcing.EntityCore.Entity
@@ -7,7 +8,9 @@ namespace CrowdSourcing.EntityCore.Entity
     {
         public int Id { get; set; }
         public string PersonId { get; set; }
+        public string PersonRoleId { get; set; }
         public string Description{ get; set; }
+        public DateTime UploadTime { get; set; }
         public int IsDone { get; set; }
 
         public IdentityUserRole Uploader { get; set; }

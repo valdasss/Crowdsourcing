@@ -13,15 +13,18 @@ namespace CrowdSourcing.EntityCore.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         PersonId = c.String(nullable: false, maxLength: 128),
+                        PersonRoleId = c.String(nullable: false, maxLength: 128),
                         Description = c.String(),
+                        UploadTime = c.DateTime(nullable: false),
                         IsDone = c.Int(nullable: false),
+                        PersonRoleEntity_UserId = c.String(maxLength: 128),
                         PersonRoleEntity_RoleId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.PersonRole", t => t.PersonRoleEntity_RoleId)
-                .ForeignKey("dbo.PersonRole", t => t.PersonId, cascadeDelete: true)
-                .Index(t => t.PersonId)
-                .Index(t => t.PersonRoleEntity_RoleId);
+                .ForeignKey("dbo.PersonRole", t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId })
+                .ForeignKey("dbo.PersonRole", t => new { t.PersonId, t.PersonRoleId }, cascadeDelete: true)
+                .Index(t => new { t.PersonId, t.PersonRoleId })
+                .Index(t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId });
             
             CreateTable(
                 "dbo.File",
@@ -68,40 +71,44 @@ namespace CrowdSourcing.EntityCore.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         AdminId = c.String(nullable: false, maxLength: 128),
+                        AdminRoleId = c.String(nullable: false, maxLength: 128),
                         ExpertId = c.String(nullable: false, maxLength: 128),
+                        ExpertRoleId = c.String(nullable: false, maxLength: 128),
                         SolutionReviewId = c.Int(),
                         TaskDataId = c.Int(nullable: false),
                         Status = c.Int(nullable: false),
                         SolutionDate = c.DateTime(),
                         Comment = c.String(),
+                        PersonRoleEntity_UserId = c.String(maxLength: 128),
                         PersonRoleEntity_RoleId = c.String(maxLength: 128),
+                        PersonRoleEntity_UserId1 = c.String(maxLength: 128),
                         PersonRoleEntity_RoleId1 = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.PersonRole", t => t.PersonRoleEntity_RoleId)
-                .ForeignKey("dbo.PersonRole", t => t.PersonRoleEntity_RoleId1)
-                .ForeignKey("dbo.PersonRole", t => t.AdminId)
-                .ForeignKey("dbo.PersonRole", t => t.ExpertId)
+                .ForeignKey("dbo.PersonRole", t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId })
+                .ForeignKey("dbo.PersonRole", t => new { t.PersonRoleEntity_UserId1, t.PersonRoleEntity_RoleId1 })
+                .ForeignKey("dbo.PersonRole", t => new { t.AdminId, t.AdminRoleId })
+                .ForeignKey("dbo.PersonRole", t => new { t.ExpertId, t.ExpertRoleId })
                 .ForeignKey("dbo.Solution", t => t.SolutionReviewId)
                 .ForeignKey("dbo.TaskData", t => t.TaskDataId)
-                .Index(t => t.AdminId)
-                .Index(t => t.ExpertId)
+                .Index(t => new { t.AdminId, t.AdminRoleId })
+                .Index(t => new { t.ExpertId, t.ExpertRoleId })
                 .Index(t => t.SolutionReviewId)
                 .Index(t => t.TaskDataId)
-                .Index(t => t.PersonRoleEntity_RoleId)
-                .Index(t => t.PersonRoleEntity_RoleId1);
+                .Index(t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId })
+                .Index(t => new { t.PersonRoleEntity_UserId1, t.PersonRoleEntity_RoleId1 });
             
             CreateTable(
                 "dbo.PersonRole",
                 c => new
                     {
+                        UserId = c.String(nullable: false, maxLength: 128),
                         RoleId = c.String(nullable: false, maxLength: 128),
-                        UserId = c.String(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                         IdentityRole_Id = c.String(maxLength: 128),
                         PersonEntity_Id = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.RoleId)
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
                 .ForeignKey("dbo.Role", t => t.IdentityRole_Id)
                 .ForeignKey("dbo.Person", t => t.PersonEntity_Id)
                 .Index(t => t.IdentityRole_Id)
@@ -196,16 +203,16 @@ namespace CrowdSourcing.EntityCore.Migrations
             DropForeignKey("dbo.Login", "PersonEntity_Id", "dbo.Person");
             DropForeignKey("dbo.IdentityUserClaims", "PersonEntity_Id", "dbo.Person");
             DropForeignKey("dbo.PersonRole", "IdentityRole_Id", "dbo.Role");
-            DropForeignKey("dbo.Data", "PersonId", "dbo.PersonRole");
+            DropForeignKey("dbo.Data", new[] { "PersonId", "PersonRoleId" }, "dbo.PersonRole");
             DropForeignKey("dbo.TaskData", "TaskId", "dbo.Task");
             DropForeignKey("dbo.Task", "TaskTypeId", "dbo.TaskType");
             DropForeignKey("dbo.Solution", "TaskDataId", "dbo.TaskData");
             DropForeignKey("dbo.Solution", "SolutionReviewId", "dbo.Solution");
-            DropForeignKey("dbo.Solution", "ExpertId", "dbo.PersonRole");
-            DropForeignKey("dbo.Solution", "AdminId", "dbo.PersonRole");
-            DropForeignKey("dbo.Solution", "PersonRoleEntity_RoleId1", "dbo.PersonRole");
-            DropForeignKey("dbo.Solution", "PersonRoleEntity_RoleId", "dbo.PersonRole");
-            DropForeignKey("dbo.Data", "PersonRoleEntity_RoleId", "dbo.PersonRole");
+            DropForeignKey("dbo.Solution", new[] { "ExpertId", "ExpertRoleId" }, "dbo.PersonRole");
+            DropForeignKey("dbo.Solution", new[] { "AdminId", "AdminRoleId" }, "dbo.PersonRole");
+            DropForeignKey("dbo.Solution", new[] { "PersonRoleEntity_UserId1", "PersonRoleEntity_RoleId1" }, "dbo.PersonRole");
+            DropForeignKey("dbo.Solution", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" }, "dbo.PersonRole");
+            DropForeignKey("dbo.Data", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" }, "dbo.PersonRole");
             DropForeignKey("dbo.TaskData", "DataId", "dbo.Data");
             DropForeignKey("dbo.File", "FileTypeId", "dbo.FileType");
             DropForeignKey("dbo.File", "DataId", "dbo.Data");
@@ -214,18 +221,18 @@ namespace CrowdSourcing.EntityCore.Migrations
             DropIndex("dbo.Task", new[] { "TaskTypeId" });
             DropIndex("dbo.PersonRole", new[] { "PersonEntity_Id" });
             DropIndex("dbo.PersonRole", new[] { "IdentityRole_Id" });
-            DropIndex("dbo.Solution", new[] { "PersonRoleEntity_RoleId1" });
-            DropIndex("dbo.Solution", new[] { "PersonRoleEntity_RoleId" });
+            DropIndex("dbo.Solution", new[] { "PersonRoleEntity_UserId1", "PersonRoleEntity_RoleId1" });
+            DropIndex("dbo.Solution", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" });
             DropIndex("dbo.Solution", new[] { "TaskDataId" });
             DropIndex("dbo.Solution", new[] { "SolutionReviewId" });
-            DropIndex("dbo.Solution", new[] { "ExpertId" });
-            DropIndex("dbo.Solution", new[] { "AdminId" });
+            DropIndex("dbo.Solution", new[] { "ExpertId", "ExpertRoleId" });
+            DropIndex("dbo.Solution", new[] { "AdminId", "AdminRoleId" });
             DropIndex("dbo.TaskData", new[] { "DataId" });
             DropIndex("dbo.TaskData", new[] { "TaskId" });
             DropIndex("dbo.File", new[] { "DataId" });
             DropIndex("dbo.File", new[] { "FileTypeId" });
-            DropIndex("dbo.Data", new[] { "PersonRoleEntity_RoleId" });
-            DropIndex("dbo.Data", new[] { "PersonId" });
+            DropIndex("dbo.Data", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" });
+            DropIndex("dbo.Data", new[] { "PersonId", "PersonRoleId" });
             DropTable("dbo.Login");
             DropTable("dbo.IdentityUserClaims");
             DropTable("dbo.Person");

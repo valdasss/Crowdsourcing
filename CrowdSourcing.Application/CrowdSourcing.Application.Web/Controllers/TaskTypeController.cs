@@ -61,33 +61,6 @@ namespace CrowdSourcing.Application.Web.Controllers
             await _taskTypeService.DeleteTaskTypeAsync(id);
             return Ok();
         }
-        [HttpPost]
-        [Route("InsertFile")]
-        public async Task<HttpResponseMessage> InsertFiles()
-        {
-
-            HttpResponseMessage result = null;
-            var httpRequest = HttpContext.Current.Request;
-            var taskid = int.Parse(httpRequest.Form["taskId"]);           
-            if (httpRequest.Files.Count > 0)
-            {
-
-                var docfiles = new List<string>();
-                foreach (string file in httpRequest.Files)
-                {
-                    var postedFile = httpRequest.Files[file];
-                    var filePath = HttpContext.Current.Server.MapPath("~/App_Data/Uploads/" + postedFile.FileName);
-                    postedFile.SaveAs(filePath);
-                    docfiles.Add(filePath);                  
-                    docfiles.Add(taskid.ToString());
-                }
-                result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
-            }
-            else
-            {
-                result = Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-            return result;           
-        }
+      
     }
 }

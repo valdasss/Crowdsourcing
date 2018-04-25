@@ -53,9 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileManagment\DataRepository.cs" />
     <Compile Include="FileManagment\FileRepository.cs" />
     <Compile Include="FileManagment\FileTypeRepository.cs" />
     <Compile Include="FileManagment\TaskDataRepository.cs" />
+    <Compile Include="Interface\IDataRepository.cs" />
     <Compile Include="Interface\IFileRepository.cs" />
     <Compile Include="Interface\IFileTypeRepository.cs" />
     <Compile Include="Interface\IPersonRepository.cs" />

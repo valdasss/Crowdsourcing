@@ -47,12 +47,12 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
 
             HasRequired(s => s.Administrator)
                 .WithMany()
-                .HasForeignKey(s=>s.AdminId)
+                .HasForeignKey(s=>new { s.AdminId,s.AdminRoleId})
                 .WillCascadeOnDelete(false);
 
             HasRequired(s => s.Expert)
                 .WithMany()
-                .HasForeignKey(s=>s.ExpertId)
+                .HasForeignKey(s=>new { s.ExpertId, s.ExpertRoleId })
                 .WillCascadeOnDelete(false);
 
             HasOptional(s => s.Solution)

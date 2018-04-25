@@ -1,4 +1,6 @@
-﻿using CrowdSourcing.Contract.Model.TaskDataModel;
+﻿using CrowdSourcing.Contract.Model;
+using CrowdSourcing.Contract.Model.DataModels;
+using CrowdSourcing.Contract.Model.TaskDataModel;
 using CrowdSourcing.EntityCore.Entity;
 using System;
 using System.Collections.Generic;

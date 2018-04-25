@@ -15,26 +15,29 @@ namespace CrowdSourcing.Module.TaskManagment.Services
     {
 
         private ITaskDataRepository _taskDataRepository;
+        private IDataService _dataService;
 
-        public TaskDataService(ITaskDataRepository taskDataRepository)
+        public TaskDataService(ITaskDataRepository taskDataRepository,IDataService dataService)
         {
             _taskDataRepository = taskDataRepository;
+            _dataService = dataService;
         }
 
         public async Task<TaskDataModel> AddTaskDataAsync(AddTaskDataModel model)
         {
+            var data = await _dataService.AddDataAsync(model);
             var taskData = new TaskDataEntity()
             {
-                DataId = model.DataId,
+                DataId = data.Id,
                 TaskId = model.TaskId
             };
             var result = await _taskDataRepository.AddAsync(taskData);
             return result.ToModel();
         }
 
-        public async Task DeleteTaskDataAsync(string taskId)
+        public async Task DeleteTaskDataAsync(int id)
         {
-            throw new NotImplementedException();
+            await _taskDataRepository.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<TaskDataModel>> GetAllTaskData()

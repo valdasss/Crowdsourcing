@@ -7,6 +7,7 @@ namespace CrowdSourcing.Contract.Interfaces
     public interface IRoleService
     {
         Task<IEnumerable<RoleModel>> GetAllRolesAsync();
+        Task<RoleModel> GetRoleByName(string name);
         Task<RoleModel> AddRoleAsync(string roleName);
         Task<RoleModel> UpdateRoleAsync(RoleModel roleModel);
         Task<RoleModel> GetRoleBy(string roleId);

@@ -48,5 +48,9 @@ namespace CrowdSourcing.Repository.UserManagment
             return role;
         }
 
+        public async Task<IdentityRole> GetRoleByName(string name)
+        {
+            return await _roleManager.FindByNameAsync(name);
+        }
     }
 }

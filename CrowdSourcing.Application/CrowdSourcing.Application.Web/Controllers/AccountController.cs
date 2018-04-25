@@ -1,14 +1,10 @@
 ﻿using CrowdSourcing.Application.Web.Extension;
 using CrowdSourcing.Application.Web.ViewModels;
 using CrowdSourcing.Contract.Interfaces;
-using CrowdSourcing.EntityCore.Context;
-using CrowdSourcing.EntityCore.Entity;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
@@ -36,10 +32,9 @@ namespace CrowdSourcing.Application.Web.Controllers
         [Authorize]
         [Route("User/GetClaims")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetUserClaims()
+        public IHttpActionResult GetUserClaims()
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
-            IEnumerable<Claim> claims = identityClaims.Claims;
             UserVM model = new UserVM()
             {
                 Id = identityClaims.FindFirst("Id").Value,

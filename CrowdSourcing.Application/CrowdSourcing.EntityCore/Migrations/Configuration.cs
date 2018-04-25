@@ -40,6 +40,38 @@
             });
             context.SaveChanges();
             #endregion
+            #region filetypes
+            context.FileTypes.AddOrUpdate(new FileTypeEntity
+            {
+                Name = "docx",
+                Id = 1
+            });
+            context.SaveChanges();
+            context.FileTypes.AddOrUpdate(new FileTypeEntity
+            {
+                Name = "doc",
+                Id = 2
+            });
+            context.SaveChanges();
+            context.FileTypes.AddOrUpdate(new FileTypeEntity
+            {
+                Name = "pdf",
+                Id = 3
+            });
+            context.SaveChanges();
+            context.FileTypes.AddOrUpdate(new FileTypeEntity
+            {
+                Name = "mp3",
+                Id = 4
+            });
+            context.SaveChanges();
+            context.FileTypes.AddOrUpdate(new FileTypeEntity
+            {
+                Name = "waw",
+                Id = 5
+            });
+            context.SaveChanges();
+            #endregion
             #region Roles
             var store = new RoleStore<IdentityRole>(context);
             var manager = new RoleManager<IdentityRole>(store);

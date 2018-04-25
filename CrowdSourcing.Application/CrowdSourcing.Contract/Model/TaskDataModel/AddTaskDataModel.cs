@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Web;
 
 namespace CrowdSourcing.Contract.Model.TaskDataModel
 {
     public class AddTaskDataModel
-    {        
+    {
         public int TaskId { get; set; }
-        public int DataId { get; set; }
+        public string UploaderId { get; set; }
+        public string UploaderRoleId { get; set; }
+        public string Description { get; set; }
+        public HttpFileCollection UploadedFiles {get;set;}
     }
 }

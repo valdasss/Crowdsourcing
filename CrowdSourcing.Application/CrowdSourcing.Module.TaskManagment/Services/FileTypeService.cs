@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdSourcing.Contract.Interfaces;
@@ -48,6 +49,10 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         public async Task<FileTypeFullModel> GetFileTypeBy(string name)
         {
             var fileType = await _fileTypeRepository.GetFileTypeBy(name);
+            if (fileType == null)
+            {
+                throw new ValidationException("Don't support file Format");
+            }
             return fileType.ToModel();
         }
 
