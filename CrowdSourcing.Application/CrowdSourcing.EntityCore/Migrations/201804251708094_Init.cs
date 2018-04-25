@@ -10,20 +10,21 @@ namespace CrowdSourcing.EntityCore.Migrations
             CreateTable(
                 "dbo.Data",
                 c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    PersonId = c.String(nullable: false, maxLength: 128),
-                    PersonRoleId = c.String(nullable: false, maxLength: 128),
-                    Description = c.String(),
-                    UploadTime = c.DateTime(nullable: false),
-                    IsDone = c.Int(nullable: false),
-                    PersonRoleEntity_UserId = c.String(maxLength: 128),
-                    PersonRoleEntity_RoleId = c.String(maxLength: 128),
-                })
-                .PrimaryKey(t => t.Id)               
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        PersonId = c.String(nullable: false, maxLength: 128),
+                        PersonRoleId = c.String(nullable: false, maxLength: 128),
+                        Description = c.String(),
+                        UploadTime = c.DateTime(nullable: false),
+                        IsDone = c.Int(nullable: false),
+                        PersonRoleEntity_UserId = c.String(maxLength: 128),
+                        PersonRoleEntity_RoleId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.PersonRole", t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId })
                 .ForeignKey("dbo.PersonRole", t => new { t.PersonId, t.PersonRoleId }, cascadeDelete: true)
-                .Index(t => new { t.PersonId, t.PersonRoleId });
-               
+                .Index(t => new { t.PersonId, t.PersonRoleId })
+                .Index(t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId });
             
             CreateTable(
                 "dbo.File",
