@@ -9,7 +9,7 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<IEnumerable<FileModel>> GetAllFilesAsync();
         Task<IEnumerable<FileModel>> GetAllFilesAsyncBy(int dataId);
         Task<FileModel> AddFileAsync(string url,int dataId);
-        Task<FileModel> UpdateFileAsync(string url, int dataId);
+        Task<FileModel> UpdateFileAsync(int id,string url, int dataId);
         Task<FileModel> GetFileBy(int id);
         Task DeleteFile(int id);
     }

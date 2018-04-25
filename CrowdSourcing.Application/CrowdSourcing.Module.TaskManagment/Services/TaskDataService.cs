@@ -1,5 +1,7 @@
 ﻿using CrowdSourcing.Contract.Interfaces;
 using CrowdSourcing.Contract.Model.TaskDataModel;
+using CrowdSourcing.EntityCore.Entity;
+using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -19,27 +21,33 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             _taskDataRepository = taskDataRepository;
         }
 
-        public Task<TaskDataModel> AddTaskDataAsync(TaskDataModel roleName)
+        public async Task<TaskDataModel> AddTaskDataAsync(AddTaskDataModel model)
+        {
+            var taskData = new TaskDataEntity()
+            {
+                DataId = model.DataId,
+                TaskId = model.TaskId
+            };
+            var result = await _taskDataRepository.AddAsync(taskData);
+            return result.ToModel();
+        }
+
+        public async Task DeleteTaskDataAsync(string taskId)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteTaskDataAsync(string taskId)
+        public async Task<IEnumerable<TaskDataModel>> GetAllTaskData()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TaskDataModel>> GetAllTaskData()
+        public async Task<TaskDataModel> GetTaskDataBy(string taskId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TaskDataModel> GetTaskDataBy(string taskId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TaskDataModel> UpdateTaskDataAsync(TaskDataModel roleModel)
+        public async Task<TaskDataModel> UpdateTaskDataAsync(TaskDataModel roleModel)
         {
             throw new NotImplementedException();
         }

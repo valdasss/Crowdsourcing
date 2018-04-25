@@ -53,8 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileManagment\FileRepository.cs" />
+    <Compile Include="FileManagment\FileTypeRepository.cs" />
+    <Compile Include="FileManagment\TaskDataRepository.cs" />
+    <Compile Include="Interface\IFileRepository.cs" />
+    <Compile Include="Interface\IFileTypeRepository.cs" />
     <Compile Include="Interface\IPersonRepository.cs" />
     <Compile Include="Interface\IRoleRepository.cs" />
+    <Compile Include="Interface\ITaskDataRepository.cs" />
     <Compile Include="Interface\ITaskRepository.cs" />
     <Compile Include="Interface\ITaskTypeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

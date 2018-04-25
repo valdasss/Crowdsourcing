@@ -4,10 +4,8 @@ using CrowdSourcing.Contract.Model.FileModels;
 using CrowdSourcing.EntityCore.Entity;
 using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CrowdSourcing.Module.TaskManagment.Services

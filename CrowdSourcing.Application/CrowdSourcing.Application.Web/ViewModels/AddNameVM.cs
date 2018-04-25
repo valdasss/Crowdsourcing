@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CrowdSourcing.Application.Web.ViewModels
 {
-    public class AddStringVM
+    public class AddNameVM
     {
         public string Name { get; set; }
     }

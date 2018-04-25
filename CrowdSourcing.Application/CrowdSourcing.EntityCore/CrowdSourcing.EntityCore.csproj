@@ -79,8 +79,11 @@
     <Compile Include="Entity\TaskDataEntity.cs" />
     <Compile Include="Entity\TaskEntity.cs" />
     <Compile Include="Entity\TaskTypeEntity.cs" />
+    <Compile Include="Extension\FileExtensions.cs" />
+    <Compile Include="Extension\FileTypeExtensions.cs" />
     <Compile Include="Extension\PersonExtensions.cs" />
     <Compile Include="Extension\RoleExtensions.cs" />
+    <Compile Include="Extension\TaskDataExtensions.cs" />
     <Compile Include="Extension\TaskExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
     <Compile Include="Migrations\201804242037454_Init.cs" />
