@@ -41,7 +41,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             await _taskDataRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<TaskDataModel>> GetAllTaskData()
+        public  Task<IEnumerable<TaskDataModel>> GetAllTaskData()
         {
             throw new NotImplementedException();
         }
@@ -58,7 +58,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return newList;
         }
 
-        public async Task<TaskDataModel> UpdateTaskDataAsync(TaskDataModel roleModel)
+        public  Task<TaskDataModel> UpdateTaskDataAsync(TaskDataModel roleModel)
         {
             throw new NotImplementedException();
         }

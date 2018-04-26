@@ -63,6 +63,7 @@ namespace CrowdSourcing.Application.Web
             container.RegisterType<IDataService, DataService>();
             container.RegisterType<ITaskDataRepository, TaskDataRepository>();
             container.RegisterType<ITaskDataService, TaskDataService>();
+            container.RegisterType<IDownloadService, DownloadService>();
 
 
 

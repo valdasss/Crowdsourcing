@@ -68,17 +68,17 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return result.ToModel();
         }
 
-        public async Task DeleteDataAsync(int id)
+        public  Task DeleteDataAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<DataModel>> GetAllDatasAsync()
+        public  Task<IEnumerable<DataModel>> GetAllDatasAsync()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<DataModel> GetDataBy(int id)
+        public  Task<DataModel> GetDataBy(int id)
         {
             throw new NotImplementedException();
         }

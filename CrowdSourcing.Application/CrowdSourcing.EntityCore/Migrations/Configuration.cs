@@ -65,10 +65,19 @@
                 Id = 4
             });
             context.SaveChanges();
+           
+           
+
             context.FileTypes.AddOrUpdate(new FileTypeEntity
             {
                 Name = "waw",
                 Id = 5
+            });
+            context.SaveChanges();
+            context.FileTypes.AddOrUpdate(new FileTypeEntity
+            {
+                Name = "ogg",
+                Id = 6
             });
             context.SaveChanges();
             #endregion
