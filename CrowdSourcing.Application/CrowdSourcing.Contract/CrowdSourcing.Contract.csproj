@@ -56,12 +56,14 @@
     <Compile Include="Model\DataModels\AddDataModel.cs" />
     <Compile Include="Model\DataModels\DataModel.cs" />
     <Compile Include="Model\DataModels\UpdateDataModel.cs" />
+    <Compile Include="Model\FileModels\FileForDetailsModel.cs" />
     <Compile Include="Model\FileModels\FileModel.cs" />
     <Compile Include="Model\FileTypeModels\FileTypeFullModel.cs" />
     <Compile Include="Model\PersonModel.cs" />
     <Compile Include="Model\PersonWithRoleModel.cs" />
     <Compile Include="Model\RoleModel.cs" />
     <Compile Include="Model\TaskDataModel\AddTaskDataModel.cs" />
+    <Compile Include="Model\DataModels\DataForMoreDetails.cs" />
     <Compile Include="Model\TaskDataModel\TaskDataForTable.cs" />
     <Compile Include="Model\TaskDataModel\TaskDataModel.cs" />
     <Compile Include="Model\Taskmodels\AddTaskModel.cs" />

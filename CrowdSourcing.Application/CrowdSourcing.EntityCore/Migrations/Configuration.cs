@@ -112,6 +112,50 @@
                 roles[2] = "admin";
                 managerPerson.AddToRoles(user.Id, roles);
             }
+            if (!context.Users.Any(u => u.UserName == "expert@gmail.com"))
+            {
+
+                var user = new PersonEntity
+                {
+                    FirstName = "Valdas",
+                    LastName = "Bartkus",
+                    Email = "expert@gmail.com",
+                    UserName = "expert@gmail.com"
+                };
+
+                managerPerson.Create(user, "123456");
+                string[] roles = new string[2];
+                roles[0] = "user";
+                roles[1] = "expert";              
+                managerPerson.AddToRoles(user.Id, roles);
+            }
+            if (!context.Users.Any(u => u.UserName == "user@gmail.com"))
+            {
+
+                var user = new PersonEntity
+                {
+                    FirstName = "Tomas",
+                    LastName = "Makaka",
+                    Email = "user@gmail.com",
+                    UserName = "user@gmail.com"
+                };
+
+                managerPerson.Create(user, "123456789");
+                string[] roles = new string[1];
+                roles[0] = "user";
+                managerPerson.AddToRoles(user.Id, roles);
+            }
+            #endregion
+            #region task
+            context.Tasks.AddOrUpdate(new TaskEntity
+            {
+                Name = "Anglų kalbos teksto vertimas",
+                Description = "Išversti tekstą",
+                Status=0,
+                TaskTypeId = 1,
+                Id = 1
+            });
+            context.SaveChanges();
             #endregion
         }
     }

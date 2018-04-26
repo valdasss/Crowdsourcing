@@ -82,11 +82,19 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         {
             throw new NotImplementedException();
         }
-   
 
-        public async Task<DataModel> UpdateRoleAsync(UpdateDataModel roleModel)
+        public async Task<DataForMoreDetails> GetDataForMoreDetailsBy(int id)
+        {
+            var dataEntity = await _dataRepository.GetDataWithFilesAndPersonBy(id);          
+            var person = await _personService.GetPersonById(dataEntity.Uploader.UserId);
+            return dataEntity.ToForDetailsModel(person.Name, person.LastName);
+        }
+
+        public Task<DataModel> UpdateRoleAsync(UpdateDataModel roleModel)
         {
             throw new NotImplementedException();
         }
     }
+
+    
 }

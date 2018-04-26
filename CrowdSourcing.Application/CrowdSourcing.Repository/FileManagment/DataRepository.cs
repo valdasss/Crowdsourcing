@@ -20,5 +20,9 @@ namespace CrowdSourcing.Repository.FileManagment
             _dbContext = context;
             _dbSet = Context.Set<DataEntity>();
         }
+        public async Task<DataEntity> GetDataWithFilesAndPersonBy(int dataId)
+        {
+            return await _dbSet.Include(f=>f.Files.Select(t=>t.FileType)).Include(f=>f.Uploader).Where(f => f.Id == dataId).FirstOrDefaultAsync();
+        }
     }
 }

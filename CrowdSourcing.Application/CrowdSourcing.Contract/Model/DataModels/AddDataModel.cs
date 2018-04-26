@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace CrowdSourcing.Contract.Model
+namespace CrowdSourcing.Contract.DataModels
 {
     public class AddDataModel
     {   public string UploaderId { get; set; }

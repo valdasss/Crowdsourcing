@@ -12,6 +12,7 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<DataModel> AddDataAsync(AddTaskDataModel model);
         Task<DataModel> UpdateRoleAsync(UpdateDataModel roleModel);
         Task<DataModel> GetDataBy(int id);
+        Task<DataForMoreDetails> GetDataForMoreDetailsBy(int id);
         Task DeleteDataAsync(int id);
     }
 }
