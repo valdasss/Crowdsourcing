@@ -1,4 +1,5 @@
-﻿using CrowdSourcing.Contract.Interfaces;
+﻿using CrowdSourcing.Contract.Helpers;
+using CrowdSourcing.Contract.Interfaces;
 using Ionic.Zip;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,11 @@ namespace CrowdSourcing.Application.Web.Controllers
     public class DownloadController : ApiController
     {
         private IDownloadService _downloadService;
-        public DownloadController(IDownloadService downloadService)
+        private IFileService _fileService ;
+        public DownloadController(IDownloadService downloadService,IFileService fileService)
         {
             _downloadService = downloadService;
+            _fileService = fileService;
         }
 
         [HttpGet]
@@ -29,7 +32,29 @@ namespace CrowdSourcing.Application.Web.Controllers
             var zipFile = await _downloadService.DownloadArchiveAsyncByDataId(id);            
             return ZipContentResult(zipFile);
         }
-       
+
+        [HttpGet]
+        [Route("DownloadFile/{id}")]
+        public async Task<HttpResponseMessage> DownloadFile(int id)
+        {
+            HttpResponseMessage result = null;
+            var file = await _fileService.GetFileBy(id);
+
+            if (!File.Exists(file.Url))
+            {
+                result = Request.CreateResponse(HttpStatusCode.Gone);
+            }
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new StreamContent(new FileStream(file.Url, FileMode.Open, FileAccess.Read));
+                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                result.Content.Headers.ContentDisposition.FileName = UrlParser.GetFileNameWithExtension(file.Url);
+            }
+
+            return result;
+        }
+
         protected HttpResponseMessage ZipContentResult(ZipFile zipFile)
         {
            

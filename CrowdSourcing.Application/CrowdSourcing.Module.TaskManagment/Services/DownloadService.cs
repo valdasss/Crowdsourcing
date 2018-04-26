@@ -18,17 +18,20 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         public async Task<ZipFile> DownloadArchiveAsyncByDataId(int dataId)
         {          
             var datasFiles = await _fileService.GetAllFilesAsyncBy(dataId);
-
             var filesNames = new List<string>();
             foreach (var file in datasFiles)
             {
                 filesNames.Add(file.Url);
             }
+            return formatZipFile(filesNames);
+        }
+        
+        private ZipFile formatZipFile(List<string> filesNames)
+        {         
             using (var zipFile = new ZipFile())
             {
-                zipFile.AddFiles(filesNames,false,"");
-               
-                return zipFile;              
+                zipFile.AddFiles(filesNames, false, "");
+                return zipFile;
             }
         }
 

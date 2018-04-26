@@ -19,6 +19,11 @@ namespace CrowdSourcing.Contract.Helpers
             return Path.GetFileNameWithoutExtension(pathUrl);   
            
         }
+        public static string GetFileNameWithExtension(string pathUrl)
+        {
+            return Path.GetFileName(pathUrl);
+
+        }
         public static string GetDirectoryName(string pathUrl)
         {
             return  new DirectoryInfo(pathUrl).Name;
