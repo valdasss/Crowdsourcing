@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CrowdSourcing.Repository.UserManagment
@@ -13,7 +14,7 @@ namespace CrowdSourcing.Repository.UserManagment
     public class RoleRepository : IRoleRepository
     {
         private RoleManager<IdentityRole> _roleManager;
-
+        
         public RoleRepository()
         {
             _roleManager = new RoleManager<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(new RoleStore<IdentityRole>(new CrowdSourcingContext()));
@@ -41,6 +42,7 @@ namespace CrowdSourcing.Repository.UserManagment
         {
             return await _roleManager.Roles.ToListAsync();
         }
+       
 
         public async Task<IdentityRole> UpdateRole(IdentityRole role)
         {
@@ -52,5 +54,6 @@ namespace CrowdSourcing.Repository.UserManagment
         {
             return await _roleManager.FindByNameAsync(name);
         }
+
     }
 }

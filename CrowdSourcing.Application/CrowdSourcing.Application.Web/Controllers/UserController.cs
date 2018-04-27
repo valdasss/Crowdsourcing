@@ -14,10 +14,10 @@ using System.Web.Http;
 
 namespace CrowdSourcing.Application.Web.Controllers
 {
-    public class AccountController : ApiController
+    public class UserController : ApiController
     {
         private IPersonService _personService;
-        public AccountController(IPersonService personService)
+        public UserController(IPersonService personService)
         {
             _personService = personService;
         }
@@ -44,12 +44,12 @@ namespace CrowdSourcing.Application.Web.Controllers
                 Role = identityClaims.FindFirst("MainRole").Value,
 
             };
-             return Ok(model);
+            return Ok(model);
         }
 
         [Route("User/Login")]
         [HttpPost]
-            public async Task<HttpResponseMessage> LoginUser(LoginVM model)
+        public async Task<HttpResponseMessage> LoginUser(LoginVM model)
             {
             // Invoke the "token" OWIN service to perform the login: /api/token
             // Ugly hack: I use a server-side HTTP POST because I cannot directly invoke the service (it is deeply hidden in the OAuthAuthorizationServerHandler class)
@@ -78,39 +78,12 @@ namespace CrowdSourcing.Application.Web.Controllers
               
                 
             }
-
-
-
-
-
-
-
-
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("api/data/forall")]
-        public IHttpActionResult Get()
-        {
-            return Ok("Now server time is " + DateTime.Now.ToString());
-        }
-        [Authorize]
-        [HttpGet]
-        [Route("api/data/authenticate")]
-        public IHttpActionResult GetForAuthenticate()
-        {
-            var identity = User.Identity.GetUserName();
-            return Ok("Hi " +identity);
-        }
-        [Authorize(Roles ="admin")]
-        [HttpGet]
-        [Route("api/data/authorize")]
-        public IHttpActionResult GetForAdmin()
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            var roles = identity.Claims
-                .Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => c.Value);
-            return Ok("Hi " + identity.Name+" role:" + string.Join(",",roles.ToList()));
-        }
+        //[Route("User/GetExperts")]
+        //[HttpGet]
+        //public async Task<IHttpActionResult> GetExperts()
+        //{
+        //    var experts = await _personService.GetAllExperts();
+        //    return Ok(experts);
+        //}
     }
 }

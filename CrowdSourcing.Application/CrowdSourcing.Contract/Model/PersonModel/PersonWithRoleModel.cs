@@ -1,4 +1,4 @@
-﻿namespace CrowdSourcing.Contract.Model
+﻿namespace CrowdSourcing.Contract.Model.PersonModel
 {
     public class PersonWithRoleModel
     {

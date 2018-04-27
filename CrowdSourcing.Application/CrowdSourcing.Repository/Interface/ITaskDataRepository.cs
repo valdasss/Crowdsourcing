@@ -8,5 +8,6 @@ namespace CrowdSourcing.Repository.Interface
     public interface ITaskDataRepository : IGenericRepository<TaskDataEntity>
     {
         Task<IEnumerable<TaskDataEntity>> GetDataBy(int taskId);
+        Task<IEnumerable<TaskDataEntity>> GetDataForDataReviewDropdownBy(int taskId);
     }
 }

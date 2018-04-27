@@ -40,6 +40,13 @@ namespace CrowdSourcing.Application.Web.Controllers
             var datas = await _taskDataService.GetTaskDatasForTableBy(id);
             return Ok(datas);
         }
+        [HttpGet]
+        [Route("GetForDataDropdown/{id}")]
+        public async Task<IHttpActionResult> GetDataForTaskDataDropdown(int id)
+        {
+            var datas = await _taskDataService.GetTaskDatasForDropdownSetReviewBy(id);
+            return Ok(datas);
+        }
 
     }
 }

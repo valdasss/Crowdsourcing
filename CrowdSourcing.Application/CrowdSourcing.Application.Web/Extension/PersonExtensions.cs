@@ -1,9 +1,5 @@
 ﻿using CrowdSourcing.Application.Web.ViewModels;
-using CrowdSourcing.Contract.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using CrowdSourcing.Contract.Model.PersonModel;
 
 namespace CrowdSourcing.Application.Web.Extension
 {

@@ -23,10 +23,10 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             {
                 filesNames.Add(file.Url);
             }
-            return formatZipFile(filesNames);
+            return FormatZipFile(filesNames);
         }
         
-        private ZipFile formatZipFile(List<string> filesNames)
+        private ZipFile FormatZipFile(List<string> filesNames)
         {         
             using (var zipFile = new ZipFile())
             {

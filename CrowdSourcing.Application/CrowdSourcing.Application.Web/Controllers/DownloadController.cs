@@ -48,8 +48,10 @@ namespace CrowdSourcing.Application.Web.Controllers
             {
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StreamContent(new FileStream(file.Url, FileMode.Open, FileAccess.Read));
-                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-                result.Content.Headers.ContentDisposition.FileName = UrlParser.GetFileNameWithExtension(file.Url);
+                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = UrlParser.GetFileNameWithExtension(file.Url)
+                };
             }
 
             return result;

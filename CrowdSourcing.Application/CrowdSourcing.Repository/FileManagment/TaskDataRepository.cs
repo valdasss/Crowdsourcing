@@ -27,5 +27,9 @@ namespace CrowdSourcing.Repository.FileManagment
         {
           return await _dbSet.Include(t => t.Data.Uploader).Where(t => t.TaskId == taskId).ToListAsync();
         }
+        public async Task<IEnumerable<TaskDataEntity>> GetDataForDataReviewDropdownBy(int taskId)
+        {
+            return await _dbSet.Include(t => t.Data.Uploader).Where(t => t.TaskId == taskId&& t.Data.Status==0).ToListAsync();
+        }
     }
 }

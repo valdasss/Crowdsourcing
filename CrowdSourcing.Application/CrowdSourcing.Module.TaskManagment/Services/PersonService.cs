@@ -1,13 +1,10 @@
 ﻿using CrowdSourcing.Contract.Interfaces;
-using CrowdSourcing.Contract.Model;
-using CrowdSourcing.EntityCore.Entity;
+using CrowdSourcing.Contract.Model.PersonModel;
 using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CrowdSourcing.Module.TaskManagment.Services
@@ -91,5 +88,25 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             await _personRepository.UpdatePerson(personEntity);
             return personEntity.ToModel();
         }
+
+        public async Task<IEnumerable<ExpertForDropdown>> GetAllExperts()
+        {
+            var expertRole = await _roleService.GetRoleByName("expert");
+            var experts = await _roleService.GetExperts("expert");
+            var modelList = new List<ExpertForDropdown>();
+            foreach (var expert in experts)
+            {
+                var person = await _personRepository.GetPersonById(expert.Id);
+                var model = new ExpertForDropdown()
+                {
+                    ExpertId = person.Id,
+                    ExpertName = person.FirstName,
+                    ExpertLastName = person.LastName
+                };
+                modelList.Add(model);
+            }
+            return modelList;
+        }
+
     }
 }

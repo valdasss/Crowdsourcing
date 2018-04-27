@@ -46,6 +46,25 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<ModelForDataReviewDropdown>> GetTaskDatasForDropdownSetReviewBy(int taskId)
+        {
+            var taskDatas = await _taskDataRepository.GetDataForDataReviewDropdownBy(taskId);
+            var listOfModels = new List<ModelForDataReviewDropdown>();
+            foreach (var data in taskDatas)
+            {
+                var person = await _personService.GetPersonById(data.Data.Uploader.UserId);
+                var model = new ModelForDataReviewDropdown()
+                {
+                    TaskDataId = data.Id,
+                    UploadTime = data.Data.UploadTime,
+                    UploaderLastName = person.LastName,
+                    UploaderName = person.Name
+                };
+                listOfModels.Add(model);
+            }
+            return listOfModels;
+        }
+
         public async Task<IEnumerable<TaskDataForTable>> GetTaskDatasForTableBy(int taskId)
         {
             var data = await _taskDataRepository.GetDataBy(taskId);

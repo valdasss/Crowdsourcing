@@ -3,12 +3,12 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace CrowdSourcing.EntityCore.ContextConfiguration
 {
-    public class PersonConfiguration : EntityTypeConfiguration<PersonEntity>
+    internal class PersonConfiguration : EntityTypeConfiguration<PersonEntity>
     {
         public PersonConfiguration()
         {
             ToTable("Person");
-
+           
             HasKey(p => p.Id);
 
             Property(p => p.FirstName)

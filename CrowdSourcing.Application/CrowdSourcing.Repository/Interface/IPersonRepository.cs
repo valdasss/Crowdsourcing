@@ -11,6 +11,7 @@ namespace CrowdSourcing.Repository.Interface
     {
         Task<IEnumerable<PersonEntity>> GetAllPersons();
         Task<IEnumerable<string>> GetPersonsRoles(string id);
+        Task<IEnumerable<PersonEntity>> GetPersonByRoleId(string id);
         Task<PersonEntity> GetPersonById(string id);
         Task<PersonEntity> GetPersonByEmail(string email);
         Task<PersonEntity> AddPerson(PersonEntity person,string password,string role);

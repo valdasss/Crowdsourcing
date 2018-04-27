@@ -1,12 +1,10 @@
 ﻿using CrowdSourcing.Contract.Interfaces;
-using CrowdSourcing.Contract.Model;
+using CrowdSourcing.Contract.Model.PersonModel;
 using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CrowdSourcing.Module.TaskManagment.Services
@@ -31,10 +29,18 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             await _roleRepository.DeleteRoleByStringID(id);
         }
 
+       
         public async Task<IEnumerable<RoleModel>> GetAllRolesAsync()
         {
            var roles= await _roleRepository.GetAllRoles();
             return roles.Select(r => r.ToModel());
+        }
+
+        public async Task<IEnumerable<PersonModel>> GetExperts(string name)
+        {
+            var users = await _roleRepository.GetRoleByName(name);
+
+            return new List<PersonModel>();
         }
 
         public async Task<RoleModel> GetRoleBy(string roleId)
@@ -48,6 +54,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var role = await _roleRepository.GetRoleByName(name);
             return role.ToModel();
         }
+        
 
         public async Task<RoleModel> UpdateRoleAsync(RoleModel roleModel)
         {

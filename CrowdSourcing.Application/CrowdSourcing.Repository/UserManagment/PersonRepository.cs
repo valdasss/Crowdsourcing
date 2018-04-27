@@ -15,16 +15,16 @@ namespace CrowdSourcing.Repository.UserManagment
     public class PersonRepository : IPersonRepository
     {
         private UserStore<PersonEntity> _userStore; 
-        private UserManager<PersonEntity> _manager;
+        private UserManager<PersonEntity> _personManager;
         public PersonRepository()
         {
             _userStore = new UserStore<PersonEntity>(new CrowdSourcingContext());
-            _manager = new UserManager<PersonEntity>(_userStore);
+            _personManager = new UserManager<PersonEntity>(_userStore);
         }
 
         public async Task<PersonEntity> AddPerson(PersonEntity person,string password,string role)
         {
-            var result =await _manager.CreateAsync(person,password);
+            var result =await _personManager.CreateAsync(person,password);
             if (result.Succeeded)
             {
                 if (role == "expert")
@@ -32,45 +32,51 @@ namespace CrowdSourcing.Repository.UserManagment
                     var roles = new string[2];
                     roles[0] = role;
                     roles[1] = "user";
-                    await _manager.AddToRolesAsync(person.Id, roles);
+                    await _personManager.AddToRolesAsync(person.Id, roles);
                 }
-                await _manager.AddToRolesAsync(person.Id, role);
+                await _personManager.AddToRolesAsync(person.Id, role);
             }           
             return person;
         }
 
         public async Task DeletePerson(string id)
         {
-            var person = await _manager.FindByIdAsync(id);
-            await _manager.DeleteAsync(person);
+            var person = await _personManager.FindByIdAsync(id);
+            await _personManager.DeleteAsync(person);
 
         }
 
         public async Task<IEnumerable<PersonEntity>> GetAllPersons()
         {
-            return await _manager.Users.ToListAsync();
+            return await _personManager.Users.ToListAsync();
         }
         public async Task<IEnumerable<string>> GetPersonsRoles(string id)
         {
-            return await _manager.GetRolesAsync(id);
+            return await _personManager.GetRolesAsync(id);
+        }
+        public async Task<IEnumerable<PersonEntity>> GetPersonByRoleId(string id)
+        {
+            var result= await _personManager.Users.Include(x=>x.Roles).Where(x => x.Roles.Select(y => y.RoleId).Contains(id)).ToListAsync();
+            return result;
         }
 
         public async Task<PersonEntity> GetPersonById(string id)
         {
-            var person = await _manager.FindByIdAsync(id);
+            var person = await _personManager.FindByIdAsync(id);
             return person;
         }
         public async Task<PersonEntity> GetPersonByEmail (string email)
         {
-            var person = await _manager.FindByEmailAsync(email);
+            var person = await _personManager.FindByEmailAsync(email);
             return person;
         }
 
 
         public async Task<PersonEntity> UpdatePerson(PersonEntity person)
         {
-            await _manager.UpdateAsync(person);
+            await _personManager.UpdateAsync(person);
             return person;
         }
+       
     }
 }
