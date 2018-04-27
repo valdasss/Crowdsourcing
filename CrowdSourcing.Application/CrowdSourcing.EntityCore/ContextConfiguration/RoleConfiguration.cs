@@ -13,6 +13,8 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
 
             Property(r => r.Name)
                 .IsRequired();
+
+            HasMany(p => p.Users).WithRequired().HasForeignKey(p => p.RoleId);
         }
     }
 }

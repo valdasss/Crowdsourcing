@@ -78,12 +78,12 @@ namespace CrowdSourcing.Application.Web.Controllers
               
                 
             }
-        //[Route("User/GetExperts")]
-        //[HttpGet]
-        //public async Task<IHttpActionResult> GetExperts()
-        //{
-        //    var experts = await _personService.GetAllExperts();
-        //    return Ok(experts);
-        //}
+        [Route("User/GetExperts")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetExperts()
+        {
+            var experts = await _personService.GetAllExperts();
+            return Ok(experts);
+        }
     }
 }

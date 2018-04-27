@@ -92,7 +92,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         public async Task<IEnumerable<ExpertForDropdown>> GetAllExperts()
         {
             var expertRole = await _roleService.GetRoleByName("expert");
-            var experts = await _roleService.GetExperts("expert");
+            var experts = await _personRepository.GetPersonByRoleId(expertRole.Id);
             var modelList = new List<ExpertForDropdown>();
             foreach (var expert in experts)
             {

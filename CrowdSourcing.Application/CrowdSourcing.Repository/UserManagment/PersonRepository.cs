@@ -56,7 +56,7 @@ namespace CrowdSourcing.Repository.UserManagment
         }
         public async Task<IEnumerable<PersonEntity>> GetPersonByRoleId(string id)
         {
-            var result= await _personManager.Users.Include(x=>x.Roles).Where(x => x.Roles.Select(y => y.RoleId).Contains(id)).ToListAsync();
+            var result = await _personManager.Users.Include(x => x.Roles).Where(x => x.Roles.Select(y => y.RoleId).Contains(id)).ToListAsync();
             return result;
         }
 

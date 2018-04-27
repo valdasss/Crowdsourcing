@@ -105,47 +105,18 @@ namespace CrowdSourcing.EntityCore.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                         RoleId = c.String(nullable: false, maxLength: 128),
                         Discriminator = c.String(nullable: false, maxLength: 128),
-                        IdentityRole_Id = c.String(maxLength: 128),
-                        PersonEntity_Id = c.String(maxLength: 128),
+                        Person_Id = c.String(maxLength: 128),
+                        Role_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.Role", t => t.IdentityRole_Id)
-                .ForeignKey("dbo.Person", t => t.PersonEntity_Id)
-                .Index(t => t.IdentityRole_Id)
-                .Index(t => t.PersonEntity_Id);
-            
-            CreateTable(
-                "dbo.Task",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                        TaskTypeId = c.Int(nullable: false),
-                        Description = c.String(),
-                        Status = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.TaskType", t => t.TaskTypeId, cascadeDelete: true)
-                .Index(t => t.TaskTypeId);
-            
-            CreateTable(
-                "dbo.TaskType",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Role",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id);
+                .ForeignKey("dbo.Person", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Person", t => t.Person_Id)
+                .ForeignKey("dbo.Role", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.Role", t => t.Role_Id)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId)
+                .Index(t => t.Person_Id)
+                .Index(t => t.Role_Id);
             
             CreateTable(
                 "dbo.Person",
@@ -195,14 +166,43 @@ namespace CrowdSourcing.EntityCore.Migrations
                 .ForeignKey("dbo.Person", t => t.PersonEntity_Id)
                 .Index(t => t.PersonEntity_Id);
             
+            CreateTable(
+                "dbo.Role",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Task",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        TaskTypeId = c.Int(nullable: false),
+                        Description = c.String(),
+                        Status = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.TaskType", t => t.TaskTypeId, cascadeDelete: true)
+                .Index(t => t.TaskTypeId);
+            
+            CreateTable(
+                "dbo.TaskType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.PersonRole", "PersonEntity_Id", "dbo.Person");
-            DropForeignKey("dbo.Login", "PersonEntity_Id", "dbo.Person");
-            DropForeignKey("dbo.IdentityUserClaims", "PersonEntity_Id", "dbo.Person");
-            DropForeignKey("dbo.PersonRole", "IdentityRole_Id", "dbo.Role");
             DropForeignKey("dbo.Data", new[] { "PersonId", "PersonRoleId" }, "dbo.PersonRole");
             DropForeignKey("dbo.TaskData", "TaskId", "dbo.Task");
             DropForeignKey("dbo.Task", "TaskTypeId", "dbo.TaskType");
@@ -211,16 +211,24 @@ namespace CrowdSourcing.EntityCore.Migrations
             DropForeignKey("dbo.Solution", new[] { "ExpertId", "ExpertRoleId" }, "dbo.PersonRole");
             DropForeignKey("dbo.Solution", new[] { "AdminId", "AdminRoleId" }, "dbo.PersonRole");
             DropForeignKey("dbo.Solution", new[] { "PersonRoleEntity_UserId1", "PersonRoleEntity_RoleId1" }, "dbo.PersonRole");
+            DropForeignKey("dbo.PersonRole", "Role_Id", "dbo.Role");
+            DropForeignKey("dbo.PersonRole", "RoleId", "dbo.Role");
             DropForeignKey("dbo.Solution", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" }, "dbo.PersonRole");
+            DropForeignKey("dbo.PersonRole", "Person_Id", "dbo.Person");
+            DropForeignKey("dbo.PersonRole", "UserId", "dbo.Person");
+            DropForeignKey("dbo.Login", "PersonEntity_Id", "dbo.Person");
+            DropForeignKey("dbo.IdentityUserClaims", "PersonEntity_Id", "dbo.Person");
             DropForeignKey("dbo.Data", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" }, "dbo.PersonRole");
             DropForeignKey("dbo.TaskData", "DataId", "dbo.Data");
             DropForeignKey("dbo.File", "FileTypeId", "dbo.FileType");
             DropForeignKey("dbo.File", "DataId", "dbo.Data");
+            DropIndex("dbo.Task", new[] { "TaskTypeId" });
             DropIndex("dbo.Login", new[] { "PersonEntity_Id" });
             DropIndex("dbo.IdentityUserClaims", new[] { "PersonEntity_Id" });
-            DropIndex("dbo.Task", new[] { "TaskTypeId" });
-            DropIndex("dbo.PersonRole", new[] { "PersonEntity_Id" });
-            DropIndex("dbo.PersonRole", new[] { "IdentityRole_Id" });
+            DropIndex("dbo.PersonRole", new[] { "Role_Id" });
+            DropIndex("dbo.PersonRole", new[] { "Person_Id" });
+            DropIndex("dbo.PersonRole", new[] { "RoleId" });
+            DropIndex("dbo.PersonRole", new[] { "UserId" });
             DropIndex("dbo.Solution", new[] { "PersonRoleEntity_UserId1", "PersonRoleEntity_RoleId1" });
             DropIndex("dbo.Solution", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" });
             DropIndex("dbo.Solution", new[] { "TaskDataId" });
@@ -233,12 +241,12 @@ namespace CrowdSourcing.EntityCore.Migrations
             DropIndex("dbo.File", new[] { "FileTypeId" });
             DropIndex("dbo.Data", new[] { "PersonRoleEntity_UserId", "PersonRoleEntity_RoleId" });
             DropIndex("dbo.Data", new[] { "PersonId", "PersonRoleId" });
+            DropTable("dbo.TaskType");
+            DropTable("dbo.Task");
+            DropTable("dbo.Role");
             DropTable("dbo.Login");
             DropTable("dbo.IdentityUserClaims");
             DropTable("dbo.Person");
-            DropTable("dbo.Role");
-            DropTable("dbo.TaskType");
-            DropTable("dbo.Task");
             DropTable("dbo.PersonRole");
             DropTable("dbo.Solution");
             DropTable("dbo.TaskData");
