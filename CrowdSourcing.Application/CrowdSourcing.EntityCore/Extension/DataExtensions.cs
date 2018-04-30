@@ -29,7 +29,7 @@ namespace CrowdSourcing.EntityCore.Extension
                 LastName = lastName,
                 Status = entity.Status,
                 UploadDate = entity.UploadTime,
-                
+                UploaderComment = entity.Description
                 
             };
             var list = new List<FileForDetailsModel>();

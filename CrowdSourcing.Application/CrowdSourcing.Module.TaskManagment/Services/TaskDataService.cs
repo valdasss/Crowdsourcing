@@ -77,7 +77,22 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return newList;
         }
 
-        public  Task<TaskDataModel> UpdateTaskDataAsync(TaskDataModel roleModel)
+        public async Task<TaskDataWithTaskModel> GetTaskDataWithTask(int taskDataId)
+        {
+            var taskData = await _taskDataRepository.GetTaskDatawithTaskBy(taskDataId);
+            return taskData.TowithTaskModel();
+            
+        }
+
+        public async Task<TaskDataModel> SetFinishDate(int taskDataId)
+        {
+            var taskData = await _taskDataRepository.GetByIdAsync(taskDataId);
+            taskData.FinishDate = DateTime.UtcNow;
+            var result = await _taskDataRepository.UpdateAsync(taskData);
+            return result.ToModel();
+        }
+
+        public  Task<TaskDataModel> UpdateTaskDataAsync(TaskDataModel model)
         {
             throw new NotImplementedException();
         }

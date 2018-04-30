@@ -68,6 +68,21 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return result.ToModel();
         }
 
+        public async Task<DataModel> ChangeDatasStatusToAssignByTaskDataId(int taskDataId)
+        {
+            var data = await _dataRepository.GetDataWithFilesAndPersonByTaskDataId(taskDataId);
+            data.Status = 1;
+            var result = await _dataRepository.UpdateAsync(data);
+            return result.ToModel();
+        }
+        public async Task<DataModel> ChangeDatasStatusByTaskDataId(int taskDataId,int statusId)
+        {
+            var data = await _dataRepository.GetDataWithFilesAndPersonByTaskDataId(taskDataId);
+            data.Status = statusId;
+            var result = await _dataRepository.UpdateAsync(data);
+            return result.ToModel();
+        }
+
         public  Task DeleteDataAsync(int id)
         {
             throw new NotImplementedException();
@@ -89,11 +104,14 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var person = await _personService.GetPersonById(dataEntity.Uploader.UserId);
             return dataEntity.ToForDetailsModel(person.Name, person.LastName);
         }
-
-        public Task<DataModel> UpdateRoleAsync(UpdateDataModel roleModel)
+        public async Task<DataForMoreDetails> GetDataForMoreDetailsByTaskDataId(int TaskDataid)
         {
-            throw new NotImplementedException();
+            var dataEntity = await _dataRepository.GetDataWithFilesAndPersonByTaskDataId(TaskDataid);
+            var person = await _personService.GetPersonById(dataEntity.Uploader.UserId);
+            return dataEntity.ToForDetailsModel(person.Name, person.LastName);
         }
+
+        
     }
 
     

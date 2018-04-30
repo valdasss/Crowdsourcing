@@ -10,9 +10,10 @@ namespace CrowdSourcing.Contract.Interfaces
     {
         Task<IEnumerable<DataModel>> GetAllDatasAsync();
         Task<DataModel> AddDataAsync(AddTaskDataModel model);
-        Task<DataModel> UpdateRoleAsync(UpdateDataModel roleModel);
+        Task<DataModel> ChangeDatasStatusByTaskDataId(int taskDataId, int statusId);
         Task<DataModel> GetDataBy(int id);
         Task<DataForMoreDetails> GetDataForMoreDetailsBy(int id);
         Task DeleteDataAsync(int id);
+        Task<DataForMoreDetails> GetDataForMoreDetailsByTaskDataId(int TaskDataid);
     }
 }

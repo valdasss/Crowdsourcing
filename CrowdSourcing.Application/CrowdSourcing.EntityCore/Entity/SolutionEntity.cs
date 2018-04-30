@@ -16,7 +16,7 @@ namespace CrowdSourcing.EntityCore.Entity
         public int Status { get; set; }
         public DateTime SolutionDate { get; set; }
         public string Comment { get; set; }
-        
+        public int Rating { get; set; }
         public IdentityUserRole Administrator { get; set; }
         public IdentityUserRole Expert { get; set; }
         public SolutionEntity Solution { get; set; }

@@ -85,12 +85,17 @@
     <Compile Include="Extension\FileTypeExtensions.cs" />
     <Compile Include="Extension\PersonExtensions.cs" />
     <Compile Include="Extension\RoleExtensions.cs" />
+    <Compile Include="Extension\SolutionExtensions.cs" />
     <Compile Include="Extension\TaskDataExtensions.cs" />
     <Compile Include="Extension\TaskExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
     <Compile Include="Migrations\201804270902061_Init.cs" />
     <Compile Include="Migrations\201804270902061_Init.Designer.cs">
       <DependentUpon>201804270902061_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804301420139_newDB.cs" />
+    <Compile Include="Migrations\201804301420139_newDB.Designer.cs">
+      <DependentUpon>201804301420139_newDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +113,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804270902061_Init.resx">
       <DependentUpon>201804270902061_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301420139_newDB.resx">
+      <DependentUpon>201804301420139_newDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

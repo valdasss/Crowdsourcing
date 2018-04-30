@@ -4,6 +4,7 @@ using CrowdSourcing.EntityCore.Context;
 using CrowdSourcing.Module.TaskManagment.Services;
 using CrowdSourcing.Repository.FileManagment;
 using CrowdSourcing.Repository.Interface;
+using CrowdSourcing.Repository.SolutionManagment;
 using CrowdSourcing.Repository.TaskManagment;
 using CrowdSourcing.Repository.UserManagment;
 using System;
@@ -64,6 +65,8 @@ namespace CrowdSourcing.Application.Web
             container.RegisterType<ITaskDataRepository, TaskDataRepository>();
             container.RegisterType<ITaskDataService, TaskDataService>();
             container.RegisterType<IDownloadService, DownloadService>();
+            container.RegisterType<ISolutionRepository, SolutionRepository>();
+            container.RegisterType<ISolutionService, SolutionService>();
 
 
 

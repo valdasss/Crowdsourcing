@@ -41,6 +41,9 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             Property(s => s.SolutionDate)
                 .IsOptional();
 
+            Property(s => s.SolutionDate)
+               .IsOptional();
+
             HasRequired(s => s.TaskData)
                 .WithMany(td => td.Solutions)
                 .WillCascadeOnDelete(false);

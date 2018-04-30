@@ -35,5 +35,16 @@ namespace CrowdSourcing.EntityCore.Extension
             };
             return model;
         }
+        public static TaskDataWithTaskModel TowithTaskModel(this TaskDataEntity entity)
+        {
+            var model = new TaskDataWithTaskModel()
+            {
+                Name=entity.Task.Name,
+                Description=entity.Task.Description,
+                TaskType = entity.Task.TaskType.Name,
+                FinishDate = entity.FinishDate
+            };
+            return model;
+        }
     }
 }
