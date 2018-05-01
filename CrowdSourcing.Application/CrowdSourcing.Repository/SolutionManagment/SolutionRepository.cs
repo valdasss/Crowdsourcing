@@ -38,5 +38,29 @@ namespace CrowdSourcing.Repository.SolutionManagment
             var solution = await _dbSet.Where(s => s.ExpertId == expertId).ToListAsync();
             return solution;
         }
+
+        public async Task<IEnumerable<SolutionEntity>> GetAssingedSolutionsByExpertId(string expertId)
+        {
+            var solution = await _dbSet.Where(s => s.ExpertId == expertId && s.Status==1).ToListAsync();
+            return solution;
+        }
+
+        public async Task<IEnumerable<SolutionEntity>> GetDoneSolutionsByExpertId(string expertId)
+        {
+            var solution = await _dbSet.Where(s => s.ExpertId == expertId && (s.Status == 2 ||s.Status==3)).ToListAsync();
+            return solution;
+        }
+
+        public async Task<IEnumerable<SolutionEntity>> GetAssignSolutionsByTaskId(int taskId)
+        {
+            var solution = await _dbSet.Include(s => s.TaskData.Task).Where(s => s.TaskData.Task.Id == taskId&&s.Status==1).ToListAsync();
+            return solution;
+        }
+
+        public async Task<IEnumerable<SolutionEntity>> GetDoneSolutionsByTaskId(int taskId)
+        {
+            var solution = await _dbSet.Include(s => s.TaskData.Task).Where(s => s.TaskData.Task.Id == taskId&&(s.Status==2||s.Status==3)).ToListAsync();
+            return solution;
+        }
     }
 }

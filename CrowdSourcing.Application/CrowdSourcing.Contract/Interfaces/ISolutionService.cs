@@ -13,8 +13,10 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<AddSolutionModel> UpdateSolutionsStatus(int solutionId,int statusId);
         Task<SolutionInfoModel> GetDetailedSolutionInformation(int solutionId);
         Task<DetailedSolutionModelForExpert> GetDetailedSolutionInformationForExpert(int solutionId);
-        Task<IEnumerable<SolutionShortInfoModel>> GetSolutionsByTaskId(int taskId);
-        Task<IEnumerable<SolutionModelForExpertSolutionList>> GetSolutionsByExpertId(string expertId);
+        Task<IEnumerable<SolutionShortInfoModel>> GetAssignSolutionsByTaskId(int taskId);
+        Task<IEnumerable<SolutionShortInfoModel>> GetDoneSolutionsByTaskId(int taskId);
+        Task<IEnumerable<SolutionModelForExpertSolutionList>> GetAssignedSolutionsByExpertId(string expertId);
+        Task<IEnumerable<SolutionModelForExpertSolutionList>> GetDoneSolutionsByExpertId(string expertId);
     }
 }
 

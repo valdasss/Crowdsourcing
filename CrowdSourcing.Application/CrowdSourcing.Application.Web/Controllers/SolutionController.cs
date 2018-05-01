@@ -40,19 +40,36 @@ namespace CrowdSourcing.Application.Web.Controllers
             return Ok(solution);
         }
         [HttpGet]
-        [Route("GetTaskSolutions/{id}")]
-        public async Task<IHttpActionResult> GetTasksSolutions(int id)
+        [Route("GetAssignTaskSolutions/{id}")]
+        public async Task<IHttpActionResult> GetAssignTasksSolutions(int id)
         {
-            var solution = await _solutionService.GetSolutionsByTaskId(id);
+            var solution = await _solutionService.GetAssignSolutionsByTaskId(id);
             return Ok(solution);
         }
         [HttpGet]
-        [Route("GetExpertSolutions")]
-        public async Task<IHttpActionResult> GetExertSolutions()
+        [Route("GetDoneTaskSolutions/{id}")]
+        public async Task<IHttpActionResult> GetDoneTasksSolutions(int id)
+        {
+            var solution = await _solutionService.GetDoneSolutionsByTaskId(id);
+            return Ok(solution);
+        }
+
+        [HttpGet]
+        [Route("GetAssignedExpertSolutions")]
+        public async Task<IHttpActionResult> GetAssignedExertSolutions()
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
             var expertId = identityClaims.FindFirst("Id").Value;
-            var solution = await _solutionService.GetSolutionsByExpertId(expertId);
+            var solution = await _solutionService.GetAssignedSolutionsByExpertId(expertId);
+            return Ok(solution);
+        }
+        [HttpGet]
+        [Route("GetDoneExpertSolutions")]
+        public async Task<IHttpActionResult> GetDoneExertSolutions()
+        {
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            var expertId = identityClaims.FindFirst("Id").Value;
+            var solution = await _solutionService.GetDoneSolutionsByExpertId(expertId);
             return Ok(solution);
         }
         [HttpPut]
