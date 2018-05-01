@@ -145,10 +145,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         }
 
-        public async Task<AddSolutionModel> UpdateSolutionsStatus(int solutionId,int statusId)
+        public async Task<AddSolutionModel> UpdateSolutionsStatus(int solutionId,int statusId,string comment)
         {
             var solution = await _solutionRepository.GetByIdAsync(solutionId);
             solution.Status = statusId;
+            solution.Comment = comment;
             var result = await _solutionRepository.UpdateAsync(solution);
             await _dataService.ChangeDatasStatusByTaskDataId(solution.TaskDataId, statusId);
             await _taskDataService.SetFinishDate(solution.TaskDataId);
@@ -213,6 +214,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return allExperts;
         }
 
+       
 
 
         public async Task<double> CountExpertRating(string expertId)
@@ -224,6 +226,26 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 return solutions.Sum(s => s.Rating) / amount;
             }
             return 0;
+        }
+
+        public async  Task<IEnumerable<SolutionModelForDoubleCheck>> GetLatestSolutionsForDoubleCheck(int taskId)
+        {
+            var latestSolutions = await _solutionRepository.GetLatestSolutionsByTaskId(taskId);
+            var newList = new List<SolutionModelForDoubleCheck>();
+            foreach (var solution in latestSolutions)
+            {
+                var expert = await _personService.GetPersonById(solution.ExpertId);
+                var taskData = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
+                var solutionModel = new SolutionModelForDoubleCheck()
+                {
+                    SolutionId = solution.Id,
+                    ExpertLastName = expert.LastName,
+                    ExpertName = expert.Name,
+                    LatestUpdateDate = taskData.FinishDate
+                };
+                newList.Add(solutionModel);
+            }
+            return newList;
         }
     }
 }

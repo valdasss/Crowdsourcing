@@ -53,6 +53,13 @@ namespace CrowdSourcing.Application.Web.Controllers
             var solution = await _solutionService.GetDoneSolutionsByTaskId(id);
             return Ok(solution);
         }
+        [HttpGet]
+        [Route("GetLatestSolutionsForDoubleCheck/{id}")]
+        public async Task<IHttpActionResult> GetLatestSolutionsForDoubleCheck(int id)
+        {
+            var solutions = await _solutionService.GetLatestSolutionsForDoubleCheck(id);
+            return Ok(solutions);
+        }
 
         [HttpGet]
         [Route("GetAssignedExpertSolutions")]
@@ -76,7 +83,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         [Route("ChangeSolutionStatus")]
         public async Task<IHttpActionResult> ChangeSolutionStatus(ChangeSolutionStatusVM statusVM)
         {
-            var solution = await _solutionService.UpdateSolutionsStatus(statusVM.SolutionId,statusVM.StatusId);
+            var solution = await _solutionService.UpdateSolutionsStatus(statusVM.SolutionId,statusVM.StatusId,statusVM.Comment);
             return Ok(solution);
         }
     }

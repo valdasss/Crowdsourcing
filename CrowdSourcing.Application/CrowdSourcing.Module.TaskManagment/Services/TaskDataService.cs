@@ -87,7 +87,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         public async Task<TaskDataModel> SetFinishDate(int taskDataId)
         {
             var taskData = await _taskDataRepository.GetByIdAsync(taskDataId);
-            taskData.FinishDate = DateTime.UtcNow;
+            taskData.FinishDate = DateTime.Now;
             var result = await _taskDataRepository.UpdateAsync(taskData);
             return result.ToModel();
         }

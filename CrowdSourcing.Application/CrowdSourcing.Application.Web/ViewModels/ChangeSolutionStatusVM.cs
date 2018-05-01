@@ -9,5 +9,6 @@ namespace CrowdSourcing.Application.Web.ViewModels
     {
         public int SolutionId { get; set; }
         public int StatusId { get; set; }
+        public string Comment { get; set; }
     }
 }

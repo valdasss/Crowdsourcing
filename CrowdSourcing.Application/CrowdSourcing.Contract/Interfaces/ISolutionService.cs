@@ -11,7 +11,7 @@ namespace CrowdSourcing.Contract.Interfaces
     public interface ISolutionService
     {
         Task<AddSolutionModel> AddSolution(string adminId,string expertId,int taskDataId);
-        Task<AddSolutionModel> UpdateSolutionsStatus(int solutionId,int statusId);
+        Task<AddSolutionModel> UpdateSolutionsStatus(int solutionId, int statusId, string comment);
         Task<SolutionInfoModel> GetDetailedSolutionInformation(int solutionId);
         Task<DetailedSolutionModelForExpert> GetDetailedSolutionInformationForExpert(int solutionId);
         Task<IEnumerable<SolutionShortInfoModel>> GetAssignSolutionsByTaskId(int taskId);
@@ -20,6 +20,7 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<IEnumerable<SolutionModelForExpertSolutionList>> GetDoneSolutionsByExpertId(string expertId);
         Task<double> CountExpertRating(string expertId);
         Task<IEnumerable<ExpertForDropdown>> GetAllExpertsWithRating();
+        Task<IEnumerable<SolutionModelForDoubleCheck>> GetLatestSolutionsForDoubleCheck(int taskId);
     }
 }
 
