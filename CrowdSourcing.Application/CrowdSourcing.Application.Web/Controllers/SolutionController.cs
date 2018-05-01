@@ -18,11 +18,20 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IHttpActionResult> AddTask(AddSolutionModelVM model)
+        public async Task<IHttpActionResult> AddSolution(AddSolutionModelVM model)
         {          
             var identityClaims = (ClaimsIdentity)User.Identity;
             var adminId = identityClaims.FindFirst("Id").Value;
             var solution = await _solutionService.AddSolution(adminId,model.ExpertId,model.TaskDataId);
+            return Ok(solution);
+        }
+        [HttpPost]
+        [Route("AddDoubleCheck")]
+        public async Task<IHttpActionResult> AddSolutionForDoubleCheck(AddSolutionForDoubleCheckVM model)
+        {
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            var adminId = identityClaims.FindFirst("Id").Value;
+            var solution = await _solutionService.AddSolution(adminId, model.ExpertId, model.SolutionId);
             return Ok(solution);
         }
         [HttpGet]

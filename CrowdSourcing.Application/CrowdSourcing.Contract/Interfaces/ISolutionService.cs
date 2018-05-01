@@ -11,6 +11,7 @@ namespace CrowdSourcing.Contract.Interfaces
     public interface ISolutionService
     {
         Task<AddSolutionModel> AddSolution(string adminId,string expertId,int taskDataId);
+        Task<AddSolutionModel> AddSolutionForDoubleCheck(string adminId, string expertId, int solutionId)
         Task<AddSolutionModel> UpdateSolutionsStatus(int solutionId, int statusId, string comment);
         Task<SolutionInfoModel> GetDetailedSolutionInformation(int solutionId);
         Task<DetailedSolutionModelForExpert> GetDetailedSolutionInformationForExpert(int solutionId);

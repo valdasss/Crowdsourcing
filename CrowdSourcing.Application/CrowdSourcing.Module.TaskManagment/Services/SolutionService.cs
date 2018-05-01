@@ -50,6 +50,26 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             await _dataService.ChangeDatasStatusByTaskDataId(result.TaskDataId,1);
             return result.ToAddModel();
         }
+        public async Task<AddSolutionModel> AddSolutionForDoubleCheck(string adminId, string expertId, int solutionId)
+        {
+            var adminRole = await _roleService.GetRoleByName("admin");
+            var expertRole = await _roleService.GetRoleByName("expert");
+            var solution = await _solutionRepository.GetByIdAsync(solutionId);
+            var solutionEntity = new SolutionEntity()
+            {
+                AdminId = adminId,
+                AdminRoleId = adminRole.Id,
+                ExpertId = expertId,
+                ExpertRoleId = expertRole.Id,
+                TaskDataId = solution.TaskDataId,
+                Status = 1,
+                SolutionDate = DateTime.Now,
+                SolutionReviewId= solution.Id
+            };
+            var result = await _solutionRepository.AddAsync(solutionEntity);
+            await _dataService.ChangeDatasStatusByTaskDataId(result.TaskDataId, 1);
+            return result.ToAddModel();
+        }
 
         public async Task<SolutionInfoModel> GetDetailedSolutionInformation(int solutionId)
         {
