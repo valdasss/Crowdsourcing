@@ -79,6 +79,7 @@ namespace CrowdSourcing.EntityCore.Migrations
                         Status = c.Int(nullable: false),
                         SolutionDate = c.DateTime(),
                         Comment = c.String(),
+                        Rating = c.Int(nullable: false),
                         PersonRoleEntity_UserId = c.String(maxLength: 128),
                         PersonRoleEntity_RoleId = c.String(maxLength: 128),
                         PersonRoleEntity_UserId1 = c.String(maxLength: 128),

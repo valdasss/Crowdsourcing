@@ -1,4 +1,5 @@
 ﻿using CrowdSourcing.Contract.Interfaces;
+using CrowdSourcing.Contract.Model.PersonModel;
 using CrowdSourcing.Contract.Model.SolutionModels;
 using CrowdSourcing.EntityCore.Entity;
 using CrowdSourcing.EntityCore.Extension;
@@ -65,7 +66,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 ExpertsComment = solution.Comment,
                 Status = solution.Status,
                 UploadersComment = taskData.UploaderComment,
-                Files = taskData.Files              
+                Files = taskData.Files,
+                DataId = taskData.DataId
             };
             return result;
 
@@ -86,6 +88,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 ExpertsComment = solution.Comment,
                 Status = solution.Status,
                 UploadersComment = taskData.UploaderComment,
+                DataId =taskData.DataId,
                 Files = taskData.Files,
                 TaskName = taskDataWithTask.Name,
                 TaskDescription = taskDataWithTask.Description
@@ -198,6 +201,29 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             }
             return list;
 
+        }
+        public async Task<IEnumerable<ExpertForDropdown>> GetAllExpertsWithRating()
+        {
+            var allExperts = await _personService.GetAllExperts();
+            foreach (var expert in allExperts)
+            {
+                var rating = await CountExpertRating(expert.ExpertId);
+                expert.Rating = rating;
+            }
+            return allExperts;
+        }
+
+
+
+        public async Task<double> CountExpertRating(string expertId)
+        {
+            var solutions = await _solutionRepository.GetSolutionsWithRatingByExpertId(expertId);
+            var amount = solutions.Count();
+            if (amount > 0)
+            {
+                return solutions.Sum(s => s.Rating) / amount;
+            }
+            return 0;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace CrowdSourcing.Contract.Model.DataModels
 {
     public class DataForMoreDetails
     {
+        public int DataId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Status { get; set; }

@@ -17,9 +17,11 @@ namespace CrowdSourcing.Application.Web.Controllers
     public class UserController : ApiController
     {
         private IPersonService _personService;
-        public UserController(IPersonService personService)
+        private ISolutionService _solutionService;
+        public UserController(IPersonService personService,ISolutionService solutionService)
         {
             _personService = personService;
+            _solutionService = solutionService;
         }
         [Route("User/Register")]
         [HttpPost]
@@ -82,7 +84,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetExperts()
         {
-            var experts = await _personService.GetAllExperts();
+            var experts = await _solutionService.GetAllExpertsWithRating();
             return Ok(experts);
         }
     }

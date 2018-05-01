@@ -1,4 +1,5 @@
-﻿using CrowdSourcing.Contract.Model.SolutionModels;
+﻿using CrowdSourcing.Contract.Model.PersonModel;
+using CrowdSourcing.Contract.Model.SolutionModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<IEnumerable<SolutionShortInfoModel>> GetDoneSolutionsByTaskId(int taskId);
         Task<IEnumerable<SolutionModelForExpertSolutionList>> GetAssignedSolutionsByExpertId(string expertId);
         Task<IEnumerable<SolutionModelForExpertSolutionList>> GetDoneSolutionsByExpertId(string expertId);
+        Task<double> CountExpertRating(string expertId);
+        Task<IEnumerable<ExpertForDropdown>> GetAllExpertsWithRating();
     }
 }
 

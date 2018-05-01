@@ -25,6 +25,7 @@ namespace CrowdSourcing.EntityCore.Extension
         {
             var model = new DataForMoreDetails()
             {
+                DataId = entity.Id,
                 FirstName = firstName,
                 LastName = lastName,
                 Status = entity.Status,

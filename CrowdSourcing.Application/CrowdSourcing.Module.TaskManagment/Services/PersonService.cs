@@ -11,13 +11,15 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 {
     public class PersonService : IPersonService
     {
-
         private IPersonRepository _personRepository;
         private IRoleService _roleService;
+       
+
         public PersonService(IPersonRepository personRepository,IRoleService roleService)
         {
             _personRepository = personRepository;
             _roleService = roleService;
+
         }
 
         public async Task<PersonModel> AddPersonAsync(PersonModel personModel,string password,string role)
@@ -96,12 +98,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var modelList = new List<ExpertForDropdown>();
             foreach (var expert in experts)
             {
-                var person = await _personRepository.GetPersonById(expert.Id);
                 var model = new ExpertForDropdown()
                 {
-                    ExpertId = person.Id,
-                    ExpertName = person.FirstName,
-                    ExpertLastName = person.LastName
+                    ExpertId = expert.Id,
+                    ExpertName = expert.FirstName,
+                    ExpertLastName = expert.LastName
                 };
                 modelList.Add(model);
             }

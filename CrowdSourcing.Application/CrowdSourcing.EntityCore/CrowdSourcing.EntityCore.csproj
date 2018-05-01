@@ -89,13 +89,9 @@
     <Compile Include="Extension\TaskDataExtensions.cs" />
     <Compile Include="Extension\TaskExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
-    <Compile Include="Migrations\201804270902061_Init.cs" />
-    <Compile Include="Migrations\201804270902061_Init.Designer.cs">
-      <DependentUpon>201804270902061_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804301420139_newDB.cs" />
-    <Compile Include="Migrations\201804301420139_newDB.Designer.cs">
-      <DependentUpon>201804301420139_newDB.cs</DependentUpon>
+    <Compile Include="Migrations\201805011013221_Init.cs" />
+    <Compile Include="Migrations\201805011013221_Init.Designer.cs">
+      <DependentUpon>201805011013221_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,11 +107,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804270902061_Init.resx">
-      <DependentUpon>201804270902061_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804301420139_newDB.resx">
-      <DependentUpon>201804301420139_newDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805011013221_Init.resx">
+      <DependentUpon>201805011013221_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

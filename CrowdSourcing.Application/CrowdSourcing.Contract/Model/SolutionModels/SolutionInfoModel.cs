@@ -9,6 +9,7 @@ namespace CrowdSourcing.Contract.Model.SolutionModels
         public int SolutionId { get; set; }
         public string AssignerName { get; set; }
         public string AssignerLastName { get; set; }
+        public int DataId { get; set; }
         public IEnumerable<FileForDetailsModel> Files { get; set; }
         public int Status { get; set; }
         public DateTime AssignDate { get; set; }
