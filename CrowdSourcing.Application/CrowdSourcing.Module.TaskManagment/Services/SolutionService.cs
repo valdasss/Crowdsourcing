@@ -31,21 +31,10 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         }
 
         public async Task<AddSolutionModel> AddSolution(string adminId, string expertId, int taskDataId)
-        {
-            var admin = await _personService.GetPersonById(adminId);
+        {         
             var adminRole = await _roleService.GetRoleByName("admin");
             var expertRole = await _roleService.GetRoleByName("expert");
-            var expert = await _personService.GetPersonById(expertId);
-            var solutionEntity = new SolutionEntity()
-            {
-                AdminId=admin.Id,
-                AdminRoleId=adminRole.Id,
-                ExpertId=expert.Id,
-                ExpertRoleId=expertRole.Id,
-                TaskDataId= taskDataId,
-                Status = 1,
-                SolutionDate = DateTime.Now              
-            };
+            var solutionEntity = SolutionExtensions.ToEntityModel(expertId, expertRole.Id, adminId, adminRole.Id, taskDataId);
             var result = await _solutionRepository.AddAsync(solutionEntity);
             await _dataService.ChangeDatasStatusByTaskDataId(result.TaskDataId,1);
             return result.ToAddModel();
@@ -56,17 +45,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var adminRole = await _roleService.GetRoleByName("admin");
             var expertRole = await _roleService.GetRoleByName("expert");
             var solution = await _solutionRepository.GetByIdAsync(solutionId);
-            var solutionEntity = new SolutionEntity()
-            {
-                AdminId = adminId,
-                AdminRoleId = adminRole.Id,
-                ExpertId = expertId,
-                ExpertRoleId = expertRole.Id,
-                TaskDataId = solution.TaskDataId,
-                Status = 1,
-                SolutionDate = DateTime.Now,
-                SolutionReviewId= solution.Id
-            };
+            var solutionEntity = SolutionExtensions.ToEntityModel(expertId, expertRole.Id, adminId, adminRole.Id, solution.TaskDataId, solution.Id);
             var result = await _solutionRepository.AddAsync(solutionEntity);
             await _dataService.ChangeDatasStatusByTaskDataId(result.TaskDataId, 1);
             return result.ToAddModel();
@@ -78,49 +57,16 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var admin = await _personService.GetPersonById(solution.AdminId);
             var expert = await _personService.GetPersonById(solution.ExpertId);
             var taskData = await _dataService.GetDataForMoreDetailsByTaskDataId(solution.TaskDataId);
-            var result = new SolutionInfoModel()
-            {
-                SolutionId = solution.Id,
-                AssignDate = solution.SolutionDate,
-                AssignerName = admin.Name,
-                AssignerLastName = admin.LastName,
-                ExpertsComment = solution.Comment,
-                Status = solution.Status,
-                UploadersComment = taskData.UploaderComment,
-                Files = taskData.Files,
-                DataId = taskData.DataId,
-                Rating = solution.Rating,
-                ExpertLastName = expert.LastName,
-                ExpertName= expert.Name
-            };
-            return result;
-
+            return solution.ToSolutionInfoModel(admin,expert,taskData);
         }
 
         public async Task<DetailedSolutionModelForExpert> GetDetailedSolutionInformationForExpert(int solutionId)
         {
             var solution = await _solutionRepository.GetByIdAsync(solutionId);
             var admin = await _personService.GetPersonById(solution.AdminId);
-            var expert = await _personService.GetPersonById(solution.ExpertId);
             var taskData = await _dataService.GetDataForMoreDetailsByTaskDataId(solution.TaskDataId);
             var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
-            var result = new DetailedSolutionModelForExpert()
-            {
-                SolutionId = solution.Id,
-                AssignDate = solution.SolutionDate,
-                AssignerName = admin.Name,
-                AssignerLastName = admin.LastName,
-                ExpertsComment = solution.Comment,
-                Status = solution.Status,
-                UploadersComment = taskData.UploaderComment,
-                DataId = taskData.DataId,
-                Files = taskData.Files,
-                TaskName = taskDataWithTask.Name,
-                TaskDescription = taskDataWithTask.Description,
-                Rating = solution.Rating
-            };
-            return result;
-
+            return solution.ToDetailsSolutionModelForExpert(admin, taskData, taskDataWithTask);
         }
 
         public async Task<IEnumerable<SolutionShortInfoModel>> GetAssignSolutionsByTaskId(int taskId)
@@ -131,41 +77,21 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             {
                 var admin = await _personService.GetPersonById(solution.AdminId);
                 var expert = await _personService.GetPersonById(solution.ExpertId);
-                var solut = new SolutionShortInfoModel()
-                {
-                    SolutionId = solution.Id,
-                    AdminName = admin.Name,
-                    AdminLastName = admin.LastName,
-                    ExpertName = expert.Name,
-                    ExpertLastName = expert.LastName,
-                    SolutionCreationDate = solution.SolutionDate,
-                    Status = solution.Status,
-                    Rating = solution.Rating
-                };
+                var solut = solution.ToSolutionShortInfoModel(admin,expert);
                 list.Add(solut);
             }
             return list;
         }
+
         public async Task<IEnumerable<SolutionModelForExpertSolutionList>> GetAssignedSolutionsByExpertId(string expertId)
         {
             var solutions = await _solutionRepository.GetAssingedSolutionsByExpertId(expertId);
             var list = new List<SolutionModelForExpertSolutionList>();
             foreach (var solution in solutions)
             {
-                var admin = await _personService.GetPersonById(solution.AdminId);
-                var expert = await _personService.GetPersonById(solution.ExpertId);
+                var admin = await _personService.GetPersonById(solution.AdminId);            
                 var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
-                var solut = new SolutionModelForExpertSolutionList()
-                {
-                    SolutionId = solution.Id,
-                    AdminName = admin.Name,
-                    AdminLastName = admin.LastName,
-                    SolutionCreationDate = solution.SolutionDate,
-                    Status = solution.Status,
-                    TaskName = taskDataWithTask.Name,
-                    Rating = solution.Rating
-
-                };
+                var solut = solution.ToSolutionForExpertSolutionList(admin, taskDataWithTask);
                 list.Add(solut);
             }
             return list;
@@ -190,19 +116,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             foreach (var solution in solutions)
             {
                 var admin = await _personService.GetPersonById(solution.AdminId);
-                var expert = await _personService.GetPersonById(solution.ExpertId);
                 var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
-                var solut = new SolutionModelForExpertSolutionList()
-                {
-                    SolutionId = solution.Id,
-                    AdminName = admin.Name,
-                    AdminLastName = admin.LastName,
-                    SolutionCreationDate = solution.SolutionDate,
-                    Status = solution.Status,
-                    TaskName = taskDataWithTask.Name,
-                    Rating = solution.Rating
-
-                };
+                var solut = solution.ToSolutionForExpertSolutionList(admin, taskDataWithTask);
                 list.Add(solut);
             }
             return list;
@@ -216,17 +131,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             {
                 var admin = await _personService.GetPersonById(solution.AdminId);
                 var expert = await _personService.GetPersonById(solution.ExpertId);
-                var solut = new SolutionShortInfoModel()
-                {
-                    SolutionId = solution.Id,
-                    AdminName = admin.Name,
-                    AdminLastName = admin.LastName,
-                    ExpertName = expert.Name,
-                    ExpertLastName = expert.LastName,
-                    SolutionCreationDate = solution.SolutionDate,
-                    Status = solution.Status,
-                    Rating = solution.Rating
-                };
+                var solut = solution.ToSolutionShortInfoModel(admin, expert);
                 list.Add(solut);
             }
             return list;
@@ -241,17 +146,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             {
                 var admin = await _personService.GetPersonById(solution.AdminId);
                 var expert = await _personService.GetPersonById(solution.ExpertId);
-                var solut = new SolutionShortInfoModel()
-                {
-                    SolutionId = solution.Id,
-                    AdminName = admin.Name,
-                    AdminLastName = admin.LastName,
-                    ExpertName = expert.Name,
-                    ExpertLastName = expert.LastName,
-                    SolutionCreationDate = solution.SolutionDate,
-                    Status = solution.Status,
-                    Rating = solution.Rating
-                };
+                var solut = solution.ToSolutionShortInfoModel(admin, expert);
                 list.Add(solut);
             }
             return list;
@@ -287,14 +182,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             foreach (var solution in latestSolutions)
             {
                 var expert = await _personService.GetPersonById(solution.ExpertId);
-                var taskData = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
-                var solutionModel = new SolutionModelForDoubleCheck()
-                {
-                    SolutionId = solution.Id,
-                    ExpertLastName = expert.LastName,
-                    ExpertName = expert.Name,
-                    LatestUpdateDate = taskData.FinishDate
-                };
+                var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
+                var solutionModel = solution.ToSolutionModelForDoubleCheck(expert, taskDataWithTask);
                 newList.Add(solutionModel);
             }
             return newList;
