@@ -87,7 +87,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 Status = solution.Status,
                 UploadersComment = taskData.UploaderComment,
                 Files = taskData.Files,
-                DataId = taskData.DataId
+                DataId = taskData.DataId,
+                Rating = solution.Rating
             };
             return result;
 
@@ -108,10 +109,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 ExpertsComment = solution.Comment,
                 Status = solution.Status,
                 UploadersComment = taskData.UploaderComment,
-                DataId =taskData.DataId,
+                DataId = taskData.DataId,
                 Files = taskData.Files,
                 TaskName = taskDataWithTask.Name,
-                TaskDescription = taskDataWithTask.Description
+                TaskDescription = taskDataWithTask.Description,
+                Rating = solution.Rating
             };
             return result;
 
@@ -133,12 +135,12 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                     ExpertName = expert.Name,
                     ExpertLastName = expert.LastName,
                     SolutionCreationDate = solution.SolutionDate,
-                    Status = solution.Status
+                    Status = solution.Status,
+                    Rating = solution.Rating
                 };
                 list.Add(solut);
             }
             return list;
-
         }
         public async Task<IEnumerable<SolutionModelForExpertSolutionList>> GetAssignedSolutionsByExpertId(string expertId)
         {
@@ -156,7 +158,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                     AdminLastName = admin.LastName,
                     SolutionCreationDate = solution.SolutionDate,
                     Status = solution.Status,
-                    TaskName = taskDataWithTask.Name
+                    TaskName = taskDataWithTask.Name,
+                    Rating = solution.Rating
 
                 };
                 list.Add(solut);
@@ -192,7 +195,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                     AdminLastName = admin.LastName,
                     SolutionCreationDate = solution.SolutionDate,
                     Status = solution.Status,
-                    TaskName = taskDataWithTask.Name
+                    TaskName = taskDataWithTask.Name,
+                    Rating = solution.Rating
 
                 };
                 list.Add(solut);

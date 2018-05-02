@@ -20,5 +20,6 @@ namespace CrowdSourcing.Contract.Model.SolutionModels
         public string ExpertsComment { get; set; }
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
+        public int Rating { get; set; }
     }
 }

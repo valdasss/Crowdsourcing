@@ -15,6 +15,7 @@ namespace CrowdSourcing.Contract.Model.SolutionModels
         public DateTime AssignDate { get; set; }
         public string UploadersComment { get; set; }
         public string ExpertsComment { get; set; }
+        public int Rating { get; set; }
 
     }
 }

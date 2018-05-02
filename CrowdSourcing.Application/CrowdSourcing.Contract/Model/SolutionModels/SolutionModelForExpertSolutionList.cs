@@ -14,5 +14,6 @@ namespace CrowdSourcing.Contract.Model.SolutionModels
         public DateTime SolutionCreationDate { get; set; }
         public int Status { get; set; }
         public string TaskName { get; set; }
+        public int Rating { get; set; }
     }
 }
