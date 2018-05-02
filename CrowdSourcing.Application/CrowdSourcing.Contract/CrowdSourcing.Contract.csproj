@@ -73,6 +73,7 @@
     <Compile Include="Model\SolutionModels\SolutionInfoModel.cs" />
     <Compile Include="Model\SolutionModels\SolutionModelForDoubleCheck.cs" />
     <Compile Include="Model\SolutionModels\SolutionModelForExpertSolutionList.cs" />
+    <Compile Include="Model\SolutionModels\SolutionModelForRating.cs" />
     <Compile Include="Model\SolutionModels\SolutionShortInfoModel.cs" />
     <Compile Include="Model\TaskDataModel\AddTaskDataModel.cs" />
     <Compile Include="Model\DataModels\DataForMoreDetails.cs" />
