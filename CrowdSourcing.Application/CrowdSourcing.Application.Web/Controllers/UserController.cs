@@ -1,6 +1,7 @@
 ﻿using CrowdSourcing.Application.Web.Extension;
 using CrowdSourcing.Application.Web.ViewModels;
 using CrowdSourcing.Contract.Interfaces;
+using CrowdSourcing.Contract.Model.PersonModel;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,13 @@ namespace CrowdSourcing.Application.Web.Controllers
         public async Task<IHttpActionResult> Register(AccountVM account)
         {
 
+            var user = await _personService.AddPersonAsync(account.ToModel(), account.Password, account.Role);
+            return Ok(user.ToAcoountVm());
+        }
+        [Route("User/RegisterAdmin")]
+        [HttpPost]
+        public async Task<IHttpActionResult> RegisterAdmin(AccountVM account)
+        {
             var user = await _personService.AddPersonAsync(account.ToModel(), account.Password, account.Role);
             return Ok(user.ToAcoountVm());
         }
@@ -86,6 +94,13 @@ namespace CrowdSourcing.Application.Web.Controllers
         {
             var experts = await _solutionService.GetAllExpertsWithRating();
             return Ok(experts);
+        }
+        [Route("User/Update")]
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdatePersonInfo(PersonModel updatePerson)
+        {
+            var person = await _personService.UpdatePersonAsync(updatePerson);
+            return Ok(person);
         }
     }
 }

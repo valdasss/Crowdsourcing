@@ -50,6 +50,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             await _dataService.ChangeDatasStatusByTaskDataId(result.TaskDataId,1);
             return result.ToAddModel();
         }
+
         public async Task<AddSolutionModel> AddSolutionForDoubleCheck(string adminId, string expertId, int solutionId)
         {
             var adminRole = await _roleService.GetRoleByName("admin");
@@ -93,6 +94,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return result;
 
         }
+
         public async Task<DetailedSolutionModelForExpert> GetDetailedSolutionInformationForExpert(int solutionId)
         {
             var solution = await _solutionRepository.GetByIdAsync(solutionId);
@@ -228,6 +230,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return list;
 
         }
+
         public async Task<IEnumerable<SolutionShortInfoModel>> GetRejectedSolutionsByTaskId(int taskId)
         {
             var solutions = await _solutionRepository.GetRejectedSolutionsByTaskId(taskId);
@@ -252,6 +255,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return list;
 
         }
+
         public async Task<IEnumerable<ExpertForDropdown>> GetAllExpertsWithRating()
         {
             var allExperts = await _personService.GetAllExperts();
@@ -262,9 +266,6 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             }
             return allExperts;
         }
-
-       
-
 
         public async Task<double> CountExpertRating(string expertId)
         {
@@ -296,6 +297,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             }
             return newList;
         }
+
         public async Task<SolutionModelForRating> RateSolution(int solutionId, int rating)
         {
             var solutionEntity = await _solutionRepository.GetByIdAsync(solutionId);

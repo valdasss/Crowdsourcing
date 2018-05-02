@@ -83,6 +83,14 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         public async Task<PersonModel> UpdatePersonAsync(PersonModel personModel)
         {
             var personEntity = await _personRepository.GetPersonById(personModel.Id);
+            if (personModel.Email != "")
+            {
+            var user = await _personRepository.GetPersonByEmail(personModel.Email);
+            if (user != null&&(user.Id!= personModel.Id))
+            {
+                throw new ValidationException("Email already exits");
+            }
+            }
             personEntity.FirstName = personModel.Name;
             personEntity.LastName = personModel.LastName;
             personEntity.Email = personModel.Email;
