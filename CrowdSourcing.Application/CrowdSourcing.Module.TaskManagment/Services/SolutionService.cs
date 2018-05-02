@@ -170,7 +170,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var amount = solutions.Count();
             if (amount > 0)
             {
-                return solutions.Sum(s => s.Rating) / amount;
+                return (double)solutions.Sum(s => s.Rating)/amount;
             }
             return 0;
         }
