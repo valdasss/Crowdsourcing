@@ -11,6 +11,7 @@ namespace CrowdSourcing.Contract.Model.SolutionModels
         public string AdminLastName { get; set; }
         public DateTime SolutionCreationDate { get; set; }
         public int Status { get; set; }
+        public int Rating { get; set; }
 
 
     }

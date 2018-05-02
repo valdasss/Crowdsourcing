@@ -56,10 +56,17 @@ namespace CrowdSourcing.Application.Web.Controllers
             return Ok(solution);
         }
         [HttpGet]
-        [Route("GetDoneTaskSolutions/{id}")]
-        public async Task<IHttpActionResult> GetDoneTasksSolutions(int id)
+        [Route("GetAcceptedTaskSolutions/{id}")]
+        public async Task<IHttpActionResult> GetAcceptedTasksSolutions(int id)
         {
-            var solution = await _solutionService.GetDoneSolutionsByTaskId(id);
+            var solution = await _solutionService.GetAcceptedSolutionsByTaskId(id);
+            return Ok(solution);
+        }
+        [HttpGet]
+        [Route("GetRejectedTaskSolutions/{id}")]
+        public async Task<IHttpActionResult> GeRejectedTasksSolutions(int id)
+        {
+            var solution = await _solutionService.GetRejectedSolutionsByTaskId(id);
             return Ok(solution);
         }
         [HttpGet]
@@ -93,6 +100,13 @@ namespace CrowdSourcing.Application.Web.Controllers
         public async Task<IHttpActionResult> ChangeSolutionStatus(ChangeSolutionStatusVM statusVM)
         {
             var solution = await _solutionService.UpdateSolutionsStatus(statusVM.SolutionId,statusVM.StatusId,statusVM.Comment);
+            return Ok(solution);
+        }
+        [HttpPut]
+        [Route("RateSolution")]
+        public async Task<IHttpActionResult> RateSolution(RateSolutionVM statusVM)
+        {
+            var solution = await _solutionService.RateSolution(statusVM.SolutionId, statusVM.Rating);
             return Ok(solution);
         }
     }

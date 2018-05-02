@@ -22,5 +22,14 @@ namespace CrowdSourcing.EntityCore.Extension
             };
             return model;
         }
+        public static SolutionModelForRating ToRatingModel(this SolutionEntity entity)
+        {
+            var model = new SolutionModelForRating()
+            {
+                SolutionId = entity.Id,
+                Rating = entity.Rating
+            };
+            return model;
+        }
     }
 }

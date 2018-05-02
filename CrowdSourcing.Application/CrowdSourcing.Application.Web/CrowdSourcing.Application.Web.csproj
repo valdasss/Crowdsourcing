@@ -256,6 +256,7 @@
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\TaskDataController.cs" />
     <Compile Include="Controllers\TaskTypeController.cs" />
+    <Compile Include="ViewModels\AddSolutionForDoubleCheckVM.cs" />
     <Compile Include="ViewModels\AddSolutionModelVM.cs" />
     <Compile Include="Extension\PersonExtensions.cs" />
     <Compile Include="Extension\TaskTypeExtensions.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="ViewModels\ChangeSolutionStatusVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\PersonCRUDVM.cs" />
+    <Compile Include="ViewModels\RateSolutionVM.cs" />
     <Compile Include="ViewModels\TaskTypeViewModel.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>

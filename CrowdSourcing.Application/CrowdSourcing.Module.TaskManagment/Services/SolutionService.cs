@@ -200,9 +200,9 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return list;
         }
 
-        public async Task<IEnumerable<SolutionShortInfoModel>> GetDoneSolutionsByTaskId(int taskId)
+        public async Task<IEnumerable<SolutionShortInfoModel>> GetAcceptedSolutionsByTaskId(int taskId)
         {
-            var solutions = await _solutionRepository.GetDoneSolutionsByTaskId(taskId);
+            var solutions = await _solutionRepository.GetAcceptedSolutionsByTaskId(taskId);
             var list = new List<SolutionShortInfoModel>();
             foreach (var solution in solutions)
             {
@@ -216,7 +216,32 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                     ExpertName = expert.Name,
                     ExpertLastName = expert.LastName,
                     SolutionCreationDate = solution.SolutionDate,
-                    Status = solution.Status
+                    Status = solution.Status,
+                    Rating = solution.Rating
+                };
+                list.Add(solut);
+            }
+            return list;
+
+        }
+        public async Task<IEnumerable<SolutionShortInfoModel>> GetRejectedSolutionsByTaskId(int taskId)
+        {
+            var solutions = await _solutionRepository.GetRejectedSolutionsByTaskId(taskId);
+            var list = new List<SolutionShortInfoModel>();
+            foreach (var solution in solutions)
+            {
+                var admin = await _personService.GetPersonById(solution.AdminId);
+                var expert = await _personService.GetPersonById(solution.ExpertId);
+                var solut = new SolutionShortInfoModel()
+                {
+                    Solutionid = solution.Id,
+                    AdminName = admin.Name,
+                    AdminLastName = admin.LastName,
+                    ExpertName = expert.Name,
+                    ExpertLastName = expert.LastName,
+                    SolutionCreationDate = solution.SolutionDate,
+                    Status = solution.Status,
+                    Rating = solution.Rating
                 };
                 list.Add(solut);
             }
@@ -266,6 +291,13 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 newList.Add(solutionModel);
             }
             return newList;
+        }
+        public async Task<SolutionModelForRating> RateSolution(int solutionId, int rating)
+        {
+            var solutionEntity = await _solutionRepository.GetByIdAsync(solutionId);
+            solutionEntity.Rating = rating;
+            var result = await _solutionRepository.UpdateAsync(solutionEntity);
+            return result.ToRatingModel();
         }
     }
 }
