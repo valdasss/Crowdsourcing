@@ -17,6 +17,7 @@ namespace CrowdSourcing.Repository.Interface
         Task<PersonEntity> AddPerson(PersonEntity person,string password,string role);
         Task<PersonEntity> UpdatePerson(PersonEntity person);
         Task DeletePerson(string id);
+        Task<PersonEntity> ChangePassword(string personId, string currentPaswrd, string newPaswrd);
 
     }
 }

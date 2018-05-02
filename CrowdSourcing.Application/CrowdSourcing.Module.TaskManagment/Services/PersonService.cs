@@ -98,6 +98,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             await _personRepository.UpdatePerson(personEntity);
             return personEntity.ToModel();
         }
+        public async Task<PersonModel> ChangePassword(string personId, string currentPassword,string password)
+        {
+            var personEntity = await _personRepository.ChangePassword(personId, currentPassword, password);
+            return personEntity.ToModel();
+        }
 
         public async Task<IEnumerable<ExpertForDropdown>> GetAllExperts()
         {

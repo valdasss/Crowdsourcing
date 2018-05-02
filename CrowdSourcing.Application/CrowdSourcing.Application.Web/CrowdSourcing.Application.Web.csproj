@@ -273,7 +273,7 @@
     <Compile Include="ViewModels\PersonCRUDVM.cs" />
     <Compile Include="ViewModels\RateSolutionVM.cs" />
     <Compile Include="ViewModels\TaskTypeViewModel.cs" />
-    <Compile Include="ViewModels\UpdatePersonVM.cs" />
+    <Compile Include="ViewModels\ChangePasswordVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>

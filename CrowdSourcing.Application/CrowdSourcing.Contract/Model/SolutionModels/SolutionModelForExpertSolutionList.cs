@@ -8,7 +8,7 @@ namespace CrowdSourcing.Contract.Model.SolutionModels
 {
     public class SolutionModelForExpertSolutionList
     {
-        public int Solutionid { get; set; }
+        public int SolutionId { get; set; }
         public string AdminName { get; set; }
         public string AdminLastName { get; set; }
         public DateTime SolutionCreationDate { get; set; }

@@ -131,7 +131,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 var expert = await _personService.GetPersonById(solution.ExpertId);
                 var solut = new SolutionShortInfoModel()
                 {
-                    Solutionid = solution.Id,
+                    SolutionId = solution.Id,
                     AdminName = admin.Name,
                     AdminLastName = admin.LastName,
                     ExpertName = expert.Name,
@@ -155,7 +155,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
                 var solut = new SolutionModelForExpertSolutionList()
                 {
-                    Solutionid = solution.Id,
+                    SolutionId = solution.Id,
                     AdminName = admin.Name,
                     AdminLastName = admin.LastName,
                     SolutionCreationDate = solution.SolutionDate,
@@ -192,7 +192,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
                 var solut = new SolutionModelForExpertSolutionList()
                 {
-                    Solutionid = solution.Id,
+                    SolutionId = solution.Id,
                     AdminName = admin.Name,
                     AdminLastName = admin.LastName,
                     SolutionCreationDate = solution.SolutionDate,
@@ -216,7 +216,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 var expert = await _personService.GetPersonById(solution.ExpertId);
                 var solut = new SolutionShortInfoModel()
                 {
-                    Solutionid = solution.Id,
+                    SolutionId = solution.Id,
                     AdminName = admin.Name,
                     AdminLastName = admin.LastName,
                     ExpertName = expert.Name,
@@ -241,7 +241,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 var expert = await _personService.GetPersonById(solution.ExpertId);
                 var solut = new SolutionShortInfoModel()
                 {
-                    Solutionid = solution.Id,
+                    SolutionId = solution.Id,
                     AdminName = admin.Name,
                     AdminLastName = admin.LastName,
                     ExpertName = expert.Name,

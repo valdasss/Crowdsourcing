@@ -102,5 +102,12 @@ namespace CrowdSourcing.Application.Web.Controllers
             var person = await _personService.UpdatePersonAsync(updatePerson);
             return Ok(person);
         }
+        [Route("User/ChangePassword")]
+        [HttpPut]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordVM changePass)
+        {
+            var person = await _personService.ChangePassword(changePass.PersonId, changePass.CurrentPassword, changePass.Password);
+            return Ok(person);
+        }
     }
 }

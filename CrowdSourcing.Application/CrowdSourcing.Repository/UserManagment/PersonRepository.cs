@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -86,6 +87,16 @@ namespace CrowdSourcing.Repository.UserManagment
             await _personManager.UpdateAsync(person);
             return person;
         }
-       
+        public async Task<PersonEntity> ChangePassword(string personId,string currentPaswrd,string newPaswrd)
+        {
+            var result =await _personManager.ChangePasswordAsync(personId, currentPaswrd, newPaswrd);
+            if (result.Errors.Count() > 0)
+            {
+                throw new ValidationException("Bad Current Password");
+            }
+            else
+                return await _personManager.FindByIdAsync(personId);
+        }
+
     }
 }

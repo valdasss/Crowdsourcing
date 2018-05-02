@@ -14,5 +14,6 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<PersonWithRoleModel> GetPersonById(string id);
         Task<PersonWithRoleModel> GetPersonByEmail(string email);
         Task DeletePersonAsync(string id);
+        Task<PersonModel> ChangePassword(string personId, string currentPassword, string password);
     }
 }
