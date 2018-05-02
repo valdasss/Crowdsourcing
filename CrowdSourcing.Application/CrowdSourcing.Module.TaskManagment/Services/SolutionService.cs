@@ -89,7 +89,9 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 UploadersComment = taskData.UploaderComment,
                 Files = taskData.Files,
                 DataId = taskData.DataId,
-                Rating = solution.Rating
+                Rating = solution.Rating,
+                ExpertLastName = expert.LastName,
+                ExpertName= expert.Name
             };
             return result;
 

@@ -1,4 +1,5 @@
-﻿using CrowdSourcing.Contract.Model.SolutionModels;
+﻿using CrowdSourcing.Contract.Model.PersonModel;
+using CrowdSourcing.Contract.Model.SolutionModels;
 using CrowdSourcing.EntityCore.Entity;
 using System;
 using System.Collections.Generic;
@@ -31,5 +32,34 @@ namespace CrowdSourcing.EntityCore.Extension
             };
             return model;
         }
+        //public static SolutionEntity ToEntityModel(PersonWithRoleModel admin, PersonWithRoleModel expert, int taskDataId)
+        //{
+        //    var model = new SolutionEntity()
+        //    {
+        //        ExpertId= expert.Id,
+        //        ExpertRoleId = e,
+        //        SolutionDate = DateTime.Now,
+        //        Status = 1,
+        //        TaskDataId = ,
+        //        AdminRoleId = ,
+        //        AdminId = 
+        //    };
+        //    return model;
+        //}
+        //public static SolutionEntity ToEntityModel(PersonWithRoleModel admin, PersonWithRoleModel expert, int taskDataId,int solutionId)
+        //{
+        //    var model = new SolutionEntity()
+        //    {
+        //        ExpertId = ,
+        //        ExpertRoleId = ,
+        //        SolutionDate = DateTime.Now,
+        //        Status = 1,
+        //        TaskDataId = ,
+        //        AdminRoleId = ,
+        //        AdminId =,
+        //        SolutionReviewId=solutionId
+        //    };
+        //    return model;
+        //}
     }
 }
