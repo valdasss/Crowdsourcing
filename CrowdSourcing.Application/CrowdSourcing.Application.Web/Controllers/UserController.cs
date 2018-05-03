@@ -1,11 +1,8 @@
 ﻿using CrowdSourcing.Application.Web.Extension;
 using CrowdSourcing.Application.Web.ViewModels;
 using CrowdSourcing.Contract.Interfaces;
-using CrowdSourcing.Contract.Model.PersonModel;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
