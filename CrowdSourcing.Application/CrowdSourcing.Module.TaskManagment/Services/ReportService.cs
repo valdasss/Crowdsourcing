@@ -14,13 +14,15 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         private ISolutionService _solutionService;
         private ITaskService _taskService;
         private ITaskDataService _taskDataService;
+        private IDataService _dataService;
         public ReportService(IPersonService personService,ISolutionService solutionService,
-            ITaskService taskService, ITaskDataService taskDataService)
+            ITaskService taskService, ITaskDataService taskDataService, IDataService dataService)
         {
             _personService = personService;
             _solutionService = solutionService;
             _taskService = taskService;
             _taskDataService = taskDataService;
+            _dataService = dataService;
         }
 
         public async Task<IEnumerable<ExpertReportModel>> GetExpertReport()
@@ -73,6 +75,32 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 list.Add(listItem);
             }
             return list;
+        }
+
+        public async Task<IEnumerable<DataUploadersReportModel>> GetUploadersReport()
+        {
+            var uploaders = await _personService.GetAllUploaders();
+            var list = new List<DataUploadersReportModel>();
+            foreach (var uploader in uploaders)
+            {
+                var datas = await _dataService.GetAllPersonDatasAsync(uploader.ExpertId);
+                var acceptedData = datas.Where(d => d.Status == 2).Count();
+                var declinedData = datas.Where(d => d.Status == 3).Count();
+                var inProgressData = datas.Where(d => d.Status == 1).Count();
+                var notAssignedData = datas.Where(d => d.Status == 0).Count();
+                var listItem = new DataUploadersReportModel()
+                {
+                    Name = uploader.ExpertName,
+                    LastName = uploader.ExpertLastName,
+                    TotalDataCount = datas.Count(),
+                    DataAcceptedCount = acceptedData,
+                    DataDeclinedCount = declinedData,
+                    DataInProgressCount = inProgressData,
+                    DataNotAssignedCount = notAssignedData
+                };
+                list.Add(listItem);
+            }
+            return list;         
         }
     }
 }

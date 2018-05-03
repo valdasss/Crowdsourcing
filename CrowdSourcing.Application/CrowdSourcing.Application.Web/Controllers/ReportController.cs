@@ -29,12 +29,12 @@ namespace CrowdSourcing.Application.Web.Controllers
             var tasks = await _reportService.GetTaskReport();
             return Ok(tasks);
         }
-        //[HttpGet]
-        //[Route("Get")]
-        //public async Task<IHttpActionResult> GetExpertReport()
-        //{
-        //    var experts = await _reportService.GetExpertReport();
-        //    return Ok(experts);
-        //}
+        [HttpGet]
+        [Route("GetUploadersReport")]
+        public async Task<IHttpActionResult> GetUploadersReport()
+        {
+            var uploaders = await _reportService.GetUploadersReport();
+            return Ok(uploaders);
+        }
     }
 }

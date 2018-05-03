@@ -7,6 +7,7 @@ using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -91,6 +92,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         public  Task<IEnumerable<DataModel>> GetAllDatasAsync()
         {
             throw new NotImplementedException();
+        }
+        public async Task<IEnumerable<DataModel>> GetAllPersonDatasAsync(string personId)
+        {
+            var data = await _dataRepository.GetPersonDatas(personId);
+            return data.Select(d => d.ToModel());
         }
 
         public  Task<DataModel> GetDataBy(int id)

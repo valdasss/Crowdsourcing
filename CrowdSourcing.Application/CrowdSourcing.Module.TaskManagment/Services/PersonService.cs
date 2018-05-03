@@ -121,6 +121,23 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             }
             return modelList;
         }
+        public async Task<IEnumerable<ExpertForDropdown>> GetAllUploaders()
+        {
+            var userRole = await _roleService.GetRoleByName("user");
+            var users = await _personRepository.GetPersonByRoleId(userRole.Id);
+            var modelList = new List<ExpertForDropdown>();
+            foreach (var user in users)
+            {
+                var model = new ExpertForDropdown()
+                {
+                    ExpertId = user.Id,
+                    ExpertName = user.FirstName,
+                    ExpertLastName = user.LastName
+                };
+                modelList.Add(model);
+            }
+            return modelList;
+        }
 
     }
 }

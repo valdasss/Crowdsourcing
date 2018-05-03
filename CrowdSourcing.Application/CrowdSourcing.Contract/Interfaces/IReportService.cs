@@ -8,6 +8,7 @@ namespace CrowdSourcing.Contract.Interfaces
     {
         Task<IEnumerable<ExpertReportModel>> GetExpertReport();
         Task<IEnumerable<TaskReportModel>> GetTaskReport();
-        
+        Task<IEnumerable<DataUploadersReportModel>> GetUploadersReport();
+
     }
 }
