@@ -33,6 +33,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 var accepted = solution.Where(x => x.Status == 2).Count();
                 var declined = solution.Where(x => x.Status == 3).Count();
                 var inProgress = solution.Where(x => x.Status == 1).Count();
+                var rating = await _solutionService.CountExpertRating(expert.ExpertId);
                 var listItem = new ExpertReportModel()
                 {
                     ExpertName = expert.ExpertName,
@@ -41,6 +42,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                     AcceptedCount = accepted,
                     DeclinedCount = declined,
                     InProgress = inProgress,
+                    Rating = rating
                 };
 
                 list.Add(listItem);

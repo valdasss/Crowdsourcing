@@ -30,7 +30,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             return Ok(tasks);
         }
         //[HttpGet]
-        //[Route("GetExpertReport")]
+        //[Route("Get")]
         //public async Task<IHttpActionResult> GetExpertReport()
         //{
         //    var experts = await _reportService.GetExpertReport();

@@ -4,6 +4,7 @@
     {
         public string ExpertName { get; set; }
         public string ExpertLastName { get; set; }
+        public double Rating { get; set; }
         public int TotalDoneCount { get; set; }
         public int AcceptedCount { get; set; }
         public int DeclinedCount { get; set; }
