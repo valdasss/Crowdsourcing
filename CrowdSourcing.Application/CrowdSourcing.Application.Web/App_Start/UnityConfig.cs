@@ -67,6 +67,7 @@ namespace CrowdSourcing.Application.Web
             container.RegisterType<IDownloadService, DownloadService>();
             container.RegisterType<ISolutionRepository, SolutionRepository>();
             container.RegisterType<ISolutionService, SolutionService>();
+            container.RegisterType<IReportService, ReportService>();
 
 
 

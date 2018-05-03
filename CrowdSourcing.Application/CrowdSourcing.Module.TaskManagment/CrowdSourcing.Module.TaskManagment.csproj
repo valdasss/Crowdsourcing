@@ -124,6 +124,7 @@
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\FileTypeService.cs" />
     <Compile Include="Services\PersonService.cs" />
+    <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SolutionService.cs" />
     <Compile Include="Services\TaskDataService.cs" />

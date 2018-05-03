@@ -193,5 +193,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var result = await _solutionRepository.UpdateAsync(solutionEntity);
             return result.ToRatingModel();
         }
+
+        public async Task<IEnumerable<AddSolutionModel>> GetAllSolutionByExpertId(string expertId)
+        {
+            var solutions = await _solutionRepository.GetAllSolutionsBy(expertId);
+            return solutions.Select(s => s.ToAddModel());
+        }
     }
 }
