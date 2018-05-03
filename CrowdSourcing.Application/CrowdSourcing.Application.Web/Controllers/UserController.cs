@@ -97,16 +97,20 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [Route("User/Update")]
         [HttpPut]
-        public async Task<IHttpActionResult> UpdatePersonInfo(PersonModel updatePerson)
+        public async Task<IHttpActionResult> UpdatePersonInfo(UpdatePersonVM updatePerson)
         {
-            var person = await _personService.UpdatePersonAsync(updatePerson);
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            var adminId = identityClaims.FindFirst("Id").Value;
+            var person = await _personService.UpdatePersonAsync(adminId,updatePerson.Name, updatePerson.LastName, updatePerson.Email);
             return Ok(person);
         }
         [Route("User/ChangePassword")]
         [HttpPut]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordVM changePass)
         {
-            var person = await _personService.ChangePassword(changePass.PersonId, changePass.CurrentPassword, changePass.Password);
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            var adminId = identityClaims.FindFirst("Id").Value;
+            var person = await _personService.ChangePassword(adminId, changePass.CurrentPassword, changePass.Password);
             return Ok(person);
         }
     }
