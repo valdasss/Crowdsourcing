@@ -199,5 +199,10 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var solutions = await _solutionRepository.GetAllSolutionsBy(expertId);
             return solutions.Select(s => s.ToAddModel());
         }
+        public async Task<IEnumerable<AddSolutionModel>> GetAllSolutionByTaskId(int taskId)
+        {
+            var solutions = await _solutionRepository.GetAllSolutionsByTaskId(taskId);
+            return solutions.Select(s => s.ToAddModel());
+        }
     }
 }

@@ -13,11 +13,14 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         private IPersonService _personService;
         private ISolutionService _solutionService;
         private ITaskService _taskService;
-        public ReportService(IPersonService personService,ISolutionService solutionService,ITaskService taskService)
+        private ITaskDataService _taskDataService;
+        public ReportService(IPersonService personService,ISolutionService solutionService,
+            ITaskService taskService, ITaskDataService taskDataService)
         {
             _personService = personService;
             _solutionService = solutionService;
             _taskService = taskService;
+            _taskDataService = taskDataService;
         }
 
         public async Task<IEnumerable<ExpertReportModel>> GetExpertReport()
@@ -45,26 +48,29 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return list;
         }
 
-        //public async Task<IEnumerable<TaskReportModel>> GetTaskReport()
-        //{
-        //    var tasks = await _taskService.GetAllTasksWithTypeAsync();
-        //    var list = new List<TaskReportModel>();
-        //    foreach (var task in tasks)
-        //    {
-        //        var taskDatas = await _ 
-        //        var listItem = new TaskReportModel()
-        //        {
-        //            TaskName= task.Name,
-        //            TaskType = task.TaskType,
-        //            TaskDataCount = ,
-        //            AcceptedSolutionsCount = ,
-        //            InProgressCount = , 
-        //            DeclinedSolutionsCount =
-
-
-        //        }
-
-        //    }
-        //}
+        public async Task<IEnumerable<TaskReportModel>> GetTaskReport()
+        {
+            var tasks = await _taskService.GetAllTasksWithTypeAsync();
+            var list = new List<TaskReportModel>();
+            foreach (var task in tasks)
+            {
+                var taskDatas = await _taskDataService.GetTaskDatasForTableBy(task.Id);
+                var solutions = await _solutionService.GetAllSolutionByTaskId(task.Id);
+                var accepted = solutions.Where(s => s.Status == 2).Count();
+                var inProgress = solutions.Where(s => s.Status == 1).Count();
+                var declined = solutions.Where(s => s.Status == 3).Count();
+                var listItem = new TaskReportModel()
+                {
+                    TaskName = task.Name,
+                    TaskType = task.TaskType,
+                    TaskDataCount = taskDatas.Count(),
+                    AcceptedSolutionsCount = accepted,
+                    InProgressCount = inProgress,
+                    DeclinedSolutionsCount = declined
+                };
+                list.Add(listItem);
+            }
+            return list;
+        }
     }
 }

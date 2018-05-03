@@ -22,13 +22,13 @@ namespace CrowdSourcing.Application.Web.Controllers
             var experts = await _reportService.GetExpertReport();
             return Ok(experts);
         }
-        //[HttpGet]
-        //[Route("GetExpertReport")]
-        //public async Task<IHttpActionResult> GetExpertReport()
-        //{
-        //    var experts = await _reportService.GetExpertReport();
-        //    return Ok(experts);
-        //}
+        [HttpGet]
+        [Route("GetTaskReport")]
+        public async Task<IHttpActionResult> GetTaskReport()
+        {
+            var tasks = await _reportService.GetTaskReport();
+            return Ok(tasks);
+        }
         //[HttpGet]
         //[Route("GetExpertReport")]
         //public async Task<IHttpActionResult> GetExpertReport()

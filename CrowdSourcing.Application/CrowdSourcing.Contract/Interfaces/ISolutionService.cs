@@ -25,6 +25,7 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<IEnumerable<SolutionModelForDoubleCheck>> GetLatestSolutionsForDoubleCheck(int taskId);
         Task<SolutionModelForRating> RateSolution(int solutionId, int rating);
         Task<IEnumerable<AddSolutionModel>> GetAllSolutionByExpertId(string expertId);
+        Task<IEnumerable<AddSolutionModel>> GetAllSolutionByTaskId(int taskId);
     }
 }
 
