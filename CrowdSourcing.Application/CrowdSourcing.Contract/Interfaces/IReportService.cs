@@ -7,7 +7,7 @@ namespace CrowdSourcing.Contract.Interfaces
     public interface IReportService
     {
         Task<IEnumerable<ExpertReportModel>> GetExpertReport();
-        Task<IEnumerable<TaskReportModel>> GetTaskReport();
+       // Task<IEnumerable<TaskReportModel>> GetTaskReport();
         
     }
 }

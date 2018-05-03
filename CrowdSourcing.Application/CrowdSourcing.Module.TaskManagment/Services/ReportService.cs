@@ -12,10 +12,12 @@ namespace CrowdSourcing.Module.TaskManagment.Services
     {
         private IPersonService _personService;
         private ISolutionService _solutionService;
-        public ReportService(IPersonService personService,ISolutionService solutionService)
+        private ITaskService _taskService;
+        public ReportService(IPersonService personService,ISolutionService solutionService,ITaskService taskService)
         {
             _personService = personService;
             _solutionService = solutionService;
+            _taskService = taskService;
         }
 
         public async Task<IEnumerable<ExpertReportModel>> GetExpertReport()
@@ -43,9 +45,26 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return list;
         }
 
-        public Task<IEnumerable<TaskReportModel>> GetTaskReport()
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<IEnumerable<TaskReportModel>> GetTaskReport()
+        //{
+        //    var tasks = await _taskService.GetAllTasksWithTypeAsync();
+        //    var list = new List<TaskReportModel>();
+        //    foreach (var task in tasks)
+        //    {
+        //        var taskDatas = await _ 
+        //        var listItem = new TaskReportModel()
+        //        {
+        //            TaskName= task.Name,
+        //            TaskType = task.TaskType,
+        //            TaskDataCount = ,
+        //            AcceptedSolutionsCount = ,
+        //            InProgressCount = , 
+        //            DeclinedSolutionsCount =
+
+
+        //        }
+
+        //    }
+        //}
     }
 }

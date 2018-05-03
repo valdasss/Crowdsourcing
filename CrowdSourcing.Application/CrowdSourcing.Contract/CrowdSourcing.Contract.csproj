@@ -70,6 +70,7 @@
     <Compile Include="Model\PersonModel\PersonModel.cs" />
     <Compile Include="Model\PersonModel\PersonWithRoleModel.cs" />
     <Compile Include="Model\PersonModel\RoleModel.cs" />
+    <Compile Include="Model\ReportModels\TaskReportModel.cs" />
     <Compile Include="Model\SolutionModels\AddSolutionModel.cs" />
     <Compile Include="Model\SolutionModels\DetailedSolutionModelForExpert.cs" />
     <Compile Include="Model\SolutionModels\SolutionInfoModel.cs" />
