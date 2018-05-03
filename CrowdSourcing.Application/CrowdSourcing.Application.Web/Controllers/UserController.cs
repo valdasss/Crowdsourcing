@@ -1,6 +1,9 @@
 ﻿using CrowdSourcing.Application.Web.Extension;
 using CrowdSourcing.Application.Web.ViewModels;
 using CrowdSourcing.Contract.Interfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -39,17 +42,18 @@ namespace CrowdSourcing.Application.Web.Controllers
         [Authorize]
         [Route("User/GetClaims")]
         [HttpGet]
-        public IHttpActionResult GetUserClaims()
+        public async Task<IHttpActionResult> GetUserClaims()
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
+            var personId = identityClaims.FindFirst("Id").Value;
+            var person = await _personService.GetPersonById(personId);
             UserVM model = new UserVM()
             {
-                Id = identityClaims.FindFirst("Id").Value,
-                Email = identityClaims.FindFirst("Email").Value,
-                FirstName = identityClaims.FindFirst("FirstName").Value,
-                LastName = identityClaims.FindFirst("LastName").Value,
+                Id = personId,
+                Email = person.Email,
+                FirstName = person.Name,
+                LastName = person.LastName,
                 Role = identityClaims.FindFirst("MainRole").Value,
-
             };
             return Ok(model);
         }
@@ -92,13 +96,14 @@ namespace CrowdSourcing.Application.Web.Controllers
             var experts = await _solutionService.GetAllExpertsWithRating();
             return Ok(experts);
         }
+
         [Route("User/Update")]
         [HttpPut]
         public async Task<IHttpActionResult> UpdatePersonInfo(UpdatePersonVM updatePerson)
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
             var adminId = identityClaims.FindFirst("Id").Value;
-            var person = await _personService.UpdatePersonAsync(adminId,updatePerson.Name, updatePerson.LastName, updatePerson.Email);
+            var person = await _personService.UpdatePersonAsync(adminId,updatePerson.Name, updatePerson.LastName, updatePerson.Email);          
             return Ok(person);
         }
         [Route("User/ChangePassword")]
