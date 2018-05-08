@@ -31,7 +31,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
             var adminId = identityClaims.FindFirst("Id").Value;
-            var solution = await _solutionService.AddSolution(adminId, model.ExpertId, model.SolutionId);
+            var solution = await _solutionService.AddSolutionForDoubleCheck(adminId, model.ExpertId, model.SolutionId);
             return Ok(solution);
         }
         [HttpGet]
