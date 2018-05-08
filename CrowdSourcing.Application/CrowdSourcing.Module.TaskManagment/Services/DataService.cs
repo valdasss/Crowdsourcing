@@ -141,11 +141,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         {
             var userDatas = await _dataRepository.GetPersonDatas(personId);
             foreach (var data in userDatas)
-            {
-                foreach (var file in data.Files)
-                {
-                    await _fileService.DeleteFile(file.Id);
-                }           
+            {         
                 await _dataRepository.DeleteAsync(data.Id);
             }
         }
