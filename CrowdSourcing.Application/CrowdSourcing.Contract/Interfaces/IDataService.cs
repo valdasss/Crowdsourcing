@@ -17,5 +17,7 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<DataForMoreDetails> GetDataForMoreDetailsByTaskDataId(int TaskDataid);
         Task<IEnumerable<DataModel>> GetAllPersonDatasAsync(string personId);
         Task<IEnumerable<int>> GetAllGoodTaskDatasIds(int taskId);
+        Task DetelePersonsData(string personId);
+        Task<DataModel> UpdateDataStatus(int dataId, int status);
     }
 }

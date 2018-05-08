@@ -229,5 +229,18 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             }
             return list;
         }
+
+        public async Task DeleteUserData(string userId)
+        {
+            var userSolutions = await _solutionRepository.GetAllSolutionsForDeleteBy(userId);
+            foreach (var userSolution in userSolutions)
+            {
+                await _taskDataService.UnsetFinishDateAndChangeDataStatus(userSolution.TaskDataId);
+                await _solutionRepository.DeleteAsync(userSolution.Id);
+
+            }
+            await _dataService.DetelePersonsData(userId);
+            await _personService.DeletePersonAsync(userId);
+        }
     }
 }

@@ -41,6 +41,15 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             await _taskDataRepository.DeleteAsync(id);
         }
 
+        public async Task DeleteTaskDataAsyncBy(int dataId)
+        {
+            var taskDatas = await _taskDataRepository.GetDatasByDataId(dataId);
+            foreach(var taskData in taskDatas)
+            {
+                await _taskDataRepository.DeleteAsync(taskData.Id);
+            }
+        }
+
         public  Task<IEnumerable<TaskDataModel>> GetAllTaskData()
         {
             throw new NotImplementedException();
@@ -89,6 +98,14 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var taskData = await _taskDataRepository.GetByIdAsync(taskDataId);
             taskData.FinishDate = DateTime.Now;
             var result = await _taskDataRepository.UpdateAsync(taskData);
+            return result.ToModel();
+        }
+        public async Task<TaskDataModel> UnsetFinishDateAndChangeDataStatus(int taskDataId)
+        {
+            var taskData = await _taskDataRepository.GetTaskDatawithDataBy(taskDataId);
+            taskData.FinishDate = null;
+            var result = await _taskDataRepository.UpdateAsync(taskData);
+            await _dataService.UpdateDataStatus(taskData.Data.Id,0);
             return result.ToModel();
         }
 

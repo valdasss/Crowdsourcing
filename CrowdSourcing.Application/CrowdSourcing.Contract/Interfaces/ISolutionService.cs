@@ -27,6 +27,7 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<IEnumerable<AddSolutionModel>> GetAllSolutionByExpertId(string expertId);
         Task<IEnumerable<AddSolutionModel>> GetAllSolutionByTaskId(int taskId);
         Task<IEnumerable<ExpertSolutionsHistoryModel>> GetExpertsSolutionHistory(string expertId);
+        Task DeleteUserData(string userId);
     }
 }
 

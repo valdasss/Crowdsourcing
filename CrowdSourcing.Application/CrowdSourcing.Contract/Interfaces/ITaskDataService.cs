@@ -17,5 +17,7 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<IEnumerable<TaskDataForTable>> GetTaskDatasForTableBy(int taskId);
         Task<IEnumerable<ModelForDataReviewDropdown>> GetTaskDatasForDropdownSetReviewBy(int taskId);
         Task DeleteTaskDataAsync(int id);
+        Task DeleteTaskDataAsyncBy(int dataId);
+        Task<TaskDataModel> UnsetFinishDateAndChangeDataStatus(int taskDataId);
     }
 }

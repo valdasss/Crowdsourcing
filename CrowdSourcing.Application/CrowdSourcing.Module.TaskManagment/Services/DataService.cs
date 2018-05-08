@@ -20,7 +20,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         private IFileService _fileService;
         private IDataRepository _dataRepository;
         private ITaskService _taskService;
-        public DataService(IDataRepository dataRepository, IFileService fileService,ITaskService taskService, IPersonService personService,IRoleService roleService)
+        public DataService(IDataRepository dataRepository, IFileService fileService,ITaskService taskService,
+            IPersonService personService,IRoleService roleService)
         {
             _dataRepository = dataRepository;
             _fileService = fileService;
@@ -88,8 +89,16 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<DataModel> UpdateDataStatus(int dataId,int status)
+        {
+            var dataEntity = await _dataRepository.GetByIdAsync(dataId);
+            dataEntity.Status = status;
+            var result = await _dataRepository.UpdateAsync(dataEntity);
+            return result.ToModel();
+        }
 
-        public  Task<IEnumerable<DataModel>> GetAllDatasAsync()
+
+        public Task<IEnumerable<DataModel>> GetAllDatasAsync()
         {
             throw new NotImplementedException();
         }
@@ -128,7 +137,18 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return dataEntity.ToForDetailsModel(person.Name, person.LastName);
         }
 
-        
+        public async Task DetelePersonsData(string personId)
+        {
+            var userDatas = await _dataRepository.GetPersonDatas(personId);
+            foreach (var data in userDatas)
+            {
+                foreach (var file in data.Files)
+                {
+                    await _fileService.DeleteFile(file.Id);
+                }           
+                await _dataRepository.DeleteAsync(data.Id);
+            }
+        }
     }
 
     

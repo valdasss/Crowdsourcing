@@ -28,7 +28,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
 
             HasRequired(t => t.Uploader)
                 .WithMany()
-                .HasForeignKey(t => new { t.PersonId,t.PersonRoleId });
+                .HasForeignKey(t => new { t.PersonId,t.PersonRoleId }).WillCascadeOnDelete(false);
         }
     }
 }

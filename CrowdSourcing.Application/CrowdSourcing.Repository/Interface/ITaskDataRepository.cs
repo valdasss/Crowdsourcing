@@ -10,5 +10,7 @@ namespace CrowdSourcing.Repository.Interface
         Task<IEnumerable<TaskDataEntity>> GetDataBy(int taskId);
         Task<IEnumerable<TaskDataEntity>> GetDataForDataReviewDropdownBy(int taskId);
         Task<TaskDataEntity> GetTaskDatawithTaskBy(int taskId);
+        Task<IEnumerable<TaskDataEntity>> GetDatasByDataId(int dataId);
+        Task<TaskDataEntity> GetTaskDatawithDataBy(int taskDataId);
     }
 }

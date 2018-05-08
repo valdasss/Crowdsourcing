@@ -149,7 +149,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteUser(string id)
         { 
-            await _personService.DeletePersonAsync(id);
+            await _solutionService.DeleteUserData(id);
             return Ok();
         }
     }

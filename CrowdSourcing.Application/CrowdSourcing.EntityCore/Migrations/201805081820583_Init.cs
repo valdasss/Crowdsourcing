@@ -22,7 +22,7 @@ namespace CrowdSourcing.EntityCore.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.PersonRole", t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId })
-                .ForeignKey("dbo.PersonRole", t => new { t.PersonId, t.PersonRoleId }, cascadeDelete: true)
+                .ForeignKey("dbo.PersonRole", t => new { t.PersonId, t.PersonRoleId })
                 .Index(t => new { t.PersonId, t.PersonRoleId })
                 .Index(t => new { t.PersonRoleEntity_UserId, t.PersonRoleEntity_RoleId });
             
