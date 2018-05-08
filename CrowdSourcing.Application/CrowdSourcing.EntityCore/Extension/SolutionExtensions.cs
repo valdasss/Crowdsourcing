@@ -85,7 +85,7 @@ namespace CrowdSourcing.EntityCore.Extension
             return model;
         }
         public static DetailedSolutionModelForExpert ToDetailsSolutionModelForExpert(this SolutionEntity solution,
-           PersonWithRoleModel admin, DataForMoreDetails taskData, TaskDataWithTaskModel taskDataWithTask)
+           PersonWithRoleModel admin, DataForMoreDetails taskData, TaskDataWithTaskModel taskDataWithTask,string expertComment)
         {
             var model = new DetailedSolutionModelForExpert()
             {
@@ -93,7 +93,7 @@ namespace CrowdSourcing.EntityCore.Extension
                 AssignDate = solution.SolutionDate,
                 AssignerName = admin.Name,
                 AssignerLastName = admin.LastName,
-                ExpertsComment = solution.Comment,
+                ExpertsComment = expertComment,
                 Status = solution.Status,
                 UploadersComment = taskData.UploaderComment,
                 DataId = taskData.DataId,
