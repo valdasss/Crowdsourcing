@@ -12,5 +12,6 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<FileModel> UpdateFileAsync(int id,string url, int dataId);
         Task<FileModel> GetFileBy(int id);
         Task DeleteFile(int id);
+        Task<IEnumerable<UsersFiles>> GetUsersFileInfo(string userId);
     }
 }

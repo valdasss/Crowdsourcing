@@ -205,5 +205,29 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var solutions = await _solutionRepository.GetAllSolutionsByTaskId(taskId);
             return solutions.Select(s => s.ToAddModel());
         }
+
+        public async Task<IEnumerable<ExpertSolutionsHistoryModel>> GetExpertsSolutionHistory(string expertId)
+        {
+            var solutionHistory = await _solutionRepository.GetAllSolutionsByWithTaskAndData(expertId);
+            var list = new List<ExpertSolutionsHistoryModel>();
+            foreach (var solut in solutionHistory)
+            {
+                var user = await _personService.GetPersonById(solut.TaskData.Data.PersonId);
+                var taskName = solut.TaskData.Task.Name;
+                var taskType = solut.TaskData.Task.TaskType.Name;
+
+                var listItem = new ExpertSolutionsHistoryModel()
+                {
+                    UploaderName = user.Name,
+                    UploaderLastName = user.LastName,
+                    Status = solut.Status,
+                    Date  =solut.SolutionDate,
+                    TaskName = taskName,
+                    TaskType= taskType
+                };
+                list.Add(listItem);
+            }
+            return list;
+        }
     }
 }

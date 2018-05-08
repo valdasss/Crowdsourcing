@@ -8,5 +8,6 @@ namespace CrowdSourcing.Repository.Interface
     public interface IFileRepository : IGenericRepository<FileEntity>
     {
         Task<IEnumerable<FileEntity>> GetAllFilesBy(int dataId);
+        Task<IEnumerable<FileEntity>> GetAllUsersFiles(string userId);
     }
 }

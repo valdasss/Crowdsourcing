@@ -77,6 +77,11 @@ namespace CrowdSourcing.Repository.SolutionManagment
             var solution = await _dbSet.Where(s => s.ExpertId == expertId).ToListAsync();
             return solution;
         }
+        public async Task<IEnumerable<SolutionEntity>> GetAllSolutionsByWithTaskAndData(string expertId)
+        {
+            var solution = await _dbSet.Include(s=>s.TaskData.Data).Include(s=>s.TaskData.Task.TaskType).Where(s => s.ExpertId == expertId).ToListAsync();
+            return solution;
+        }
 
         public async Task<IEnumerable<SolutionEntity>> GetAllSolutionsByTaskId(int taskId)
         {

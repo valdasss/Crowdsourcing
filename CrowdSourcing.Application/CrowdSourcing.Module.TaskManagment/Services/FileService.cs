@@ -59,6 +59,27 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return file.ToModel();
         }
 
+        public async Task<IEnumerable<UsersFiles>> GetUsersFileInfo(string userId)
+        {
+            var usersFiles = await _fileRepository.GetAllUsersFiles(userId);
+            var list = new List<UsersFiles>();
+            foreach (var userFile in usersFiles)
+            {
+                var taskName = userFile.Data.TaskDatas.FirstOrDefault().Task.Name;
+                var TaskType = userFile.Data.TaskDatas.FirstOrDefault().Task.TaskType.Name;
+                var listItem = new UsersFiles()
+                {
+                    FileId = userFile.Id,
+                    FileName =  UrlParser.GetFileNameWithExtension(userFile.Url),
+                    Status = userFile.Data.Status,
+                    TaskName = taskName,
+                    TaskType = TaskType
+                };
+                list.Add(listItem);
+            }
+            return list;
+        }
+
         public async Task<FileModel> UpdateFileAsync(int id, string url, int dataId)
         {
             string format = UrlParser.GetFileFormatFromPathUrl(url);

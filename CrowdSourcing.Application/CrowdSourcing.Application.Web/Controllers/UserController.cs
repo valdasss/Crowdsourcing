@@ -19,10 +19,12 @@ namespace CrowdSourcing.Application.Web.Controllers
     {
         private IPersonService _personService;
         private ISolutionService _solutionService;
-        public UserController(IPersonService personService,ISolutionService solutionService)
+        private IFileService _fileService;
+        public UserController(IPersonService personService,ISolutionService solutionService,IFileService fileService)
         {
             _personService = personService;
             _solutionService = solutionService;
+            _fileService = fileService;
         }
         [Route("User/Register")]
         [HttpPost]
@@ -114,6 +116,25 @@ namespace CrowdSourcing.Application.Web.Controllers
             var adminId = identityClaims.FindFirst("Id").Value;
             var person = await _personService.ChangePassword(adminId, changePass.CurrentPassword, changePass.Password);
             return Ok(person);
+        }
+
+        [Route("User/GetUsersFilesHistory")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetUsersFilesHistory()
+        {
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            var userId = identityClaims.FindFirst("Id").Value;
+            var UserFiles = await _fileService.GetUsersFileInfo(userId);
+            return Ok(UserFiles);
+        }
+        [Route("User/GetExpertsSolutionsHistory")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetExpertsSolutionsHistory()
+        {
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            var userId = identityClaims.FindFirst("Id").Value;
+            var expertSolutionHistory = await _solutionService.GetExpertsSolutionHistory(userId);
+            return Ok(expertSolutionHistory);
         }
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="Model\DataModels\AddDataModel.cs" />
     <Compile Include="Model\DataModels\DataModel.cs" />
     <Compile Include="Model\DataModels\UpdateDataModel.cs" />
+    <Compile Include="Model\FileModels\UsersFiles.cs" />
     <Compile Include="Model\ReportModels\DataUploadersReportModel.cs" />
     <Compile Include="Model\ReportModels\ExpertReportModel.cs" />
     <Compile Include="Model\FileModels\FileForDetailsModel.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Model\ReportModels\TaskReportModel.cs" />
     <Compile Include="Model\SolutionModels\AddSolutionModel.cs" />
     <Compile Include="Model\SolutionModels\DetailedSolutionModelForExpert.cs" />
+    <Compile Include="Model\SolutionModels\ExpertSolutionsHistoryModel.cs" />
     <Compile Include="Model\SolutionModels\SolutionInfoModel.cs" />
     <Compile Include="Model\SolutionModels\SolutionModelForDoubleCheck.cs" />
     <Compile Include="Model\SolutionModels\SolutionModelForExpertSolutionList.cs" />
