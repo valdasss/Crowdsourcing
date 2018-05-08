@@ -19,6 +19,6 @@ namespace CrowdSourcing.Repository.Interface
         Task<IEnumerable<SolutionEntity>> GetSolutionsWithRatingByExpertId(string expertId);
         Task<IEnumerable<SolutionEntity>> GetAllSolutionsBy(string expertId);
         Task<IEnumerable<SolutionEntity>> GetAllSolutionsByTaskId(int taskId);
-        Task<IEnumerable<SolutionEntity>> GetAllSolutionsByWithTaskAndData(string expertId);
+        Task<IEnumerable<SolutionEntity>> GetAllDoneSolutionsByWithTaskAndData(string expertId);
     }
 }

@@ -61,7 +61,9 @@
     <Compile Include="Interfaces\ITaskTypeService.cs" />
     <Compile Include="Model\DataModels\AddDataModel.cs" />
     <Compile Include="Model\DataModels\DataModel.cs" />
+    <Compile Include="Model\DataModels\GoodTaskDataModel.cs" />
     <Compile Include="Model\DataModels\UpdateDataModel.cs" />
+    <Compile Include="Model\Download\TaskDataDownloadModel.cs" />
     <Compile Include="Model\FileModels\UsersFiles.cs" />
     <Compile Include="Model\ReportModels\DataUploadersReportModel.cs" />
     <Compile Include="Model\ReportModels\ExpertReportModel.cs" />

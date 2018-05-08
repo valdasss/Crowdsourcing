@@ -6,5 +6,6 @@ namespace CrowdSourcing.Contract.Interfaces
     public interface IDownloadService
     {
         Task<ZipFile> DownloadArchiveAsyncByDataId(int dataId);
+        Task<ZipFile> DownloadGoodTaskFiles(int taskId);
     }
 }

@@ -93,6 +93,17 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<IEnumerable<int>> GetAllGoodTaskDatasIds(int taskId)
+        {
+            var datas = await _dataRepository.GetAllGoodTaskData(taskId);
+            var list = new List<int>();
+            foreach(var data in datas)
+            {
+                list.Add(data.Id);
+
+            }
+            return list;
+        }
         public async Task<IEnumerable<DataModel>> GetAllPersonDatasAsync(string personId)
         {
             var data = await _dataRepository.GetPersonDatas(personId);

@@ -29,5 +29,9 @@ namespace CrowdSourcing.Contract.Helpers
             return  new DirectoryInfo(pathUrl).Name;
 
         }
+        public static string GetDirectoryFullName(string pathUrl)
+        {
+            return new FileInfo(pathUrl).Directory.FullName;
+        }
     }
 }

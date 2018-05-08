@@ -208,7 +208,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task<IEnumerable<ExpertSolutionsHistoryModel>> GetExpertsSolutionHistory(string expertId)
         {
-            var solutionHistory = await _solutionRepository.GetAllSolutionsByWithTaskAndData(expertId);
+            var solutionHistory = await _solutionRepository.GetAllDoneSolutionsByWithTaskAndData(expertId);
             var list = new List<ExpertSolutionsHistoryModel>();
             foreach (var solut in solutionHistory)
             {

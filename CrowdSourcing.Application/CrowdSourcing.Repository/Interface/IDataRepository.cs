@@ -10,5 +10,6 @@ namespace CrowdSourcing.Repository.Interface
         Task<DataEntity> GetDataWithFilesAndPersonBy(int dataId);
         Task<DataEntity> GetDataWithFilesAndPersonByTaskDataId(int taskdataId);
         Task<IEnumerable<DataEntity>> GetPersonDatas(string personId);
+        Task<IEnumerable<DataEntity>> GetAllGoodTaskData(int taskId);
     }
 }

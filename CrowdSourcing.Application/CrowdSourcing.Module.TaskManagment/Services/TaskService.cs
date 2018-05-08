@@ -36,7 +36,9 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task DeleteTaskAsync(int id)
         {
-            await _taskRepository.DeleteAsync(id);
+            var taskEntity = await _taskRepository.GetByIdAsync(id);
+            taskEntity.Status = 2;
+            await _taskRepository.UpdateAsync(taskEntity);
         }
 
         public async Task<IEnumerable<TaskModel>> GetAllTasksWithTypeAsync()

@@ -1,13 +1,9 @@
 ﻿using CrowdSourcing.Contract.Helpers;
 using CrowdSourcing.Contract.Interfaces;
 using Ionic.Zip;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -30,6 +26,13 @@ namespace CrowdSourcing.Application.Web.Controllers
         public async Task<HttpResponseMessage> DownloadDataFiles(int id)
         {
             var zipFile = await _downloadService.DownloadArchiveAsyncByDataId(id);            
+            return ZipContentResult(zipFile);
+        }
+        [HttpGet]
+        [Route("DownloadGoodTaskFiles/{id}")]
+        public async Task<HttpResponseMessage> DownloadGoodTaskFiles(int id)
+        {
+            var zipFile = await _downloadService.DownloadGoodTaskFiles(id);
             return ZipContentResult(zipFile);
         }
 
