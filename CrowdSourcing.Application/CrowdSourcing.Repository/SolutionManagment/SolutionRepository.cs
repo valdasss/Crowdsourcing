@@ -79,7 +79,7 @@ namespace CrowdSourcing.Repository.SolutionManagment
         }
         public async Task<IEnumerable<SolutionEntity>> GetAllSolutionsForDeleteBy(string expertId)
         {
-            var solution = await _dbSet.Where(s => s.ExpertId == expertId||s.AdminId==expertId).ToListAsync();
+            var solution = await _dbSet.Include(s=>s.SolutionReviews).Where(s => s.ExpertId == expertId||s.AdminId==expertId).ToListAsync();
             return solution;
         }
         public async Task<IEnumerable<SolutionEntity>> GetAllDoneSolutionsByWithTaskAndData(string expertId)
@@ -99,8 +99,8 @@ namespace CrowdSourcing.Repository.SolutionManagment
             var latestSolutions = await _dbSet.Include(s => s.TaskData.Task).Where(s => s.TaskData.Task.Id == taskId &&(s.Status==2||s.Status==3)).ToListAsync();
             return latestSolutions.GroupBy(s =>s.TaskDataId).Select(x=> 
             {
-                var nextReviewDate = x.Max(y => y.SolutionDate);
-                return x.LastOrDefault(y => y.SolutionDate == nextReviewDate);
+                var letestSolutionData = x.Max(y => y.SolutionDate);
+                return x.LastOrDefault(y => y.SolutionDate == letestSolutionData);
             });
         }
        

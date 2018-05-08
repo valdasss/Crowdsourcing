@@ -5,6 +5,7 @@ using CrowdSourcing.EntityCore.Entity;
 using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         {
             var format = UrlParser.GetFileFormatFromPathUrl(url);
             var fileType = await _fileTypeService.GetFileTypeBy(format);
-            
+
             var fileEntity = new FileEntity()
             {
                 DataId = dataId,
@@ -70,7 +71,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 var listItem = new UsersFiles()
                 {
                     FileId = userFile.Id,
-                    FileName =  UrlParser.GetFileNameWithExtension(userFile.Url),
+                    FileName = UrlParser.GetFileNameWithExtension(userFile.Url),
                     Status = userFile.Data.Status,
                     TaskName = taskName,
                     TaskType = TaskType
@@ -78,6 +79,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 list.Add(listItem);
             }
             return list;
+        }
+        public async Task DeleteFilesForServer(int dataId)
+        {
+            var files = await _fileRepository.GetAllFilesBy(dataId);
+            Directory.Delete(UrlParser.GetDirectoryFullName(files.First().Url), true);
         }
 
         public async Task<FileModel> UpdateFileAsync(int id, string url, int dataId)

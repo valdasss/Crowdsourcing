@@ -59,11 +59,18 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task<DetailedSolutionModelForExpert> GetDetailedSolutionInformationForExpert(int solutionId)
         {
-            var solution = await _solutionRepository.GetByIdAsync(solutionId);
-            var admin = await _personService.GetPersonById(solution.AdminId);
-            var taskData = await _dataService.GetDataForMoreDetailsByTaskDataId(solution.TaskDataId);
-            var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solution.TaskDataId);
-            return solution.ToDetailsSolutionModelForExpert(admin, taskData, taskDataWithTask);
+            string comment = "";
+            var solutionReview = await _solutionRepository.GetByIdAsync(solutionId);
+            if (solutionReview.SolutionReviewId != null)
+            {
+            var solution = await _solutionRepository.GetByIdAsync((int)solutionReview.SolutionReviewId);
+                comment = solution.Comment;
+            }
+            
+            var admin = await _personService.GetPersonById(solutionReview.AdminId);
+            var taskData = await _dataService.GetDataForMoreDetailsByTaskDataId(solutionReview.TaskDataId);
+            var taskDataWithTask = await _taskDataService.GetTaskDataWithTask(solutionReview.TaskDataId);
+            return solutionReview.ToDetailsSolutionModelForExpert(admin, taskData, taskDataWithTask, comment);
         }
 
         public async Task<IEnumerable<SolutionShortInfoModel>> GetAssignSolutionsByTaskId(int taskId)
@@ -235,12 +242,22 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var userSolutions = await _solutionRepository.GetAllSolutionsForDeleteBy(userId);
             foreach (var userSolution in userSolutions)
             {
+                await RecursiceSolutionDelete(userSolution.Id);
                 await _taskDataService.UnsetFinishDateAndChangeDataStatus(userSolution.TaskDataId);
                 await _solutionRepository.DeleteAsync(userSolution.Id);
 
             }
             await _dataService.DetelePersonsData(userId);
             await _personService.DeletePersonAsync(userId);
+        }
+        private async Task RecursiceSolutionDelete(int solutId)
+        {
+            var userSolution = await _solutionRepository.GetByIdAsync(solutId);
+            foreach (var review in userSolution.SolutionReviews)
+            {
+                await RecursiceSolutionDelete(review.Id);
+                await _solutionRepository.DeleteAsync(review.Id);         
+            }
         }
     }
 }
