@@ -20,7 +20,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
                 .IsRequired();
 
             Property(f => f.FileTypeId)
-                .IsRequired();
+                .IsOptional();
 
             Property(f => f.Url)
                 .IsRequired();

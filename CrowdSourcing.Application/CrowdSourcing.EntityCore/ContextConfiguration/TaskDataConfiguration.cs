@@ -21,10 +21,11 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
                 .IsOptional();
 
             HasRequired(td => td.Task)
-                .WithMany(t => t.TaskDatas);
+                .WithMany(t => t.TaskDatas)
+            .WillCascadeOnDelete(false);
 
             HasRequired(td => td.Data)
-               .WithMany(d => d.TaskDatas);
+               .WithMany(d => d.TaskDatas).WillCascadeOnDelete(true);
 
 
         }

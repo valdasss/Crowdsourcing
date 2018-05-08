@@ -60,6 +60,10 @@ namespace CrowdSourcing.Repository.UserManagment
         {
             return await _personManager.Users.ToListAsync();
         }
+        public async Task<IEnumerable<PersonEntity>> GetAllPersonsExeptHimself(string personId)
+        {
+            return await _personManager.Users.Where(p=>p.Id!= personId).ToListAsync();
+        }
         public async Task<IEnumerable<string>> GetPersonsRoles(string id)
         {
             return await _personManager.GetRolesAsync(id);

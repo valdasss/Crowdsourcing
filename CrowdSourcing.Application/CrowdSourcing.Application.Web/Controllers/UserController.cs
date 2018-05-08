@@ -59,38 +59,45 @@ namespace CrowdSourcing.Application.Web.Controllers
             };
             return Ok(model);
         }
+        [Route("User/GetAllPersons")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetAllPersons()
+        {
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            var personId = identityClaims.FindFirst("Id").Value;
+            var persons = await _personService.GetAllPersonsExeptHimself(personId);
+            return Ok(persons);
+        }
 
         [Route("User/Login")]
         [HttpPost]
         public async Task<HttpResponseMessage> LoginUser(LoginVM model)
+        {
+            
+            HttpResponseMessage message;
+            var request = HttpContext.Current.Request;
+            var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath + "/token";
+            using (var client = new HttpClient())
             {
-            // Invoke the "token" OWIN service to perform the login: /api/token
-            // Ugly hack: I use a server-side HTTP POST because I cannot directly invoke the service (it is deeply hidden in the OAuthAuthorizationServerHandler class)
-                HttpResponseMessage message;
-                var request = HttpContext.Current.Request;
-                var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath + "/token";
-                using (var client = new HttpClient())
+                var requestParams = new List<KeyValuePair<string, string>>
                 {
-                    var requestParams = new List<KeyValuePair<string, string>>
-                    {
-                        new KeyValuePair<string, string>("grant_type", "password"),
-                        new KeyValuePair<string, string>("username", model.Email),
-                        new KeyValuePair<string, string>("password", model.Password)
-                    };
-                    var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
-                    var tokenServiceResponse = await client.PostAsync(tokenServiceUrl, requestParamsFormUrlEncoded);
-                    var responseString = await tokenServiceResponse.Content.ReadAsStringAsync();
-                    var responseCode = tokenServiceResponse.StatusCode;
-                    message = new HttpResponseMessage(responseCode)
-                    {
-                        Content = new StringContent(responseString, Encoding.UTF8, "application/json")
-                    };
-                                   
-                }
-                return message;
-              
-                
+                    new KeyValuePair<string, string>("grant_type", "password"),
+                    new KeyValuePair<string, string>("username", model.Email),
+                    new KeyValuePair<string, string>("password", model.Password)
+                };
+             var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
+             var tokenServiceResponse = await client.PostAsync(tokenServiceUrl, requestParamsFormUrlEncoded);
+             var responseString = await tokenServiceResponse.Content.ReadAsStringAsync();
+             var responseCode = tokenServiceResponse.StatusCode;
+             message = new HttpResponseMessage(responseCode)
+             {
+                 Content = new StringContent(responseString, Encoding.UTF8, "application/json")
+             };
+                            
             }
+         return message;           
+        }
+
         [Route("User/GetExperts")]
         [HttpGet]
         public async Task<IHttpActionResult> GetExperts()
@@ -127,6 +134,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             var UserFiles = await _fileService.GetUsersFileInfo(userId);
             return Ok(UserFiles);
         }
+
         [Route("User/GetExpertsSolutionsHistory")]
         [HttpGet]
         public async Task<IHttpActionResult> GetExpertsSolutionsHistory()
@@ -135,6 +143,14 @@ namespace CrowdSourcing.Application.Web.Controllers
             var userId = identityClaims.FindFirst("Id").Value;
             var expertSolutionHistory = await _solutionService.GetExpertsSolutionHistory(userId);
             return Ok(expertSolutionHistory);
+        }
+
+        [Route("User/DeleteUser/{id}")]
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteUser(string id)
+        { 
+            await _personService.DeletePersonAsync(id);
+            return Ok();
         }
     }
 }

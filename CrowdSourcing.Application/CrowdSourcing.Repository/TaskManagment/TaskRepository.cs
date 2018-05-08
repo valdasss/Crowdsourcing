@@ -25,7 +25,7 @@ namespace CrowdSourcing.Repository.TaskManagment
 
         public async Task<IEnumerable<TaskEntity>> getAllTaskWithType()
         {
-            return await _dbSet.Include(t => t.TaskType).ToListAsync();
+            return await _dbSet.Include(t => t.TaskType).Where(t=>t.Status!=2).ToListAsync();
         }
         public async Task<TaskEntity> getTaskWithTypeBy(int id)
         {

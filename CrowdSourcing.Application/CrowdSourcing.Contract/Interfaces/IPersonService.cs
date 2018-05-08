@@ -16,5 +16,6 @@ namespace CrowdSourcing.Contract.Interfaces
         Task DeletePersonAsync(string id);
         Task<PersonModel> ChangePassword(string personId, string currentPassword, string password);
         Task<IEnumerable<ExpertForDropdown>> GetAllUploaders();
+        Task<IEnumerable<PersonWithRoleModel>> GetAllPersonsExeptHimself(string personId);
     }
 }

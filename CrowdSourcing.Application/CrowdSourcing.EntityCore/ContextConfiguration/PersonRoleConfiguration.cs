@@ -17,11 +17,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             ToTable("PersonRole");
 
             HasKey(p => new { p.UserId, p.RoleId });
-
-           
-          
-          
-
+            
         }
     }
 }

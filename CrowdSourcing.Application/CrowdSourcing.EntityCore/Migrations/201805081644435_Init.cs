@@ -61,7 +61,7 @@ namespace CrowdSourcing.EntityCore.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Data", t => t.DataId, cascadeDelete: true)
-                .ForeignKey("dbo.Task", t => t.TaskId, cascadeDelete: true)
+                .ForeignKey("dbo.Task", t => t.TaskId)
                 .Index(t => t.TaskId)
                 .Index(t => t.DataId);
             
@@ -91,7 +91,7 @@ namespace CrowdSourcing.EntityCore.Migrations
                 .ForeignKey("dbo.PersonRole", t => new { t.AdminId, t.AdminRoleId })
                 .ForeignKey("dbo.PersonRole", t => new { t.ExpertId, t.ExpertRoleId })
                 .ForeignKey("dbo.Solution", t => t.SolutionReviewId)
-                .ForeignKey("dbo.TaskData", t => t.TaskDataId)
+                .ForeignKey("dbo.TaskData", t => t.TaskDataId, cascadeDelete: true)
                 .Index(t => new { t.AdminId, t.AdminRoleId })
                 .Index(t => new { t.ExpertId, t.ExpertRoleId })
                 .Index(t => t.SolutionReviewId)

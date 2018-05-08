@@ -26,10 +26,15 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             Property(s => s.AdminId)
                 .IsRequired();
 
+            Property(s => s.AdminRoleId)
+                .IsRequired();
+
             Property(s => s.Comment)
                 .IsOptional();
 
             Property(s => s.ExpertId)
+                .IsRequired();
+            Property(s => s.ExpertRoleId)
                 .IsRequired();
 
             Property(s => s.TaskDataId)
@@ -45,18 +50,16 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
                .IsOptional();
 
             HasRequired(s => s.TaskData)
-                .WithMany(td => td.Solutions)
-                .WillCascadeOnDelete(false);
+                .WithMany(td => td.Solutions);
+
 
             HasRequired(s => s.Administrator)
                 .WithMany()
-                .HasForeignKey(s=>new { s.AdminId,s.AdminRoleId})
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(s => new { s.AdminId, s.AdminRoleId }).WillCascadeOnDelete(false);
 
             HasRequired(s => s.Expert)
                 .WithMany()
-                .HasForeignKey(s=>new { s.ExpertId, s.ExpertRoleId })
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(s => new { s.ExpertId, s.ExpertRoleId }).WillCascadeOnDelete(false);
 
             HasOptional(s => s.Solution)
                 .WithMany(s => s.SolutionReviews)

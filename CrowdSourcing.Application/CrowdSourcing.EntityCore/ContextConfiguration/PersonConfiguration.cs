@@ -23,7 +23,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
             Property(p => p.Email)
                 .IsRequired();
 
-            HasMany(p => p.Roles).WithRequired().HasForeignKey(p => p.UserId);
+            HasMany(p => p.Roles).WithRequired().HasForeignKey(p => p.UserId).WillCascadeOnDelete(true);
         }
     }
 }

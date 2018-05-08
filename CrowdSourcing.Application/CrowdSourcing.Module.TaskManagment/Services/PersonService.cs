@@ -139,5 +139,27 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return modelList;
         }
 
+        public async Task<IEnumerable<PersonWithRoleModel>> GetAllPersonsExeptHimself(string personId)
+        {
+            var persons = await _personRepository.GetAllPersonsExeptHimself(personId);
+            var list = new List<PersonWithRoleModel>();
+            foreach (var person in persons)
+            {
+                var roles = await _personRepository.GetPersonsRoles(person.Id);
+                if (roles.Contains("admin"))
+                {
+                    list.Add(person.ToModelWithRole("admin"));
+                }
+                else if (roles.Contains("expert"))
+                {
+                    list.Add(person.ToModelWithRole("expert"));
+                }
+                else
+                {
+                    list.Add( person.ToModelWithRole("user"));
+                }         
+            }
+            return list;
+        }
     }
 }
