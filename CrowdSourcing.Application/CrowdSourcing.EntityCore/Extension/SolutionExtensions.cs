@@ -57,8 +57,8 @@ namespace CrowdSourcing.EntityCore.Extension
                 SolutionDate = DateTime.Now,
                 Status = 1,
                 TaskDataId = taskDataId,
-                AdminRoleId = adminId,
-                AdminId = adminRoleId,
+                AdminRoleId = adminRoleId,
+                AdminId = adminId,
                 SolutionReviewId = solutionId
             };
             return model;
