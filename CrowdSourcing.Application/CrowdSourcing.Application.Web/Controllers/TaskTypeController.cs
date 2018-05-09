@@ -1,13 +1,8 @@
 ﻿using CrowdSourcing.Application.Web.Extension;
 using CrowdSourcing.Application.Web.ViewModels;
 using CrowdSourcing.Contract.Interfaces;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 
@@ -17,9 +12,11 @@ namespace CrowdSourcing.Application.Web.Controllers
     public class TaskTypeController : ApiController
     {
         private readonly ITaskTypeService _taskTypeService;
-        public TaskTypeController(ITaskTypeService taskTypeService)
+        private readonly ITaskService _taskService;
+        public TaskTypeController(ITaskTypeService taskTypeService,ITaskService taskService)
         {
             _taskTypeService = taskTypeService;
+            _taskService = taskService;
         }
 
         [HttpGet]
@@ -27,6 +24,13 @@ namespace CrowdSourcing.Application.Web.Controllers
         public async Task<IHttpActionResult> GetAllTaskTypes()
         {
             var taskTypes = await _taskTypeService.GetAllTaskTypesAsync();
+            return Ok(taskTypes.Select(x => x.ToViewModel()));
+        }
+        [HttpGet]
+        [Route("getAllWithOutNotFound")]
+        public async Task<IHttpActionResult> GetAllTaskTypesWithoutNotFound()
+        {
+            var taskTypes = await _taskTypeService.GetAllTaskTypesWithOutNotFOundAsync();
             return Ok(taskTypes.Select(x => x.ToViewModel()));
         }
 
@@ -58,7 +62,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         [Route("Delete/{id}")]
         public async Task<IHttpActionResult> DelteTaskType(int id)
         {
-            await _taskTypeService.DeleteTaskTypeAsync(id);
+            await _taskService.ChangeTaskTypeToNotFoundAndDeleteTaskType(id);
             return Ok();
         }
       

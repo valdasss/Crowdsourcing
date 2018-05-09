@@ -21,22 +21,29 @@
             #region TaskType
             context.TaskTypes.AddOrUpdate(new TaskTypeEntity
             {
-                Name = "Vertimas",
+                Name = "Nėra",
                 Id = 1
             });
             context.SaveChanges();
 
             context.TaskTypes.AddOrUpdate(new TaskTypeEntity
             {
-                Name = "Įgarsinimas",
+                Name = "Vertimas",
                 Id = 2
             });
             context.SaveChanges();
 
             context.TaskTypes.AddOrUpdate(new TaskTypeEntity
             {
-                Name = "Vertimas ir įgarsinimas",
+                Name = "Įgarsinimas",
                 Id = 3
+            });
+            context.SaveChanges();
+
+            context.TaskTypes.AddOrUpdate(new TaskTypeEntity
+            {
+                Name = "Vertimas ir įgarsinimas",
+                Id = 4
             });
             context.SaveChanges();
             #endregion

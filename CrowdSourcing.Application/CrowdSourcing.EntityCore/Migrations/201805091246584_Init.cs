@@ -188,7 +188,7 @@ namespace CrowdSourcing.EntityCore.Migrations
                         Status = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.TaskType", t => t.TaskTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.TaskType", t => t.TaskTypeId)
                 .Index(t => t.TaskTypeId);
             
             CreateTable(

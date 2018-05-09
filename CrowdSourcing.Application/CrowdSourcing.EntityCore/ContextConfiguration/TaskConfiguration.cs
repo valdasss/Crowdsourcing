@@ -24,7 +24,7 @@ namespace CrowdSourcing.EntityCore.ContextConfiguration
                 .IsRequired();
 
             HasRequired(t => t.TaskType)
-                .WithMany(tp => tp.Tasks);
+                .WithMany(tp => tp.Tasks).WillCascadeOnDelete(false);
 
         }
     }

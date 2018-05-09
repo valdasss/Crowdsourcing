@@ -2,7 +2,10 @@
 using CrowdSourcing.EntityCore.Common;
 using CrowdSourcing.EntityCore.Entity;
 using CrowdSourcing.Repository.Interface;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CrowdSourcing.Repository.TaskManagment
 {
@@ -16,6 +19,11 @@ namespace CrowdSourcing.Repository.TaskManagment
         {
             _dbContext = context;
             _dbSet = Context.Set<TaskTypeEntity>();
+        }
+
+        public async Task<IEnumerable<TaskTypeEntity>> GetAllTaskDatasExeptNotFound()
+        {
+            return await _dbSet.Where(t => t.Id != 1).ToListAsync();
         }
     }
 }

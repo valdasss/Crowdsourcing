@@ -13,5 +13,6 @@ namespace CrowdSourcing.Contract.Interfaces
         Task<TaskModel> GetTaskAsync(int id);
         Task<UpdateTaskModel> GetTaskFullModelAsync(int id);
         Task DeleteTaskAsync(int id);
+        Task ChangeTaskTypeToNotFoundAndDeleteTaskType(int taskTypeId);
     }
 }

@@ -13,10 +13,12 @@ namespace CrowdSourcing.Module.TaskManagment.Services
     public class TaskService : ITaskService
     {
         private ITaskRepository _taskRepository;
-        
-        public TaskService(ITaskRepository taskRepository)
+        private ITaskTypeService _taskTypeService;
+
+        public TaskService(ITaskRepository taskRepository, ITaskTypeService taskTypeService)
         {
             _taskRepository = taskRepository;
+            _taskTypeService = taskTypeService;
         }
 
         public async Task<UpdateTaskModel> AddTaskAsync(AddTaskModel taskModel)
@@ -34,6 +36,17 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             return result.ToFullModel();
         }
 
+        public async Task ChangeTaskTypeToNotFoundAndDeleteTaskType(int taskTypeId)
+        {
+            var tasks = await _taskRepository.GetAllTasksByTaskTypeId(taskTypeId);
+            foreach (var task in tasks)
+            {
+                task.TaskTypeId = 1;
+                await _taskRepository.UpdateAsync(task);
+            }
+           await _taskTypeService.DeleteTaskTypeAsync(taskTypeId);
+        }
+
         public async Task DeleteTaskAsync(int id)
         {
             var taskEntity = await _taskRepository.GetByIdAsync(id);
@@ -43,13 +56,13 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task<IEnumerable<TaskModel>> GetAllTasksWithTypeAsync()
         {
-            var tasks = await _taskRepository.getAllTaskWithType();
+            var tasks = await _taskRepository.GetAllTaskWithType();
             return tasks.Select(t => t.ToModel());
         }
 
         public async Task<TaskModel> GetTaskAsync(int id)
         {
-            var task = await _taskRepository.getTaskWithTypeBy(id);
+            var task = await _taskRepository.GetTaskWithTypeBy(id);
             return task.ToModel();
         }
         public async Task<UpdateTaskModel> GetTaskFullModelAsync(int id)

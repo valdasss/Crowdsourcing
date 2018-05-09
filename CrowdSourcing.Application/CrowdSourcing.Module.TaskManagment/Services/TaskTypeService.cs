@@ -39,6 +39,11 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var taskTypes = await _taskTypeRepository.GetAllAsync();
             return taskTypes.Select(x=>x.ToModel());
         }
+        public async Task<IEnumerable<TaskTypeModel>> GetAllTaskTypesWithOutNotFOundAsync()
+        {
+            var taskTypes = await _taskTypeRepository.GetAllTaskDatasExeptNotFound();
+            return taskTypes.Select(x => x.ToModel());
+        }
 
         public async Task<TaskTypeModel> GetTaskTypeBy(int taskTypeId)
         {

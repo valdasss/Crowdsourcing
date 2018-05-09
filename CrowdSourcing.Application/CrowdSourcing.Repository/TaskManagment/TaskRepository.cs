@@ -23,11 +23,15 @@ namespace CrowdSourcing.Repository.TaskManagment
             _dbSet = Context.Set<TaskEntity>();
         }
 
-        public async Task<IEnumerable<TaskEntity>> getAllTaskWithType()
+        public async Task<IEnumerable<TaskEntity>> GetAllTaskWithType()
         {
             return await _dbSet.Include(t => t.TaskType).Where(t=>t.Status!=2).ToListAsync();
         }
-        public async Task<TaskEntity> getTaskWithTypeBy(int id)
+        public async Task<IEnumerable<TaskEntity>> GetAllTasksByTaskTypeId(int taskTypeId)
+        {
+            return await _dbSet.Where(t => t.TaskTypeId == taskTypeId).ToListAsync();
+        }
+        public async Task<TaskEntity> GetTaskWithTypeBy(int id)
         {
             return await _dbSet.Include(t => t.TaskType).Where(t=>t.Id==id).FirstOrDefaultAsync();
         }
