@@ -112,11 +112,10 @@
             var storePerson = new UserStore<PersonEntity>(context);
             var managerPerson = new UserManager<PersonEntity>(storePerson);
             if (!context.Users.Any(u => u.UserName == "admin@gmail.com"))
-            {
-                
+            {           
                 var user = new PersonEntity {
-                    FirstName="John",
-                    LastName = "Wicked",
+                    FirstName="Petras",
+                    LastName = "Vaškys",
                     Email = "admin@gmail.com",                   
                     UserName = "admin@gmail.com"
                 };
@@ -151,7 +150,7 @@
                 var user = new PersonEntity
                 {
                     FirstName = "Tomas",
-                    LastName = "Makaka",
+                    LastName = "Stulpinskas",
                     Email = "user@gmail.com",
                     UserName = "user@gmail.com"
                 };
