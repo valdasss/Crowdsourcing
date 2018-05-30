@@ -2,11 +2,9 @@
 using CrowdSourcing.EntityCore.Common;
 using CrowdSourcing.EntityCore.Entity;
 using CrowdSourcing.Repository.Interface;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CrowdSourcing.Repository.SolutionManagment
@@ -97,10 +95,11 @@ namespace CrowdSourcing.Repository.SolutionManagment
         public async Task<IEnumerable<SolutionEntity>> GetLatestSolutionsByTaskId(int taskId)
         {
             var latestSolutions = await _dbSet.Include(s => s.TaskData.Task).Where(s => s.TaskData.Task.Id == taskId &&(s.Status==2||s.Status==3)).ToListAsync();
-            return latestSolutions.GroupBy(s =>s.TaskDataId).Select(x=> 
-            {
-                var letestSolutionData = x.Max(y => y.SolutionDate);
-                return x.LastOrDefault(y => y.SolutionDate == letestSolutionData);
+            return latestSolutions.GroupBy(s =>s.TaskDataId).Where(s=>s.Count()<2).Select(x=> 
+            { 
+                    var letestSolutionData = x.Max(y => y.SolutionDate);
+                    return x.LastOrDefault(y => y.SolutionDate == letestSolutionData);
+               
             });
         }
        

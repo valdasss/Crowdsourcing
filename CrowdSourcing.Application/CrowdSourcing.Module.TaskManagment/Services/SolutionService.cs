@@ -133,10 +133,13 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var list = new List<SolutionShortInfoModel>();
             foreach (var solution in solutions)
             {
-                var admin = await _personService.GetPersonById(solution.AdminId);
-                var expert = await _personService.GetPersonById(solution.ExpertId);
-                var solut = solution.ToSolutionShortInfoModel(admin, expert);
-                list.Add(solut);
+                if (solution != null)
+                {
+                    var admin = await _personService.GetPersonById(solution.AdminId);
+                    var expert = await _personService.GetPersonById(solution.ExpertId);
+                    var solut = solution.ToSolutionShortInfoModel(admin, expert);
+                    list.Add(solut);
+                }
             }
             return list;
 
@@ -147,11 +150,13 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var solutions = await _solutionRepository.GetRejectedSolutionsByTaskId(taskId);
             var list = new List<SolutionShortInfoModel>();
             foreach (var solution in solutions)
-            {
-                var admin = await _personService.GetPersonById(solution.AdminId);
-                var expert = await _personService.GetPersonById(solution.ExpertId);
-                var solut = solution.ToSolutionShortInfoModel(admin, expert);
-                list.Add(solut);
+            {   if (solution != null)
+                {
+                    var admin = await _personService.GetPersonById(solution.AdminId);
+                    var expert = await _personService.GetPersonById(solution.ExpertId);
+                    var solut = solution.ToSolutionShortInfoModel(admin, expert);
+                    list.Add(solut);
+                }
             }
             return list;
 
