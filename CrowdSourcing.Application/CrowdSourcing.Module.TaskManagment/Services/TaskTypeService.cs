@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdSourcing.Contract.CustomExeptions;
@@ -21,6 +22,10 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task<TaskTypeModel> AddTaskTypeAsync(string name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ValidationException("Bad data");
+            }
             var taskTypeEntity = new TaskTypeEntity()
             {
                 Name = name
@@ -50,7 +55,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             var taskType = await _taskTypeRepository.GetByIdAsync(taskTypeId);
             if (taskType == null)
             {
-                throw new EntityNotFoundException("TaskType not found");
+                throw new ValidationException("Bad data");
             }
             return taskType.ToModel();
         }

@@ -17,6 +17,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpGet]
         [Route("GetExpertReport")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetExpertReport()
         {           
             var experts = await _reportService.GetExpertReport();
@@ -24,6 +25,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetTaskReport")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetTaskReport()
         {
             var tasks = await _reportService.GetTaskReport();
@@ -31,6 +33,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetUploadersReport")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetUploadersReport()
         {
             var uploaders = await _reportService.GetUploadersReport();

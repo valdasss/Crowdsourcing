@@ -21,6 +21,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpGet]
         [Route("getAll")]
+        [Authorize(Roles = "user,expert,admin")]
         public async Task<IHttpActionResult> GetAllTaskTypes()
         {
             var taskTypes = await _taskTypeService.GetAllTaskTypesAsync();
@@ -28,6 +29,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("getAllWithOutNotFound")]
+        [Authorize(Roles = "user,expert,admin")]
         public async Task<IHttpActionResult> GetAllTaskTypesWithoutNotFound()
         {
             var taskTypes = await _taskTypeService.GetAllTaskTypesWithOutNotFOundAsync();
@@ -36,6 +38,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpGet]
         [Route("Get/{taskTypeId}")]
+        [Authorize(Roles = "user,expert,admin")]
         public async Task<IHttpActionResult> GetTaskType(int taskTypeId)
         {
             var taskTypes = await _taskTypeService.GetTaskTypeBy(taskTypeId);
@@ -44,6 +47,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpPost]
         [Route("Add")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> AddTaskType(AddNameVM name)
         {
             var addedTaskType = await _taskTypeService.AddTaskTypeAsync(name.Name);
@@ -52,6 +56,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpPut]
         [Route("Update")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> UpdateTaskType(TaskTypeViewModel taskType)
         {
             var updatedTaskType = await _taskTypeService.UpdateTaskTypeAsync(taskType.ToModel());
@@ -60,6 +65,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpDelete]
         [Route("Delete/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> DelteTaskType(int id)
         {
             await _taskService.ChangeTaskTypeToNotFoundAndDeleteTaskType(id);

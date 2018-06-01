@@ -19,6 +19,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpPost]
         [Route("Add")]
+        [Authorize(Roles = "user,expert,admin")]
         public async Task<IHttpActionResult> AddTaskData()
         {       
             var httpRequest = HttpContext.Current.Request;
@@ -35,6 +36,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetForTable/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetDataForTable(int id)
         {
             var datas = await _taskDataService.GetTaskDatasForTableBy(id);
@@ -42,6 +44,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetForDataDropdown/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetDataForTaskDataDropdown(int id)
         {
             var datas = await _taskDataService.GetTaskDatasForDropdownSetReviewBy(id);

@@ -16,6 +16,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [Route("Task/GetTask/{id}")]
         [HttpGet]
+        [Authorize(Roles = "user,expert,admin")]
         public async Task<IHttpActionResult> GetTaskById(int id)
         {
             var user = await _taskService.GetTaskAsync(id);
@@ -24,6 +25,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [Route("Task/GetTaskFullModel/{id}")]
         [HttpGet]
+        [Authorize(Roles = "user,expert,admin")]
         public async Task<IHttpActionResult> GetTaskFullModelById(int id)
         {
             var user = await _taskService.GetTaskFullModelAsync(id);
@@ -31,6 +33,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [Route("Task/GetAllTasks")]
         [HttpGet]
+        [Authorize(Roles = "user,expert,admin")]
         public async Task<IHttpActionResult> GetAllTasks()
         {
             var tasks = await _taskService.GetAllTasksWithTypeAsync();
@@ -39,6 +42,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [Route("Task/Add")]
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> AddTask(AddTaskModel model)
         {
             var user = await _taskService.AddTaskAsync(model);
@@ -46,6 +50,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [Route("Task/Update")]
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> UpdateTask(UpdateTaskModel model)
         {
             var user = await _taskService.UpdateTaskAsync(model);
@@ -53,6 +58,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [Route("Task/Delete/{id}")]
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> DeleteTask(int id)
         {
             await _taskService.DeleteTaskAsync(id);

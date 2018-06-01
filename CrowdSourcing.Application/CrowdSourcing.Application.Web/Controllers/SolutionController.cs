@@ -18,6 +18,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpPost]
         [Route("Add")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> AddSolution(AddSolutionModelVM model)
         {          
             var identityClaims = (ClaimsIdentity)User.Identity;
@@ -27,6 +28,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpPost]
         [Route("AddDoubleCheck")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> AddSolutionForDoubleCheck(AddSolutionForDoubleCheckVM model)
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
@@ -36,6 +38,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetDetailedSolutionInfo/{id}")]
+        [Authorize(Roles = "expert,admin")]
         public async Task<IHttpActionResult> GetDetailedSolutionInfo(int id)
         {
             var solution = await _solutionService.GetDetailedSolutionInformation(id);
@@ -43,6 +46,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetDetailedSolutionInfoForExpert/{id}")]
+        [Authorize(Roles = "expert")]
         public async Task<IHttpActionResult> GetDetailedSolutionInfofForExpert(int id)
         {
             var solution = await _solutionService.GetDetailedSolutionInformationForExpert(id);
@@ -50,6 +54,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetAssignTaskSolutions/{id}")]
+        [Authorize(Roles = "expert")]
         public async Task<IHttpActionResult> GetAssignTasksSolutions(int id)
         {
             var solution = await _solutionService.GetAssignSolutionsByTaskId(id);
@@ -57,6 +62,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetAcceptedTaskSolutions/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetAcceptedTasksSolutions(int id)
         {
             var solution = await _solutionService.GetAcceptedSolutionsByTaskId(id);
@@ -64,6 +70,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetRejectedTaskSolutions/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GeRejectedTasksSolutions(int id)
         {
             var solution = await _solutionService.GetRejectedSolutionsByTaskId(id);
@@ -71,6 +78,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetLatestSolutionsForDoubleCheck/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetLatestSolutionsForDoubleCheck(int id)
         {
             var solutions = await _solutionService.GetLatestSolutionsForDoubleCheck(id);
@@ -79,6 +87,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpGet]
         [Route("GetAssignedExpertSolutions")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetAssignedExertSolutions()
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
@@ -88,6 +97,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetDoneExpertSolutions")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> GetDoneExertSolutions()
         {
             var identityClaims = (ClaimsIdentity)User.Identity;
@@ -97,6 +107,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpPut]
         [Route("ChangeSolutionStatus")]
+        [Authorize(Roles = "expert,admin")]
         public async Task<IHttpActionResult> ChangeSolutionStatus(ChangeSolutionStatusVM statusVM)
         {
             var solution = await _solutionService.UpdateSolutionsStatus(statusVM.SolutionId,statusVM.StatusId,statusVM.Comment);
@@ -104,6 +115,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpPut]
         [Route("RateSolution")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> RateSolution(RateSolutionVM statusVM)
         {
             var solution = await _solutionService.RateSolution(statusVM.SolutionId, statusVM.Rating);

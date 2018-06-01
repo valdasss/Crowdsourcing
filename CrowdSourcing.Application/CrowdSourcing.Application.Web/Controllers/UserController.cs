@@ -34,6 +34,8 @@ namespace CrowdSourcing.Application.Web.Controllers
             var user = await _personService.AddPersonAsync(account.ToModel(), account.Password, account.Role);
             return Ok(user.ToAcoountVm());
         }
+        
+        [Authorize(Roles ="admin")]
         [Route("User/RegisterAdmin")]
         [HttpPost]
         public async Task<IHttpActionResult> RegisterAdmin(AccountVM account)
@@ -59,6 +61,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             };
             return Ok(model);
         }
+        [Authorize(Roles = "admin")]
         [Route("User/GetAllPersons")]
         [HttpGet]
         public async Task<IHttpActionResult> GetAllPersons()
@@ -97,7 +100,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             }
          return message;           
         }
-
+        [Authorize(Roles ="admin")]
         [Route("User/GetExperts")]
         [HttpGet]
         public async Task<IHttpActionResult> GetExperts()
@@ -105,7 +108,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             var experts = await _solutionService.GetAllExpertsWithRating();
             return Ok(experts);
         }
-
+        [Authorize]
         [Route("User/Update")]
         [HttpPut]
         public async Task<IHttpActionResult> UpdatePersonInfo(UpdatePersonVM updatePerson)
@@ -115,6 +118,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             var person = await _personService.UpdatePersonAsync(adminId,updatePerson.Name, updatePerson.LastName, updatePerson.Email);          
             return Ok(person);
         }
+        [Authorize]
         [Route("User/ChangePassword")]
         [HttpPut]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordVM changePass)
@@ -124,7 +128,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             var person = await _personService.ChangePassword(adminId, changePass.CurrentPassword, changePass.Password);
             return Ok(person);
         }
-
+        [Authorize(Roles ="user")]
         [Route("User/GetUsersFilesHistory")]
         [HttpGet]
         public async Task<IHttpActionResult> GetUsersFilesHistory()
@@ -134,7 +138,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             var UserFiles = await _fileService.GetUsersFileInfo(userId);
             return Ok(UserFiles);
         }
-
+        [Authorize(Roles ="expert,admin")]
         [Route("User/GetExpertsSolutionsHistory")]
         [HttpGet]
         public async Task<IHttpActionResult> GetExpertsSolutionsHistory()
@@ -144,7 +148,7 @@ namespace CrowdSourcing.Application.Web.Controllers
             var expertSolutionHistory = await _solutionService.GetExpertsSolutionHistory(userId);
             return Ok(expertSolutionHistory);
         }
-
+        [Authorize(Roles ="admin")]
         [Route("User/DeleteUser/{id}")]
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteUser(string id)

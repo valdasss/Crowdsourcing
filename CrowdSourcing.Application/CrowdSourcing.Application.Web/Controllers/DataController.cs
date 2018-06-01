@@ -10,6 +10,7 @@ using System.Web.Http;
 namespace CrowdSourcing.Application.Web.Controllers
 {
     [RoutePrefix("Data")]
+    [Authorize]
     public class DataController : ApiController
     {
         private IDataService _dataService;
@@ -21,6 +22,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpGet]
         [Route("GetForDetails/{id}")]
+        [Authorize(Roles ="expert,admin")]
         public async Task<IHttpActionResult> GetDataForDetails(int id)
         {
             var dataModel = await _dataService.GetDataForMoreDetailsBy(id);

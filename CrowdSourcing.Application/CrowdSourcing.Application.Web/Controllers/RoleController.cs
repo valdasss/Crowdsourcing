@@ -22,9 +22,10 @@ namespace CrowdSourcing.Application.Web.Controllers
         {
             _roleService = roleService;
         }
-
+        
         [HttpPost]
         [Route("Add")]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> AddRole(AddNameVM roleName)
         {
             var addedRole= await _roleService.AddRoleAsync(roleName.Name);

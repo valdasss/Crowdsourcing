@@ -24,6 +24,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
 
         public async Task<PersonModel> AddPersonAsync(PersonModel personModel,string password,string role)
         {
+            ValidateRegisterModel(personModel, password, role);
             var user = await _personRepository.GetPersonByEmail(personModel.Email);
             if (user != null)
             {
@@ -160,6 +161,14 @@ namespace CrowdSourcing.Module.TaskManagment.Services
                 }         
             }
             return list;
+        }
+        private void ValidateRegisterModel(PersonModel model, string password, string role)
+        {
+            if(string.IsNullOrEmpty(model.LastName) ||string.IsNullOrEmpty(model.LastName) || string.IsNullOrEmpty(model.Email) 
+                ||  string.IsNullOrEmpty(password) || string.IsNullOrEmpty(role)||password.Count()<9)
+            {
+                throw new ValidationException("Bad data");
+            }
         }
     }
 }

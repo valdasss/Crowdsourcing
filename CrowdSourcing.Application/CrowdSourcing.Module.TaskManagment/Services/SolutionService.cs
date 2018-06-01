@@ -4,6 +4,7 @@ using CrowdSourcing.Contract.Model.SolutionModels;
 using CrowdSourcing.EntityCore.Extension;
 using CrowdSourcing.Repository.Interface;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,7 +29,8 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         }
 
         public async Task<AddSolutionModel> AddSolution(string adminId, string expertId, int taskDataId)
-        {         
+        {
+            await ValidateAddSolution(expertId, taskDataId);
             var adminRole = await _roleService.GetRoleByName("admin");
             var expertRole = await _roleService.GetRoleByName("expert");
             var solutionEntity = SolutionExtensions.ToEntityModel(expertId, expertRole.Id, adminId, adminRole.Id, taskDataId);
@@ -262,6 +264,19 @@ namespace CrowdSourcing.Module.TaskManagment.Services
             {
                 await RecursiceSolutionDelete(review.Id);
                 await _solutionRepository.DeleteAsync(review.Id);         
+            }
+        }
+        private async Task ValidateAddSolution(string expertId, int taskDataId)
+        {
+            if (string.IsNullOrEmpty(expertId))
+            {
+                throw new ValidationException("Bad data");
+            }
+            var person =await _personService.GetPersonById(expertId);
+            var taskData = await _taskDataService.GetTaskDataWithTask(taskDataId);
+            if (person == null||taskData==null)
+            {
+                throw new ValidationException("Bad data");
             }
         }
     }
