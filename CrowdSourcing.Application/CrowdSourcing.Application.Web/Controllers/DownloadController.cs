@@ -22,16 +22,14 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
 
         [HttpGet]
-        [Route("DownloadDataFiles/{id}")]
-        [Authorize(Roles = "expert,admin")]
+        [Route("DownloadDataFiles/{id}")]      
         public async Task<HttpResponseMessage> DownloadDataFiles(int id)
         {
             var zipFile = await _downloadService.DownloadArchiveAsyncByDataId(id);            
             return ZipContentResult(zipFile);
         }
         [HttpGet]
-        [Route("DownloadGoodTaskFiles/{id}")]
-        [Authorize(Roles = "admin")]
+        [Route("DownloadGoodTaskFiles/{id}")]  
         public async Task<HttpResponseMessage> DownloadGoodTaskFiles(int id)
         {
             var zipFile = await _downloadService.DownloadGoodTaskFiles(id);
@@ -40,7 +38,6 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpGet]
         [Route("DownloadFile/{id}")]
-        [Authorize(Roles = "expert,admin")]
         public async Task<HttpResponseMessage> DownloadFile(int id)
         {
             HttpResponseMessage result = null;
