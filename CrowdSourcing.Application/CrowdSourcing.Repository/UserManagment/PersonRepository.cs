@@ -28,7 +28,7 @@ namespace CrowdSourcing.Repository.UserManagment
             var result =await _personManager.CreateAsync(person,password);
             if (result.Succeeded)
             {
-                if (role == "admin")
+                if (role.ToLower() == "admin")
                 {
                     var roles = new string[3];
                     roles[0] = role;
@@ -37,7 +37,7 @@ namespace CrowdSourcing.Repository.UserManagment
 
                     await _personManager.AddToRolesAsync(person.Id, roles);
                 }
-                if (role == "expert")
+                if (role.ToLower() == "expert")
                 {
                     var roles = new string[2];
                     roles[0] = role;

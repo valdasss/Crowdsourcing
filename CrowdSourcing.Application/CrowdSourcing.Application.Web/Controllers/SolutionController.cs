@@ -46,7 +46,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetDetailedSolutionInfoForExpert/{id}")]
-        [Authorize(Roles = "expert")]
+        [Authorize(Roles = "expert,admin")]
         public async Task<IHttpActionResult> GetDetailedSolutionInfofForExpert(int id)
         {
             var solution = await _solutionService.GetDetailedSolutionInformationForExpert(id);
@@ -54,7 +54,7 @@ namespace CrowdSourcing.Application.Web.Controllers
         }
         [HttpGet]
         [Route("GetAssignTaskSolutions/{id}")]
-        [Authorize(Roles = "expert")]
+        [Authorize(Roles = "expert,admin")]
         public async Task<IHttpActionResult> GetAssignTasksSolutions(int id)
         {
             var solution = await _solutionService.GetAssignSolutionsByTaskId(id);
@@ -87,7 +87,7 @@ namespace CrowdSourcing.Application.Web.Controllers
 
         [HttpGet]
         [Route("GetAssignedExpertSolutions")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "expert,admin")]
         public async Task<IHttpActionResult> GetAssignedExertSolutions()
         {
             var identityClaims = (ClaimsIdentity)User.Identity;

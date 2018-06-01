@@ -165,7 +165,7 @@ namespace CrowdSourcing.Module.TaskManagment.Services
         private void ValidateRegisterModel(PersonModel model, string password, string role)
         {
             if(string.IsNullOrEmpty(model.LastName) ||string.IsNullOrEmpty(model.LastName) || string.IsNullOrEmpty(model.Email) 
-                ||  string.IsNullOrEmpty(password) || string.IsNullOrEmpty(role)||password.Count()<9)
+                ||  string.IsNullOrEmpty(password) || string.IsNullOrEmpty(role)||password.Count()<8)
             {
                 throw new ValidationException("Bad data");
             }
